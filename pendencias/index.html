@@ -811,14 +811,14 @@
 </tr>
 <tr>
 <td>6</td>
-<td>Reproduzir o vento com as <strong>LUTs oficiais</strong></td>
-<td>obter os arquivos do apêndice B do ATBD</td>
-<td><strong>M1</strong></td>
+<td>~~Reproduzir o vento com as LUTs oficiais~~</td>
+<td><strong>Retirado</strong>: o INPE não dispõe das LUTs da NASA; a comparação com o oficial fica no M2 e no M3</td>
+<td>~~M1~~</td>
 </tr>
 <tr>
 <td>7</td>
-<td>Comparação com escaterômetro</td>
-<td>INPE dizer qual produto</td>
+<td>Comparação com escaterômetro (sugestão do INPE: Copernicus Marine, produto L3 de vários satélites)</td>
+<td>confirmar o produto com o INPE</td>
 <td>M4</td>
 </tr>
 <tr>
@@ -829,7 +829,7 @@
 </tr>
 </tbody>
 </table>
-<p>As etapas 05 (M1), 09 (relatório do M4) e 11 (rede neural) ainda não têm especificação escrita.</p>
+<p>A etapa 05 (M1) foi retirada. O relatório do M4 (etapa 09) está implementado. A rede neural (etapa 11) e a comparação com o escaterômetro (etapa 12) têm especificação em rascunho, aguardando as decisões do responsável.</p>
 <h2 id="perguntas-para-o-inpe">Perguntas para o INPE<a class="headerlink" href="#perguntas-para-o-inpe" title="Permanent link">&para;</a></h2>
 <p>Não assumimos as respostas; elas decidem o que vem depois.</p>
 <ol>
@@ -839,9 +839,9 @@
 <li><strong>Onde o código vai morar</strong> (repositório do grupo ou próprio) e a <strong>licença</strong>.</li>
 <li><strong>PIRATA:</strong> como obter o vento <strong>horário</strong> de 2022. O produto horário do PMEL termina em setembro de 2021, e o diário não serve para pareamento em 30 minutos.</li>
 <li><strong>PNBOIA:</strong> como obter os dados (pedido à Marinha, portal ou arquivos do INPE) e em que formato.</li>
-<li><strong>Escaterômetro:</strong> qual produto o INPE quer (o documento do INPE diz apenas "SCAT").</li>
+<li><strong>Escaterômetro:</strong> o INPE sugeriu o produto de vento do Copernicus Marine (L3, várias missões operacionais) e recebe alguns produtos próprios. Falta confirmar qual preferem.</li>
 <li><strong>SiMCosta:</strong> a unidade do vento (assumimos m/s), o significado da <code>flag</code> e a altura dos anemômetros das plataformas cujo cabeçalho não informa.</li>
-<li><strong>LUTs oficiais</strong> do apêndice B do ATBD, em formato utilizável, para o M1.</li>
+<li><strong>LUTs do INPE:</strong> o INPE não tem as LUTs da NASA, só as que gerou seguindo o ATBD. Elas podem ser compartilhadas? O INPE enviou os dados de 2021 que usou para gerá-las (por ângulo de incidência, DDM-L2 e ERA5); falta conferir o formato.</li>
 </ol>
 <h2 id="duvida-para-a-equipe-do-cygnss">Dúvida para a equipe do CYGNSS<a class="headerlink" href="#duvida-para-a-equipe-do-cygnss" title="Permanent link">&para;</a></h2>
 <p>O texto da seção 5.6.1 do ATBD diz que a média que define o intervalo do MV usa pesos 0,8 (DDMA) e 0,2 (LES), e a legenda da Figura B4 diz 0,5 e 0,5. Implementamos o peso como parâmetro (0,8 por padrão) e registramos a divergência.</p>
