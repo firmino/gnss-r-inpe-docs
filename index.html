@@ -819,8 +819,8 @@
 <p>Vento na superfície do mar a partir de GNSS-R, desenvolvido com dados do <strong>CYGNSS</strong> como base para o produto do <strong>Amazonia-1B</strong>. Projeto científico para o INPE.</p>
 <p>Esta página mostra <strong>onde o projeto está</strong>: o que já foi feito, o que falta, e por quê. Cada etapa tem uma página própria com os detalhes, as alternativas que existiam, a escolha feita e os resultados gerados até agora. Siglas como DDM e NBRCS estão no <a href="glossario/">glossário</a>.</p>
 <div class="admonition info">
-<p class="admonition-title">Estado em 19/10/2026</p>
-<p>O código das etapas 0 a 3 do algoritmo está pronto e testado. O que falta são os <strong>resultados de verificação em dados reais de dois anos</strong>: o download de 2021 está em andamento. As figuras desta documentação vêm de poucos dias (2021-01-01 a 03 e 2022-03-01) e servem para mostrar que o fluxo funciona, não como resultado científico.</p>
+<p class="admonition-title">Estado em 21/10/2026</p>
+<p>O código das etapas 0 a 3 do algoritmo e o relatório de avaliação (M4) estão prontos e testados. O que falta são os <strong>resultados de verificação em dados reais de dois anos</strong>. Os dados de 2021 estão completos e o CYGNSS de 2022 também; o <strong>ERA5 de 2022</strong> ainda está sendo baixado, no ritmo da fila do Copernicus CDS. As figuras desta documentação vêm de poucos dias (2021-01-01 a 03 e 2022-03-01) e servem para mostrar que o fluxo funciona, não como resultado científico.</p>
 </div>
 <h2 id="o-objetivo-em-tres-fases">O objetivo em três fases<a class="headerlink" href="#o-objetivo-em-tres-fases" title="Permanent link">&para;</a></h2>
 <ol>
@@ -872,9 +872,9 @@
 <tr>
 <td><strong>M4</strong></td>
 <td>Relatório contra boias e escaterômetro</td>
-<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 2.03v2.02c4.39.54 7.5 4.53 6.96 8.92-.46 3.64-3.32 6.53-6.96 6.96v2c5.5-.55 9.5-5.43 8.95-10.93-.45-4.75-4.22-8.5-8.95-8.97m-2 .03c-1.95.19-3.81.94-5.33 2.2L7.1 5.74c1.12-.9 2.47-1.48 3.9-1.68zM4.26 5.67A9.9 9.9 0 0 0 2.05 11h2c.19-1.42.75-2.77 1.64-3.9zM2.06 13c.2 1.96.97 3.81 2.21 5.33l1.42-1.43A8 8 0 0 1 4.06 13zm5.04 5.37-1.43 1.37A10 10 0 0 0 11 22v-2a8 8 0 0 1-3.9-1.63M12.5 7v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg></span> <strong>Parcial</strong>: o pareamento com boias está pronto; falta o relatório</td>
+<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 2.03v2.02c4.39.54 7.5 4.53 6.96 8.92-.46 3.64-3.32 6.53-6.96 6.96v2c5.5-.55 9.5-5.43 8.95-10.93-.45-4.75-4.22-8.5-8.95-8.97m-2 .03c-1.95.19-3.81.94-5.33 2.2L7.1 5.74c1.12-.9 2.47-1.48 3.9-1.68zM4.26 5.67A9.9 9.9 0 0 0 2.05 11h2c.19-1.42.75-2.77 1.64-3.9zM2.06 13c.2 1.96.97 3.81 2.21 5.33l1.42-1.43A8 8 0 0 1 4.06 13zm5.04 5.37-1.43 1.37A10 10 0 0 0 11 22v-2a8 8 0 0 1-3.9-1.63M12.5 7v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg></span> <strong>Código pronto</strong> (boias e relatório); falta a rodada em dados reais e o escaterômetro</td>
 <td>Algoritmo próprio e oficial lado a lado</td>
-<td><a href="boias/">Boias</a></td>
+<td><a href="boias/">Boias</a>, <a href="avaliacao/">Avaliação</a></td>
 </tr>
 <tr>
 <td><strong>M5</strong></td>
@@ -899,7 +899,7 @@
 <tr>
 <td><a href="captura/">Captura de dados</a></td>
 <td>Download do CYGNSS L2 e do ERA5, com verificação, quarentena e idempotência</td>
-<td>Pronto; 2021 sendo baixado</td>
+<td>Pronto; 2021 completo, ERA5 de 2022 em andamento (pedidos mensais)</td>
 </tr>
 <tr>
 <td><a href="preprocessamento/">Pré-processamento e QC</a></td>
@@ -919,6 +919,11 @@
 <tr>
 <td><a href="boias/">Boias e pareamento</a></td>
 <td>Fontes de boia, ajuste para 10 m, distância à costa e pareamento com os pontos</td>
+<td>Pronto; falta rodar com dados reais</td>
+</tr>
+<tr>
+<td><a href="avaliacao/">Relatório de avaliação</a></td>
+<td>O job <code>evaluate</code>: erro por faixa de vento, ângulo e RCG, incerteza oficial, marcas de qualidade e figuras</td>
 <td>Pronto; falta rodar com dados reais</td>
 </tr>
 <tr>
