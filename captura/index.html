@@ -546,6 +546,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../avaliacao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relatório de avaliação (M4, parte 2)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../infraestrutura/" class="md-nav__link">
         
   
@@ -791,7 +819,7 @@
 <tr>
 <td><strong>ERA5</strong></td>
 <td>Vento a 10 m (u10, v10) e altura significativa de onda (SWH)</td>
-<td><code>cdsapi</code> (Copernicus CDS), 40°N a 40°S, global, 0,25°, horário</td>
+<td><code>cdsapi</code> (Copernicus CDS), 40°N a 40°S, global, 0,25°, horário, <strong>um pedido por mês</strong></td>
 <td>dezenas de MB (estimativa)</td>
 </tr>
 <tr>
@@ -864,6 +892,16 @@
 <td>40°N a 40°S, global, resolução nativa. Cobre toda a faixa do CYGNSS e mantém o pareamento exato</td>
 </tr>
 <tr>
+<td>Como pedir o ERA5</td>
+<td>Um pedido por dia; um pedido por mês</td>
+<td><strong>Um pedido por mês.</strong> O CDS limita quantos pedidos de um conjunto de dados podem esperar na fila e rejeita os demais; com um pedido por dia a fila ficava cheia e quase tudo era rejeitado. Um mês ocupa um lugar só. O arquivo recebido é cortado de volta em um arquivo por dia, então o resto do pipeline não muda</td>
+</tr>
+<tr>
+<td>Pedido desistido no CDS</td>
+<td>Deixar na fila; apagar</td>
+<td><strong>Apagar.</strong> Um pedido que estourou o tempo, falhou ou foi cancelado continuaria ocupando um lugar da fila por horas. Ele é apagado no CDS, inclusive quando a execução é cancelada pela interface</td>
+</tr>
+<tr>
 <td>Nomes das coleções</td>
 <td>Escrever de memória</td>
 <td>Resolvidos por uma busca real no PO.DAAC e confirmados pelo responsável do projeto</td>
@@ -893,11 +931,11 @@
 <tr>
 <td>ERA5</td>
 <td>dezenas de GB (estimativa)</td>
-<td>a fila do CDS é o gargalo, de 1,5 hora a mais de um dia</td>
+<td>a fila do CDS é o gargalo: um mês de 2022 esperou cerca de 2h45 na fila e rodou em 3 minutos. O tempo máximo de espera por pedido (<code>ERA5_TIMEOUT_MIN</code>) precisa ficar acima disso</td>
 </tr>
 </tbody>
 </table>
-<p>O download de 2021 está rodando em um servidor do projeto. A leitura posterior transforma o NetCDF em parquet, bem menor, e o bruto pode ser apagado depois de conferido.</p>
+<p>O download de 2021 está concluído e o de 2022 segue em um servidor do projeto, no ritmo da fila do CDS. A leitura posterior transforma o NetCDF em parquet, bem menor, e o bruto pode ser apagado depois de conferido.</p>
 
 
 
