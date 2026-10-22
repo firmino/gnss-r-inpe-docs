@@ -1191,7 +1191,12 @@
 <li><strong>PNBOIA:</strong> como obter os dados (pedido à Marinha, portal ou arquivos do INPE) e em que formato.</li>
 <li><strong>Escaterômetro:</strong> o INPE sugeriu o produto de vento do Copernicus Marine (L3, várias missões operacionais) e recebe alguns produtos próprios. Falta confirmar qual preferem.</li>
 <li><strong>SiMCosta:</strong> a unidade do vento (assumimos m/s), o significado da <code>flag</code> e a altura dos anemômetros das plataformas cujo cabeçalho não informa.</li>
-<li><strong>LUTs do INPE:</strong> o INPE não tem as LUTs da NASA, só as que gerou seguindo o ATBD. Elas podem ser compartilhadas? O INPE enviou os dados de 2021 que usou para gerá-las (por ângulo de incidência, DDM-L2 e ERA5); falta conferir o formato.</li>
+<li>
+<p><strong>LUTs do INPE:</strong> o INPE não tem as LUTs da NASA, só as que gerou seguindo o ATBD. Elas podem ser compartilhadas? O INPE enviou os dados de 2021 que usou para gerá-las (por ângulo de incidência, DDM-L2 e ERA5); falta conferir o formato.</p>
+</li>
+<li>
+<p><strong>Weibull ou CDF empírica:</strong> o documento do INPE menciona a distribuição de Weibull para a distribuição acumulada usada na GMF, enquanto o ATBD do CYGNSS (seção 5.4.1) usa distribuições acumuladas empíricas, sem supor uma forma. O projeto seguiu o ATBD. A Weibull é intencional no método do INPE (por exemplo, para o Amazonia-1B)? Se for, as tabelas do INPE e as do projeto não são diretamente comparáveis.</p>
+</li>
 </ol>
 <h2 id="duvida-para-a-equipe-do-cygnss">Dúvida para a equipe do CYGNSS<a class="headerlink" href="#duvida-para-a-equipe-do-cygnss" title="Permanent link">&para;</a></h2>
 <p>O texto da seção 5.6.1 do ATBD diz que a média que define o intervalo do MV usa pesos 0,8 (DDMA) e 0,2 (LES), e a legenda da Figura B4 diz 0,5 e 0,5. Implementamos o peso como parâmetro (0,8 por padrão) e registramos a divergência.</p>
