@@ -1118,7 +1118,7 @@
 
 
 <h1 id="andamento-por-etapa">Andamento por etapa<a class="headerlink" href="#andamento-por-etapa" title="Permanent link">&para;</a></h1>
-<p>Situação em <strong>22/10/2026</strong>. O que cada etapa entrega e onde está. O estado dos dados está em <a href="../../dados/downloads/">Estado dos downloads</a>.</p>
+<p>Situação em <strong>22/10/2026</strong>, à noite. O que cada etapa entrega e onde está. O estado dos dados está em <a href="../../dados/downloads/">Estado dos downloads</a>.</p>
 <h2 id="o-que-foi-feito">O que foi feito<a class="headerlink" href="#o-que-foi-feito" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1152,12 +1152,17 @@
 <tr>
 <td><a href="../../dados/boias/">Boias e pareamento</a></td>
 <td>Fontes de boia, ajuste para 10 m, distância à costa e pareamento com os pontos</td>
-<td>Pronto; o download do SiMCosta está parado (61 de 730 dias, site fora do ar); falta rodar o pareamento</td>
+<td>Pronto; o download do SiMCosta está parado (61 de 730 dias, site da FURG com falha); falta rodar o pareamento</td>
 </tr>
 <tr>
 <td><a href="../../metodologia/avaliacao/">Relatório de avaliação</a></td>
 <td>O job <code>evaluate</code>: erro por faixa de vento, ângulo e RCG, incerteza oficial, marcas de qualidade e figuras</td>
 <td>Pronto; falta rodar com dados reais</td>
+</tr>
+<tr>
+<td><a href="../../dados/escaterometro/">Escaterômetro</a></td>
+<td>Download do vento do Copernicus Marine (três instrumentos, duas passagens)</td>
+<td>Download pronto e em andamento: 2021 completo, 2022 até 14/08; falta o pareamento com o CYGNSS</td>
 </tr>
 <tr>
 <td><a href="../../arquitetura/pipeline/">Pipeline, jobs e TUI</a></td>
@@ -1169,7 +1174,7 @@
 <h2 id="o-que-ainda-nao-foi-feito">O que ainda não foi feito<a class="headerlink" href="#o-que-ainda-nao-foi-feito" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Veredito do M2 e do M3</strong> em 2022: os dados estão completos; falta preprocessar 2022, aplicar a cadeia e rodar o <code>evaluate</code>.</li>
-<li><strong>Relatório de avaliação</strong> (<code>evaluate</code>) e a comparação com o <strong>escaterômetro</strong>.</li>
+<li><strong>Relatório de avaliação</strong> (<code>evaluate</code>) em 2022 e a comparação com o <strong>escaterômetro</strong>, que espera o pareamento (etapa 12).</li>
 <li><strong>Rede neural</strong> (fase 3) e a leitura do L1 com a DDM completa.</li>
 <li>Fontes de boia <strong>PIRATA</strong> e <strong>PNBOIA</strong> (o acesso aos dados ainda não está definido).</li>
 </ul>
