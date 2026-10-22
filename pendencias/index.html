@@ -260,6 +260,33 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../dados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estado dos dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
     
     
     
@@ -274,10 +301,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -295,8 +322,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -809,32 +836,32 @@
 <tbody>
 <tr>
 <td>1</td>
-<td>Terminar o download de 2021 (CYGNSS L2 e ERA5)</td>
-<td>em andamento no servidor</td>
+<td>~~Baixar 2021 (CYGNSS L2 e ERA5)~~</td>
+<td><strong>Feito</strong></td>
 <td>M2, M3</td>
 </tr>
 <tr>
 <td>2</td>
-<td>Reprocessar <code>points</code> (com as colunas de estado do mar), ajustar GMF, MV, estado do mar e debias</td>
-<td>passo 1</td>
+<td>~~Reprocessar <code>points</code> de 2021 e ajustar GMF, MV, estado do mar e debias~~</td>
+<td><strong>Feito</strong>: versões <code>v1</code>, treinadas em 2021</td>
 <td>M2, M3</td>
 </tr>
 <tr>
 <td>3</td>
-<td>Baixar 2022 (L2 e ERA5), aplicar a cadeia e rodar <code>evaluate</code></td>
-<td>passos 1 e 2</td>
+<td>Terminar o ERA5 de 2022 (falta novembro), preprocessar 2022, aplicar a cadeia e rodar <code>evaluate</code></td>
+<td>em andamento no servidor</td>
 <td><strong>veredito do M2 e do M3</strong></td>
 </tr>
 <tr>
 <td>4</td>
 <td>Baixar o SiMCosta de 2021 e 2022 e rodar <code>collocate_buoys</code></td>
-<td>passo 1</td>
+<td>em andamento: 59 de 730 dias; só 12 de 45 estações têm a altura do anemômetro</td>
 <td>M4</td>
 </tr>
 <tr>
 <td>5</td>
 <td><strong>Relatório de avaliação</strong> (<code>evaluate</code>): erro contra boias, por faixa de vento, ângulo e RCG, ao lado do oficial</td>
-<td>passo 4</td>
+<td>passos 3 e 4</td>
 <td><strong>M4</strong></td>
 </tr>
 <tr>
@@ -845,8 +872,8 @@
 </tr>
 <tr>
 <td>7</td>
-<td>Comparação com escaterômetro (sugestão do INPE: Copernicus Marine, produto L3 de vários satélites)</td>
-<td>confirmar o produto com o INPE</td>
+<td>Comparação com escaterômetro (Copernicus Marine, produto NRT; um dia já foi lido)</td>
+<td>leitor ainda por escrever; confirmar o produto e a janela com o INPE</td>
 <td>M4</td>
 </tr>
 <tr>

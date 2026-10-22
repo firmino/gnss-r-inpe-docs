@@ -12,7 +12,7 @@
       
       
       
-        <link rel="next" href="captura/">
+        <link rel="next" href="dados/">
       
       
         
@@ -360,6 +360,33 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="dados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estado dos dados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
     
     
     
@@ -374,10 +401,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -395,8 +422,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -819,8 +846,8 @@
 <p>Vento na superfície do mar a partir de GNSS-R, desenvolvido com dados do <strong>CYGNSS</strong> como base para o produto do <strong>Amazonia-1B</strong>. Projeto científico para o INPE.</p>
 <p>Esta página mostra <strong>onde o projeto está</strong>: o que já foi feito, o que falta, e por quê. Cada etapa tem uma página própria com os detalhes, as alternativas que existiam, a escolha feita e os resultados gerados até agora. Siglas como DDM e NBRCS estão no <a href="glossario/">glossário</a>.</p>
 <div class="admonition info">
-<p class="admonition-title">Estado em 21/10/2026</p>
-<p>O código das etapas 0 a 3 do algoritmo e o relatório de avaliação (M4) estão prontos e testados. O que falta são os <strong>resultados de verificação em dados reais de dois anos</strong>. Os dados de 2021 estão completos e o CYGNSS de 2022 também; o <strong>ERA5 de 2022</strong> ainda está sendo baixado, no ritmo da fila do Copernicus CDS. As figuras desta documentação vêm de poucos dias (2021-01-01 a 03 e 2022-03-01) e servem para mostrar que o fluxo funciona, não como resultado científico.</p>
+<p class="admonition-title">Estado em 22/10/2026</p>
+<p>O código das etapas 0 a 3 do algoritmo e o relatório de avaliação (M4) estão prontos e testados. Os dados de <strong>2021 estão completos</strong> e as <strong>tabelas foram ajustadas com 2021</strong> (GMF, MV, estado do mar e debias). O CYGNSS de 2022 está completo e o <strong>ERA5 de 2022 só não tem novembro</strong>. O que falta são os <strong>resultados de verificação em 2022</strong>, ainda não calculados. Os detalhes do que está baixado, do que falta e do que foi ajustado estão em <a href="dados/">Estado dos dados</a>. As figuras desta documentação vêm de poucos dias (2021-01-01 a 03 e 2022-03-01) e servem para mostrar que o fluxo funciona, não como resultado científico.</p>
 </div>
 <h2 id="o-objetivo-em-tres-fases">O objetivo em três fases<a class="headerlink" href="#o-objetivo-em-tres-fases" title="Permanent link">&para;</a></h2>
 <ol>
@@ -858,14 +885,14 @@
 <tr>
 <td><strong>M2</strong></td>
 <td>Etapas 1 a 5 com tabelas <strong>próprias</strong> (GMF e MV)</td>
-<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 2.03v2.02c4.39.54 7.5 4.53 6.96 8.92-.46 3.64-3.32 6.53-6.96 6.96v2c5.5-.55 9.5-5.43 8.95-10.93-.45-4.75-4.22-8.5-8.95-8.97m-2 .03c-1.95.19-3.81.94-5.33 2.2L7.1 5.74c1.12-.9 2.47-1.48 3.9-1.68zM4.26 5.67A9.9 9.9 0 0 0 2.05 11h2c.19-1.42.75-2.77 1.64-3.9zM2.06 13c.2 1.96.97 3.81 2.21 5.33l1.42-1.43A8 8 0 0 1 4.06 13zm5.04 5.37-1.43 1.37A10 10 0 0 0 11 22v-2a8 8 0 0 1-3.9-1.63M12.5 7v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg></span> <strong>Código pronto</strong>, falta o veredito em dados reais</td>
+<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 2.03v2.02c4.39.54 7.5 4.53 6.96 8.92-.46 3.64-3.32 6.53-6.96 6.96v2c5.5-.55 9.5-5.43 8.95-10.93-.45-4.75-4.22-8.5-8.95-8.97m-2 .03c-1.95.19-3.81.94-5.33 2.2L7.1 5.74c1.12-.9 2.47-1.48 3.9-1.68zM4.26 5.67A9.9 9.9 0 0 0 2.05 11h2c.19-1.42.75-2.77 1.64-3.9zM2.06 13c.2 1.96.97 3.81 2.21 5.33l1.42-1.43A8 8 0 0 1 4.06 13zm5.04 5.37-1.43 1.37A10 10 0 0 0 11 22v-2a8 8 0 0 1-3.9-1.63M12.5 7v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg></span> <strong>Código pronto e tabelas ajustadas com 2021</strong>; falta aplicar em 2022 e o veredito</td>
 <td>RMSD &lt; 0,5 m/s contra o vento oficial da etapa 4</td>
 <td><a href="gmf-mv/">GMF e MV</a></td>
 </tr>
 <tr>
 <td><strong>M3</strong></td>
 <td>Algoritmo completo (estado do mar e debias)</td>
-<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 2.03v2.02c4.39.54 7.5 4.53 6.96 8.92-.46 3.64-3.32 6.53-6.96 6.96v2c5.5-.55 9.5-5.43 8.95-10.93-.45-4.75-4.22-8.5-8.95-8.97m-2 .03c-1.95.19-3.81.94-5.33 2.2L7.1 5.74c1.12-.9 2.47-1.48 3.9-1.68zM4.26 5.67A9.9 9.9 0 0 0 2.05 11h2c.19-1.42.75-2.77 1.64-3.9zM2.06 13c.2 1.96.97 3.81 2.21 5.33l1.42-1.43A8 8 0 0 1 4.06 13zm5.04 5.37-1.43 1.37A10 10 0 0 0 11 22v-2a8 8 0 0 1-3.9-1.63M12.5 7v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg></span> <strong>Código pronto</strong>, falta o veredito em dados reais</td>
+<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 2.03v2.02c4.39.54 7.5 4.53 6.96 8.92-.46 3.64-3.32 6.53-6.96 6.96v2c5.5-.55 9.5-5.43 8.95-10.93-.45-4.75-4.22-8.5-8.95-8.97m-2 .03c-1.95.19-3.81.94-5.33 2.2L7.1 5.74c1.12-.9 2.47-1.48 3.9-1.68zM4.26 5.67A9.9 9.9 0 0 0 2.05 11h2c.19-1.42.75-2.77 1.64-3.9zM2.06 13c.2 1.96.97 3.81 2.21 5.33l1.42-1.43A8 8 0 0 1 4.06 13zm5.04 5.37-1.43 1.37A10 10 0 0 0 11 22v-2a8 8 0 0 1-3.9-1.63M12.5 7v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg></span> <strong>Código pronto e tabelas ajustadas com 2021</strong>; falta aplicar em 2022 e o veredito</td>
 <td>RMSD &lt; 0,5 m/s do vento final contra o <code>wind_speed</code> oficial</td>
 <td><a href="estado-do-mar-debias/">Estado do mar e debias</a></td>
 </tr>
@@ -899,7 +926,7 @@
 <tr>
 <td><a href="captura/">Captura de dados</a></td>
 <td>Download do CYGNSS L2 e do ERA5, com verificação, quarentena e idempotência</td>
-<td>Pronto; 2021 completo, ERA5 de 2022 em andamento (pedidos mensais)</td>
+<td>Pronto; 2021 completo e 2022 completo, exceto o ERA5 de novembro</td>
 </tr>
 <tr>
 <td><a href="preprocessamento/">Pré-processamento e QC</a></td>
@@ -909,17 +936,17 @@
 <tr>
 <td><a href="gmf-mv/">GMF e MV</a></td>
 <td>Funções de transferência próprias (CDF matching) e o estimador de mínima variância</td>
-<td>Pronto; verificado em dias reais, falta o ano de treino</td>
+<td>Pronto; ajustada com 2021 (<code>v1</code>); falta avaliar em 2022</td>
 </tr>
 <tr>
 <td><a href="estado-do-mar-debias/">Estado do mar e debias</a></td>
 <td>Correções por SWH e fração de swell e o CDF matching final</td>
-<td>Pronto; falta o ano de treino</td>
+<td>Pronto; ajustados com 2021 (<code>v1</code>); falta avaliar em 2022</td>
 </tr>
 <tr>
 <td><a href="boias/">Boias e pareamento</a></td>
 <td>Fontes de boia, ajuste para 10 m, distância à costa e pareamento com os pontos</td>
-<td>Pronto; falta rodar com dados reais</td>
+<td>Pronto; SiMCosta em download (59 de 730 dias); falta rodar o pareamento</td>
 </tr>
 <tr>
 <td><a href="avaliacao/">Relatório de avaliação</a></td>
@@ -935,7 +962,7 @@
 </table>
 <h2 id="o-que-ainda-nao-foi-feito">O que ainda não foi feito<a class="headerlink" href="#o-que-ainda-nao-foi-feito" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Veredito do M2 e do M3</strong> em 2022: dependem do download completo de 2021 e 2022 e do ERA5.</li>
+<li><strong>Veredito do M2 e do M3</strong> em 2022: dependem do ERA5 de novembro e de aplicar a cadeia em 2022.</li>
 <li><strong>Relatório de avaliação</strong> (<code>evaluate</code>) e a comparação com o <strong>escaterômetro</strong>.</li>
 <li><strong>Rede neural</strong> (fase 3) e a leitura do L1 com a DDM completa.</li>
 <li>Fontes de boia <strong>PIRATA</strong> e <strong>PNBOIA</strong> (o acesso aos dados ainda não está definido).</li>
