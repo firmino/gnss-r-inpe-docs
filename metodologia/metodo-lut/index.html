@@ -14,7 +14,7 @@
         <link rel="prev" href="../qc/">
       
       
-        <link rel="next" href="../tabelas/">
+        <link rel="next" href="../avaliacao/">
       
       
         
@@ -581,17 +581,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-perguntas-que-um-aluno-costuma-fazer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Perguntas que um aluno costuma fazer
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#onde-isso-esta-no-codigo" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -606,34 +595,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tabelas/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Detalhes das tabelas
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -1363,17 +1324,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-perguntas-que-um-aluno-costuma-fazer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Perguntas que um aluno costuma fazer
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#onde-isso-esta-no-codigo" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1433,7 +1383,7 @@
 <tbody>
 <tr>
 <td><strong>LUT (GMF)</strong> do NBRCS e do LES</td>
-<td><strong>ângulo de incidência</strong>, em faixas de 1° (70 faixas), uma tabela para cada observável</td>
+<td><strong>ângulo de incidência</strong>, em faixas de 1°, uma tabela para cada observável (65 faixas usadas, de 1° a 65°)</td>
 </tr>
 <tr>
 <td>Média no tempo</td>
@@ -1518,12 +1468,21 @@
 <p><strong>Por que casar pela posição?</strong> Não importa qual sinal veio junto com qual vento (os pares individuais têm muito ruído). O que se usa é que <em>o 3º sinal mais forte corresponde ao 3º vento mais fraco</em>, isto é, a mesma probabilidade acumulada.</p>
 <p>No projeto isso é feito <strong>para cada ângulo e cada observável</strong>:</p>
 <ul>
-<li>70 faixas de ângulo de 1°, duas tabelas por faixa (NBRCS e LES): 140 tabelas.</li>
+<li>Faixas de ângulo de 1°, duas tabelas por faixa (NBRCS e LES). O ATBD define as faixas de 1° a 70°, e o projeto segue esse desenho, mas <strong>só as faixas de 1° a 65° têm valores</strong>: acima de 65° o produto oficial marca a amostra como inválida e o controle de qualidade a descarta. Na prática são <strong>65 faixas e 130 tabelas</strong>; as faixas de 66° a 70° ficam vazias.</li>
 <li>Cada tabela guarda o valor do observável para <strong>700 níveis de vento</strong>, de 0,1 em 0,1 m/s.</li>
 <li>Os histogramas são somados dia a dia, sem guardar o ano inteiro na memória.</li>
 <li>As tabelas são suavizadas (10° em ângulo e 3 m/s em vento) e uma faixa exige <strong>pelo menos 1000 amostras</strong>.</li>
 <li><strong>Só 2021 entra</strong> no ajuste. Nenhum dado de 2022 é usado, para o teste ser honesto.</li>
 </ul>
+<details class="note">
+<summary>Detalhes técnicos</summary>
+<ul>
+<li>A distribuição do vento usada no casamento é a das amostras <strong>da mesma faixa de ângulo</strong>, e não uma distribuição global: uma global misturaria regiões vistas com ângulos diferentes.</li>
+<li>A velocidade do ERA5 é calculada na grade (a partir de u10 e v10) <strong>antes</strong> de ser interpolada até o ponto. Interpolar as componentes primeiro reduziria a velocidade onde a direção do vento gira.</li>
+<li>A coluna de saída é <code>wind_ddma</code> (do NBRCS) e <code>wind_les</code> (do LES).</li>
+<li>Os parâmetros ficam no <code>meta.json</code> da versão: 700 níveis, suavização de 10° e de 3 m/s, mínimo de 1000 amostras por faixa.</li>
+</ul>
+</details>
 <h2 id="3-as-luts-como-se-usam">3. As LUTs: como se usam<a class="headerlink" href="#3-as-luts-como-se-usam" title="Permanent link">&para;</a></h2>
 <p>Para estimar o vento de uma amostra, usa-se a <strong>tabela do ângulo dela</strong> e interpola-se entre as linhas vizinhas.</p>
 <p><strong>Exemplo.</strong> Uma amostra a <strong>30° de incidência</strong>, com NBRCS = 3,0 e LES = 26 (os valores calculados em <a href="../fundamentos/">Fundamentos</a>). Trechos ilustrativos das tabelas de 30°:</p>
@@ -1602,15 +1561,32 @@
 <p>média = 0,8 × 6,0 + 0,2 × 7,2 = 6,24 m/s, que cai no <strong>intervalo 6,2 a 6,3 m/s</strong>.</p>
 <div class="admonition note">
 <p class="admonition-title">Uma divergência do ATBD</p>
-<p>O texto do ATBD manda usar 80% e 20% para escolher o intervalo, mas a legenda de uma figura diz 50% e 50%. O projeto usa 0,8 como padrão e levou a dúvida à equipe do CYGNSS (ver <a href="../tabelas/">Detalhes das tabelas</a>).</p>
+<p>O texto do ATBD manda usar 80% e 20% para escolher o intervalo, mas a legenda de uma figura diz 50% e 50%. O projeto usa 0,8 como padrão e levou a dúvida à equipe do CYGNSS (ver <a href="../../andamento/decisoes/">Decisões e alternativas</a>).</p>
 </div>
 <p>Com os pesos desse intervalo (0,895 e 0,105):</p>
 <p><strong>vento MV = 0,895 × 6,0 + 0,105 × 7,2 = 6,13 m/s</strong></p>
 <p>Intervalos de vento com poucas amostras (ventos muito fortes) <strong>copiam os pesos do intervalo vizinho</strong> que tem dados.</p>
+<details class="note">
+<summary>Detalhes técnicos</summary>
+<ul>
+<li>Os pesos de cada intervalo somam 1. O viés de cada estimativa é medido e retirado só para calcular as variâncias; ele fica guardado para diagnóstico, mas não é subtraído do vento.</li>
+<li>Um intervalo precisa de pelo menos 200 amostras para ter pesos próprios.</li>
+<li>O peso da média que escolhe o intervalo (0,8 por padrão) é um parâmetro do ajuste e fica registrado no <code>meta.json</code>.</li>
+<li>A coluna de saída é <code>wind_mv</code>.</li>
+</ul>
+</details>
 <h2 id="5-correcao-de-estado-do-mar">5. Correção de estado do mar<a class="headerlink" href="#5-correcao-de-estado-do-mar" title="Permanent link">&para;</a></h2>
 <p>O MV ainda erra de forma que depende do mar: ondas altas, e swell (onda que veio de longe) em vez de onda gerada ali, mudam a medida. Duas tabelas guardam o <strong>viés médio</strong> (ERA5 menos MV) em função do vento e da altura de onda (SWH), e do vento e da fração de swell. Cada uma dá um vento corrigido, e os dois são combinados por um segundo MV.</p>
 <p><strong>Exemplo (simplificado).</strong> Para um vento de 6,1 m/s com a altura de onda da amostra, as tabelas indicam um viés médio de +0,4 m/s. O vento corrigido é 6,13 + 0,4 = <strong>6,5 m/s</strong>.</p>
 <p>Estas tabelas não dependem do ângulo. Dependem do vento, da altura de onda e do swell.</p>
+<details class="note">
+<summary>Detalhes técnicos</summary>
+<ul>
+<li>As duas tabelas guardam o viés médio ERA5 − MV em células de 0,1: uma por vento e altura de onda (SWH), outra por vento e fração de swell. Uma célula com menos de 100 amostras fica sem correção.</li>
+<li>As tabelas são suavizadas por uma média triangular (meias-larguras de 12, 12 e 1 célula) e duas passagens gaussianas de 3 células, e consultadas por interpolação bilinear.</li>
+<li>Os dois ventos corrigidos (<code>wind_swh</code> e <code>wind_swell</code>) são combinados por um segundo MV, com os mesmos cálculos da seção 4, peso 0,5 na média que escolhe o intervalo e mínimo de 200 amostras. A coluna de saída é <code>wind_seastate</code>.</li>
+</ul>
+</details>
 <h2 id="6-debias-acertar-a-distribuicao">6. Debias: acertar a distribuição<a class="headerlink" href="#6-debias-acertar-a-distribuicao" title="Permanent link">&para;</a></h2>
 <p>Mesmo corrigido, o vento do satélite tem uma distribuição de valores diferente da do ERA5: por exemplo, tende a achatar os ventos fortes. O <strong>debias</strong> usa o mesmo <em>CDF matching</em> da seção 2, mas agora entre o <strong>vento do satélite</strong> e o <strong>vento do ERA5</strong>.</p>
 <h3 id="como-se-constroem">Como se constroem<a class="headerlink" href="#como-se-constroem" title="Permanent link">&para;</a></h3>
@@ -1656,6 +1632,14 @@
 <p>O vento corrigido da amostra é 6,5 m/s. Na tabela do grupo dela, ele está entre 6 (→ 6,6) e 8 (→ 9,0):</p>
 <p>6,6 + (6,5 − 6) / (8 − 6) × (9,0 − 6,6) = 6,6 + 0,25 × 2,4 = <strong>7,2 m/s</strong></p>
 <p>O debias aumentou o vento em 0,7 m/s. Esse é o <strong>vento final</strong>.</p>
+<details class="note">
+<summary>Detalhes técnicos</summary>
+<ul>
+<li>Há uma tabela por grupo (satélite CYGNSS, antena, satélite GPS) e uma por conjunto (satélite CYGNSS, antena). Um grupo com menos de 10.000 amostras cede para a tabela do conjunto, e esta para "sem ajuste", com transições graduais conforme o número de amostras.</li>
+<li>Cada tabela tem 700 níveis de 0,1 m/s e usa o máximo acumulado, então a curva nunca decresce: a ordem dos ventos se mantém, e um vento maior nunca sai menor que um mais fraco.</li>
+<li>A coluna de saída é <code>wind_final</code>, o vento final do algoritmo.</li>
+</ul>
+</details>
 <h2 id="7-exemplo-completo-de-ponta-a-ponta">7. Exemplo completo, de ponta a ponta<a class="headerlink" href="#7-exemplo-completo-de-ponta-a-ponta" title="Permanent link">&para;</a></h2>
 <p>Uma amostra a 30° de incidência:</p>
 <table>
@@ -1705,12 +1689,6 @@
 </tbody>
 </table>
 <p>O vento final dessa amostra é <strong>7,2 m/s</strong>.</p>
-<h2 id="8-perguntas-que-um-aluno-costuma-fazer">8. Perguntas que um aluno costuma fazer<a class="headerlink" href="#8-perguntas-que-um-aluno-costuma-fazer" title="Permanent link">&para;</a></h2>
-<p><strong>Por que não usar logo o vento do ERA5, se ele já existe?</strong> Porque o ERA5 é um modelo, não uma medição, e só existe depois do fato. O objetivo é estimar o vento <strong>a partir do sinal medido pelo satélite</strong>, sem olhar o ERA5. O ERA5 serve só para construir as tabelas no treino.</p>
-<p><strong>Por que as tabelas são ajustadas com 2021 e testadas em 2022?</strong> Para o teste ser honesto. Se as tabelas vissem os dados de teste, o erro medido seria menor que o real. Nada usa 2022 no ajuste.</p>
-<p><strong>Por que casar pela posição e não pelos pares?</strong> Os pares individuais carregam muito ruído (o ERA5 é de uma grade, o sinal é de um ponto). A relação entre as distribuições é muito mais estável que a relação entre pares.</p>
-<p><strong>Se a tabela foi ajustada com o ERA5, o resultado não herda os erros do ERA5?</strong> Em parte, sim. É por isso que a avaliação usa também boias e escaterômetro, que são independentes do ERA5. Ver <a href="../avaliacao/">Como avaliamos</a>.</p>
-<p><strong>Por que dois observáveis e não um só?</strong> Cada um erra de um jeito, e juntos erram menos que sozinhos. O MV decide a mistura.</p>
 <h2 id="onde-isso-esta-no-codigo">Onde isso está no código<a class="headerlink" href="#onde-isso-esta-no-codigo" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1742,7 +1720,7 @@
 </tr>
 </tbody>
 </table>
-<p>Os parâmetros de cada tabela estão em <a href="../tabelas/">Detalhes das tabelas</a>, e as alternativas consideradas em <a href="../../andamento/decisoes/">Decisões e alternativas</a>. O <a href="../../glossario/">glossário</a> define as siglas.</p>
+<p>As alternativas consideradas em cada passo estão em <a href="../../andamento/decisoes/">Decisões e alternativas</a>. O <a href="../../glossario/">glossário</a> define as siglas.</p>
 
 
 

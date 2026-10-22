@@ -422,6 +422,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="3. NBRCS: quanto sinal voltou">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-area-efetiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A área efetiva
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemplo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -504,34 +532,6 @@
     
   
     Método LUT: construção e uso das tabelas
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tabelas/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Detalhes das tabelas
   
 
     
@@ -1166,6 +1166,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="3. NBRCS: quanto sinal voltou">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-area-efetiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A área efetiva
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemplo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1233,7 +1261,7 @@
 <ul>
 <li><strong>0°</strong>: o sinal bate na vertical, como se o satélite estivesse bem acima do ponto.</li>
 <li><strong>Quanto maior o ângulo</strong>, mais rasante é a geometria.</li>
-<li>O CYGNSS observa até cerca de 65°. O projeto descarta amostras acima disso.</li>
+<li>No produto L2 o ângulo quase nunca passa de 65°: num dia real (15/06/2021) o maior foi 65,3°, e só 0,08% das amostras passaram de 65°. O produto oficial marca essas amostras como inválidas, e o projeto as descarta.</li>
 </ul>
 <p><strong>Por que isso importa:</strong> a mesma rugosidade do mar devolve quantidades diferentes de sinal em ângulos diferentes, porque a geometria e a área iluminada mudam. Por isso o conversor de sinal em vento precisa ser <strong>separado por ângulo</strong>.</p>
 <p><strong>O ângulo não é o do vento.</strong> É só a geometria da medição. A direção do vento é outra grandeza, e o projeto estima só a velocidade.</p>
@@ -1246,7 +1274,7 @@
 <li>O <strong>ponto de reflexão especular</strong>, onde a reflexão é mais direta, fica perto do centro e é onde o sinal costuma ser mais forte. Mar liso concentra o sinal ali. Mar rugoso o espalha pelos pixels vizinhos.</li>
 </ul>
 <h3 id="exemplo-versao-simplificada-e-pequena">Exemplo (versão simplificada e pequena)<a class="headerlink" href="#exemplo-versao-simplificada-e-pequena" title="Permanent link">&para;</a></h3>
-<p>Um pedaço da DDM, com o valor de cada pixel (unidades arbitrárias). A caixa <code>[ ]</code> é a janela de <strong>3 pixels de atraso por 5 de Doppler</strong> em volta do ponto especular, que é a que o ATBD usa:</p>
+<p>Um pedaço da DDM, com o valor de cada pixel: a seção de espalhamento radar (BRCS), em unidades de <strong>10⁸ m²</strong>. A caixa <code>[ ]</code> é a janela de <strong>3 pixels de atraso por 5 de Doppler</strong> em volta do ponto especular, que é a que o ATBD usa:</p>
 <div class="highlight"><pre><span></span><code>                       Doppler  →
                -1,5k  -1k   -0,5k   0    +0,5k  +1k   +1,5k
  atraso -0,50    0     1      1     2      1     1      0
@@ -1257,17 +1285,50 @@
 </code></pre></div>
 <p>O pico (18) está no ponto especular. Os dois observáveis, NBRCS e LES, são resumos dessa janela.</p>
 <h2 id="3-nbrcs-quanto-sinal-voltou">3. NBRCS: quanto sinal voltou<a class="headerlink" href="#3-nbrcs-quanto-sinal-voltou" title="Permanent link">&para;</a></h2>
-<p><em>Normalized Bistatic Radar Cross Section.</em> É a soma dos valores da janela dividida pela área da superfície que ela cobre.</p>
-<p><strong>Exemplo.</strong> Soma dos 15 pixels da janela acima:</p>
+<p><em>Normalized Bistatic Radar Cross Section.</em> É a soma da seção de espalhamento (BRCS) dos 15 pixels da janela, dividida pela <strong>área efetiva</strong> da superfície que a janela enxerga:</p>
+<p><strong>NBRCS = soma do BRCS na janela / área efetiva da janela</strong></p>
+<h3 id="a-area-efetiva">A área efetiva<a class="headerlink" href="#a-area-efetiva" title="Permanent link">&para;</a></h3>
+<p><strong>Cada pixel da DDM corresponde a um pedaço do mar.</strong> Os pontos da superfície com o mesmo atraso formam anéis (elipses) em volta do ponto especular, e os pontos com o mesmo Doppler formam faixas que cortam esses anéis. Um pixel é o cruzamento de um anel com uma faixa: em geral, duas manchas de mar, uma de cada lado da trajetória.</p>
+<ul>
+<li><strong>Área ideal</strong> do pixel: o tamanho geométrico dessas manchas.</li>
+<li><strong>Área efetiva</strong> do pixel: o receptor não separa atraso e Doppler com precisão perfeita, então cada pixel também recebe um pouco do sinal das manchas vizinhas. A área efetiva é a área que o pixel realmente "enxerga", levando em conta esse borrão do instrumento. O arquivo L1 traz as duas áreas, pixel a pixel, como uma DDM própria.</li>
+</ul>
+<p><strong>Por que dividir pela área.</strong> O BRCS de um pixel (em m²) cresce com a área de mar que ele enxerga. Dividindo pela área, sobra a refletividade <strong>por unidade de área</strong>, que depende do mar (da rugosidade) e não da geometria. Por isso o NBRCS não tem unidade: é m² dividido por m².</p>
+<p><strong>A área da janela não é a soma das 15 áreas dos pixels.</strong> Por causa do borrão, as áreas de pixels vizinhos se sobrepõem, e uma soma simples contaria parte da superfície mais de uma vez. O ATBD (equação 5.3) calcula a área da janela a partir das áreas ideal e efetiva dos pixels. Na prática, o arquivo L1 já traz esse valor pronto para cada DDM, na variável <code>nbrcs_scatter_area</code>. O projeto não recalcula a área: usa o NBRCS que o produto entrega.</p>
+<p><strong>Ordem de grandeza real.</strong> Num dia real (L1 de 15/06/2021, satélite 1, 545 mil DDMs), a área efetiva da janela tem mediana de <strong>cerca de 2.600 km²</strong>, como um quadrado de uns 50 km de lado, e vai de 1.700 a 5.700 km² (de 10% a 90% das DDMs). Ela <strong>cresce com o ângulo de incidência</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Ângulo de incidência</th>
+<th>Área efetiva da janela (mediana)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0° a 20°</td>
+<td>~2.000 km²</td>
+</tr>
+<tr>
+<td>20° a 40°</td>
+<td>~2.400 km²</td>
+</tr>
+<tr>
+<td>40° a 60°</td>
+<td>~3.900 km²</td>
+</tr>
+</tbody>
+</table>
+<p>Isso mostra por que a divisão é necessária: em ângulo alto a janela enxerga quase o dobro de mar, e o BRCS seria maior só por isso, mesmo com o mar igual.</p>
+<h3 id="exemplo">Exemplo<a class="headerlink" href="#exemplo" title="Permanent link">&para;</a></h3>
+<p>Soma dos 15 pixels da janela acima, em 10⁸ m²:</p>
 <ul>
 <li>linha de −0,25 chip: 2 + 4 + 6 + 4 + 2 = 18</li>
 <li>linha de 0: 6 + 12 + 18 + 12 + 6 = 54</li>
 <li>linha de +0,25 chip: 4 + 8 + 12 + 8 + 4 = 36</li>
-<li><strong>soma = 108</strong></li>
+<li><strong>soma = 108 × 10⁸ m²</strong></li>
 </ul>
-<p>Suponha que a área efetiva da janela seja 36 (mesma unidade). Então:</p>
-<p><strong>NBRCS = 108 / 36 = 3,0</strong></p>
-<p>Dividir pela área serve para comparar medidas de geometrias diferentes. O ATBD calcula a área efetiva com cuidado: ela não é a soma simples das áreas dos pixels, porque senão o espalhamento entre pixels vizinhos seria contado duas vezes.</p>
+<p>A área efetiva da janela viria pronta no arquivo (<code>nbrcs_scatter_area</code>). Para o exemplo, ela vale <strong>36 × 10⁸ m²</strong>, isto é, 3.600 km², dentro da faixa real da tabela acima. Então:</p>
+<p><strong>NBRCS = 108 × 10⁸ m² / 36 × 10⁸ m² = 3,0</strong> (sem unidade)</p>
 <p><strong>Como ler:</strong> mar liso devolve muito sinal e dá <strong>NBRCS alto</strong>. Mar rugoso espalha o sinal e dá <strong>NBRCS baixo</strong>.</p>
 <h2 id="4-les-quao-rapido-o-sinal-sobe">4. LES: quão rápido o sinal sobe<a class="headerlink" href="#4-les-quao-rapido-o-sinal-sobe" title="Permanent link">&para;</a></h2>
 <p><em>Leading Edge Slope.</em> É a <strong>inclinação da subida</strong> do sinal ao longo do atraso. O cálculo usa a potência recebida (outro mapa, não o da seção 4):</p>
