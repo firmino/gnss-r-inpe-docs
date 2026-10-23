@@ -1360,7 +1360,39 @@
 <p><img alt="Pesos do MV" src="../../assets/img/mv_weights.png" /></p>
 <p>Versão <code>v1</code>, com o mesmo ano de treino. O DDMA domina no vento fraco (peso ~0,97 perto de 4–5 m/s), o LES ganha peso até ~0,36 perto de 15 m/s e depois volta a perder. É o mesmo formato da Figura B4 do ATBD, com o pico do DDMA deslocado (na B4 ele fica perto de 2–3 m/s). Acima de ~23 m/s há poucas amostras de treino (tracejado): esses intervalos repetem o último estimado, enquanto na B4 o peso do LES vai a zero. O vento de cada etapa contra o oficial está em <a href="../avaliacao-2022/">Avaliação em 2022</a>.</p>
 <p><img alt="Pesos do MV no formato da Figura B4 do ATBD" src="../../assets/img/mv_weights_atbd.png" /></p>
-<p>Os mesmos pesos no formato da Figura B4 (eixo de 0 a 70 m/s), para a média 80/20 do texto do ATBD (modelo A) e para a média 50/50 da legenda da B4 (modelo D, <a href="../avaliacao-2022/#hipotese-media-5050-no-mv-modelo-d">hipótese 50/50</a>). O formato da B4 se parece mais com a nossa média 80/20 do que com a 50/50. Na 50/50, o peso do LES fica negativo perto de 4 m/s, o que o método permite quando os erros dos dois ventos são correlacionados, e passa o do DDMA acima de ~16 m/s.</p>
+<p>Os mesmos pesos no formato da Figura B4 do ATBD (eixo de 0 a 70 m/s), com a média 80/20 que o projeto usa: em cada faixa de vento, o peso do vento DDMA (do NBRCS) e o do vento LES, que somam 1.</p>
+<table>
+<thead>
+<tr>
+<th>Faixa de vento</th>
+<th>B4 (NASA), DDMA / LES</th>
+<th>Nosso, DDMA / LES</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>~0 m/s</td>
+<td>0,67 / 0,33</td>
+<td>0,73 / 0,27</td>
+</tr>
+<tr>
+<td>Pico do DDMA</td>
+<td>0,88 / 0,12, em ~2–3 m/s</td>
+<td>0,97 / 0,03, em ~4–5 m/s</td>
+</tr>
+<tr>
+<td>~13–15 m/s</td>
+<td>0,60 / 0,40</td>
+<td>0,64 / 0,36</td>
+</tr>
+<tr>
+<td>Acima de ~25 m/s</td>
+<td>1,0 / 0</td>
+<td>0,76 / 0,24 (repete a última faixa estimada)</td>
+</tr>
+</tbody>
+</table>
+<p>O formato é o mesmo da B4. As diferenças são o pico do DDMA, mais à direita no nosso, e o vento forte: a NASA zera o peso do LES, e nós repetimos o último peso estimado, porque acima de ~23 m/s há poucas amostras de treino.</p>
 <h2 id="boias-do-simcosta">Boias do SiMCosta<a class="headerlink" href="#boias-do-simcosta" title="Permanent link">&para;</a></h2>
 <p><img alt="Plataformas do SiMCosta" src="../../assets/img/simcosta_stations.png" /></p>
 <p><img alt="Vento de plataformas do SiMCosta em 2022-03-05" src="../../assets/img/simcosta_wind_20220305.png" /></p>
