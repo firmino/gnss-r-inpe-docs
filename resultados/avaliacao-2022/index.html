@@ -860,6 +860,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#siglas-e-termos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Siglas e termos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#os-vereditos" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -878,6 +889,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Erro por faixa de vento">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#os-valores-de-68-a-70-ms-do-les-oficial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Os valores de 68 a 70 m/s do LES oficial
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1155,6 +1183,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#siglas-e-termos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Siglas e termos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#os-vereditos" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1173,6 +1212,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Erro por faixa de vento">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#os-valores-de-68-a-70-ms-do-les-oficial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Os valores de 68 a 70 m/s do LES oficial
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1255,13 +1311,113 @@
 <ul>
 <li><strong>M2: não passou.</strong> A tabela do NBRCS passa (0,45 m/s), a do LES não (1,05 m/s).</li>
 <li><strong>M3: não passou, por pouco.</strong> O vento final fica a 0,52 m/s do oficial, para um limite de 0,5 m/s.</li>
-<li><strong>Contra o ERA5, o vento próprio empata com o oficial</strong>: RMSD de 1,53 m/s contra 1,59 m/s, e viés quase zero (+0,02 m/s contra +0,31 m/s).</li>
-<li>Boa parte da falha do LES vem de <strong>0,03% das amostras</strong> em que o vento LES oficial é de 68 m/s ou mais. Sem elas, o RMSD do LES cai para 0,58 m/s.</li>
+<li><strong>Contra o ERA5, o vento próprio empata com o oficial</strong>: RMSD de 1,53 m/s contra 1,58 m/s, e viés quase zero (+0,02 m/s contra +0,31 m/s).</li>
+<li><strong>Combinar os dados ajuda</strong>: na mesma régua (o ERA5), cada etapa da cadeia melhora o vento, e a correção de estado do mar é a que mais ajuda.</li>
+<li>Boa parte da falha do LES vem de <strong>0,03% das amostras</strong> em que o vento LES oficial é de 68 m/s ou mais, mas o vento final oficial delas é de cerca de 9 m/s. Sem elas, o RMSD do LES cairia para 0,58 m/s, mas o ATBD as considera válidas, então continuam na conta (<a href="#os-valores-de-68-a-70-ms-do-les-oficial">detalhes</a>).</li>
 </ul>
 </div>
+<h2 id="siglas-e-termos">Siglas e termos<a class="headerlink" href="#siglas-e-termos" title="Permanent link">&para;</a></h2>
+<p>O vento sai de uma cadeia de etapas, como uma linha de montagem: cada uma recebe o vento da anterior e o corrige um pouco. O método completo está em <a href="../../metodologia/metodo-lut/">Método LUT</a>.</p>
+<pre class="mermaid"><code>flowchart LR
+  A[NBRCS] --&gt; B[vento DDMA]
+  C[LES] --&gt; D[vento LES]
+  B --&gt; E[MV]
+  D --&gt; E
+  E --&gt; F[estado do mar]
+  F --&gt; G[final]</code></pre>
+<p><strong>As etapas do vento</strong></p>
+<table>
+<thead>
+<tr>
+<th>Nome nas figuras</th>
+<th>O que é</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DDMA</strong></td>
+<td>O vento calculado <strong>só a partir do NBRCS</strong>, que mede quanto sinal voltou do mar (<a href="../../metodologia/fundamentos/#3-nbrcs-quanto-sinal-voltou">Fundamentos</a>). Uma tabela (a GMF) converte o NBRCS em vento. <em>DDMA</em> (<em>DDM Average</em>, média da DDM) é o nome que o ATBD dá a esse observável</td>
+</tr>
+<tr>
+<td><strong>LES</strong></td>
+<td>O vento calculado <strong>só a partir do LES</strong> (<em>Leading Edge Slope</em>), a inclinação da subida do sinal (<a href="../../metodologia/fundamentos/#4-les-quao-rapido-o-sinal-sobe">Fundamentos</a>). Outra tabela, outro vento: são duas estimativas independentes do mesmo vento</td>
+</tr>
+<tr>
+<td><strong>MV</strong></td>
+<td><em>Minimum Variance</em>, variância mínima: a <strong>combinação</strong> do vento DDMA com o vento LES numa média ponderada, com pesos escolhidos para que o erro do resultado seja o menor possível</td>
+</tr>
+<tr>
+<td><strong>Estado do mar</strong> (<em>sea state</em>)</td>
+<td>O MV corrigido pela <strong>altura das ondas</strong>. Com ondas grandes, o mar fica mais rugoso do que o vento sozinho explicaria, e a tabela erra. Essa etapa compensa isso</td>
+</tr>
+<tr>
+<td><strong>Final</strong></td>
+<td>O estado do mar mais o <strong>debias</strong>: um ajuste fino que tira a pequena tendência de cada combinação de satélite, antena e satélite GPS. É o vento entregue ao usuário</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Com o que se compara</strong></p>
+<table>
+<thead>
+<tr>
+<th>Termo</th>
+<th>O que é</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Oficial</strong></td>
+<td>O vento do produto da NASA (CYGNSS L2 v3.2), calculado com as tabelas da NASA. O projeto refaz o algoritmo com tabelas próprias e compara cada etapa com a equivalente da NASA</td>
+</tr>
+<tr>
+<td><strong>DDMA oficial, LES oficial</strong></td>
+<td>Os ventos DDMA e LES do produto da NASA, <strong>antes</strong> da combinação e das correções. São a <strong>etapa 4</strong> do algoritmo no ATBD (por isso aparecem também como "oficial da etapa 4"). Servem para julgar só as <strong>tabelas</strong> próprias: é o M2</td>
+</tr>
+<tr>
+<td><strong>Final oficial</strong></td>
+<td>O vento final da NASA (a variável <code>wind_speed</code>), com todas as correções. Serve para julgar a <strong>cadeia inteira</strong>: é o M3</td>
+</tr>
+<tr>
+<td><strong>ERA5</strong></td>
+<td>O vento de um modelo meteorológico (reanálise do ECMWF) no mesmo ponto e hora. É uma <strong>régua comum</strong>: todas as etapas podem ser medidas contra ele e comparadas entre si</td>
+</tr>
+</tbody>
+</table>
+<p><strong>As medidas de erro</strong></p>
+<table>
+<thead>
+<tr>
+<th>Termo</th>
+<th>O que é</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RMSD</strong></td>
+<td><em>Root Mean Square Difference</em>, a <strong>diferença típica</strong> entre dois ventos, em m/s. Em cada ponto subtrai-se um vento do outro, eleva-se ao quadrado, tira-se a média e depois a raiz. Exemplo: diferenças de 0,3, −0,5 e 0,4 m/s dão quadrados 0,09, 0,25 e 0,16, média 0,167, raiz <strong>0,41 m/s</strong>. Por causa do quadrado, diferenças grandes pesam muito</td>
+</tr>
+<tr>
+<td><strong>Viés</strong></td>
+<td>A <strong>média da diferença</strong>, com sinal (próprio menos referência). Diz se um vento fica <strong>sistematicamente acima</strong> (positivo) <strong>ou abaixo</strong> (negativo) do outro</td>
+</tr>
+<tr>
+<td><strong>Correlação</strong></td>
+<td>De 0 a 1: se os dois ventos <strong>sobem e descem juntos</strong>. Perto de 1 quer dizer que acompanham quase perfeitamente, mesmo que haja um deslocamento constante (viés)</td>
+</tr>
+<tr>
+<td><strong>M2, M3, M4</strong></td>
+<td>Marcos do projeto com critério de aceitação (<a href="../../">Início</a>). M2: tabelas próprias, RMSD &lt; 0,5 m/s contra o DDMA e o LES oficiais. M3: cadeia completa, RMSD &lt; 0,5 m/s contra o final oficial. M4: erro contra boias</td>
+</tr>
+<tr>
+<td><strong>QC oficial</strong></td>
+<td>O controle de qualidade do produto da NASA: só entram na conta as amostras que ele aprova</td>
+</tr>
+</tbody>
+</table>
 <h2 id="os-vereditos">Os vereditos<a class="headerlink" href="#os-vereditos" title="Permanent link">&para;</a></h2>
-<p><img alt="RMSD de cada etapa contra o vento oficial" src="../../assets/img/eval2022_verdict.png" /></p>
-<p>Cada barra é a diferença típica (RMSD) entre o vento calculado com as tabelas próprias e o vento oficial do CYGNSS. Verde passa no critério de <strong>0,5 m/s</strong>, vermelho não passa; as barras cinzas são etapas intermediárias, mostradas só para ver como o erro diminui ao longo da cadeia.</p>
+<p><img alt="À esquerda, o RMSD de cada critério contra o vento oficial equivalente; à direita, o RMSD de cada etapa contra o ERA5" src="../../assets/img/eval2022_verdict.png" /></p>
+<p>A figura responde a <strong>duas perguntas diferentes</strong>, e por isso tem dois painéis. As barras de um painel <strong>não se comparam</strong> com as do outro, porque cada painel usa uma referência diferente.</p>
+<p><strong>À esquerda: o vento próprio reproduz o oficial?</strong> Cada barra compara uma etapa própria com a <strong>mesma etapa da NASA</strong>. É o que decide o M2 e o M3. Verde passa no critério de <strong>0,5 m/s</strong>, vermelho não passa. Uma barra curta aqui quer dizer "imita bem a NASA", e <strong>não</strong> "acerta o vento real": o 0,45 do DDMA mostra que a tabela do NBRCS própria é parecida com a da NASA, não que o DDMA sozinho seja o melhor vento.</p>
 <table>
 <thead>
 <tr>
@@ -1276,7 +1432,7 @@
 <tbody>
 <tr>
 <td>M2</td>
-<td>Vento do NBRCS (DDMA) × oficial da etapa 4</td>
+<td>DDMA × DDMA oficial</td>
 <td><strong>0,45</strong> m/s</td>
 <td>+0,31 m/s</td>
 <td>0,992</td>
@@ -1284,31 +1440,15 @@
 </tr>
 <tr>
 <td>M2</td>
-<td>Vento do LES × oficial da etapa 4</td>
+<td>LES × LES oficial</td>
 <td><strong>1,05</strong> m/s</td>
 <td>+0,42 m/s</td>
 <td>0,931</td>
 <td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c5.53 0 10 4.47 10 10s-4.47 10-10 10S2 17.53 2 12 6.47 2 12 2m3.59 5L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"/></svg></span> não passa</td>
 </tr>
 <tr>
-<td>—</td>
-<td>MV (combinação dos dois) × oficial final</td>
-<td>0,96 m/s</td>
-<td>+0,26 m/s</td>
-<td>0,944</td>
-<td>etapa intermediária</td>
-</tr>
-<tr>
-<td>—</td>
-<td>Depois do estado do mar × oficial final</td>
-<td>0,75 m/s</td>
-<td>−0,28 m/s</td>
-<td>0,985</td>
-<td>etapa intermediária</td>
-</tr>
-<tr>
 <td>M3</td>
-<td>Vento final × oficial final</td>
+<td>Final × final oficial</td>
 <td><strong>0,52</strong> m/s</td>
 <td>−0,29 m/s</td>
 <td>0,988</td>
@@ -1316,14 +1456,96 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Como ler.</strong> O vento próprio acompanha o oficial de perto (correlação de 0,99 no vento final). O que falta para o M3 é um <strong>viés pequeno e constante</strong>: o vento final fica, em média, 0,29 m/s abaixo do oficial. Sem esse viés, a diferença seria de 0,43 m/s.</p>
+<p>O vento final próprio acompanha o oficial de perto (correlação de 0,99). O que falta para o M3 é um <strong>viés pequeno e constante</strong>: o vento final fica, em média, 0,29 m/s abaixo do oficial. Sem esse viés, a diferença seria de 0,43 m/s.</p>
+<p><strong>À direita: o vento acerta o vento?</strong> Aqui <strong>todas as etapas</strong> são medidas contra a <strong>mesma referência</strong>, o ERA5, então dá para compará-las entre si. A barra cinza é o vento final da NASA, na mesma régua.</p>
+<table>
+<thead>
+<tr>
+<th>Etapa</th>
+<th>RMSD contra ERA5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DDMA (só o NBRCS)</td>
+<td>1,94 m/s</td>
+</tr>
+<tr>
+<td>LES (só o LES)</td>
+<td>2,21 m/s</td>
+</tr>
+<tr>
+<td>MV (DDMA + LES)</td>
+<td>1,88 m/s</td>
+</tr>
+<tr>
+<td>Estado do mar</td>
+<td><strong>1,49 m/s</strong></td>
+</tr>
+<tr>
+<td>Final</td>
+<td>1,53 m/s</td>
+</tr>
+<tr>
+<td><em>Final oficial (NASA)</em></td>
+<td><em>1,58 m/s</em></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Combinar ajuda.</strong> O MV é melhor que o DDMA e o LES sozinhos, e a correção de estado do mar é o maior ganho da cadeia.</li>
+<li><strong>O debias não ajuda contra o ERA5.</strong> O RMSD sobe um pouco, de 1,49 para 1,53 m/s. O debias foi feito para tirar a tendência de cada satélite, não para reduzir o erro total.</li>
+<li><strong>O ERA5 favorece o vento próprio</strong>, porque as tabelas foram ajustadas com ele (<a href="#comparacao-com-o-era5">ver abaixo</a>).</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Uma comparação que não aparece na figura</p>
+<p>As etapas intermediárias próprias (MV e estado do mar) também podem ser comparadas com o <strong>final oficial</strong>: dão 0,96 e 0,75 m/s. Esses números saíram da figura porque confundem: o final oficial já passou por todas as correções, e o MV ainda não. É natural que fique longe, sem que isso diga se o MV é bom.</p>
+</div>
 <h2 id="erro-por-faixa-de-vento">Erro por faixa de vento<a class="headerlink" href="#erro-por-faixa-de-vento" title="Permanent link">&para;</a></h2>
 <p><img alt="RMSD, viés e número de amostras por faixa do vento oficial" src="../../assets/img/eval2022_by_wind.png" /></p>
 <p>Os três painéis usam as mesmas faixas de 1 m/s do vento <strong>oficial</strong>: em cima o RMSD, no meio o viés (próprio menos oficial), embaixo a fração das amostras em cada faixa, em escala logarítmica.</p>
 <ul>
 <li><strong>Entre 3 e 18 m/s</strong>, onde estão quase todas as amostras, o vento final fica perto do limite de 0,5 m/s.</li>
 <li><strong>Acima de 23 m/s</strong> o vento final subestima muito o oficial (até −11 m/s perto de 30 m/s). São menos de 0,01% das amostras: pesam pouco no RMSD total, mas mostram que as tabelas próprias saturam em vento forte. Com um ano de treino há poucas amostras nessas faixas.</li>
-<li><strong>A curva do LES some em 20 m/s</strong> porque o vento LES oficial quase não tem valores entre 20 e 68 m/s. Em seguida, aparece um grupo de cerca de 130 mil amostras (0,03%) com valores de <strong>68 m/s ou mais</strong>, fora do eixo da figura. Nessas amostras a diferença é de cerca de 51 m/s, e só elas levam o RMSD do LES de 0,58 para 1,05 m/s. É provável que esses valores sejam um limite ou um valor de preenchimento do produto oficial, e não vento real. Ver <a href="#o-que-vem-a-seguir">o que vem a seguir</a>.</li>
+<li><strong>A curva do LES some em 20 m/s</strong> porque o vento LES oficial quase não tem valores entre 20 e 68 m/s. Em seguida, aparece um grupo de cerca de 130 mil amostras (0,03%) com valores de <strong>68 m/s ou mais</strong>, fora do eixo da figura. Nessas amostras a diferença é de cerca de 51 m/s, e só elas levam o RMSD do LES de 0,58 para 1,05 m/s. Ver a seção seguinte.</li>
+</ul>
+<h3 id="os-valores-de-68-a-70-ms-do-les-oficial">Os valores de 68 a 70 m/s do LES oficial<a class="headerlink" href="#os-valores-de-68-a-70-ms-do-les-oficial" title="Permanent link">&para;</a></h3>
+<p>Olhando um dia (01/03/2022) em detalhe:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Nessas amostras</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quantas</td>
+<td>456 no dia, depois do QC oficial</td>
+</tr>
+<tr>
+<td>Vento LES <strong>oficial</strong></td>
+<td>68,5 a 69,8 m/s, quase todas perto de 69,8</td>
+</tr>
+<tr>
+<td>Vento LES <strong>próprio</strong></td>
+<td>16 a 22 m/s (média de 18 m/s)</td>
+</tr>
+<tr>
+<td>Vento <strong>final oficial</strong></td>
+<td>média de <strong>8,8 m/s</strong></td>
+</tr>
+<tr>
+<td>Ângulo de incidência</td>
+<td>de 12° a 64°, sem concentração num ângulo</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Não é vento real.</strong> O próprio produto oficial dá a essas amostras um vento final de cerca de 9 m/s. O vento LES de 70 m/s praticamente não aparece no vento final; ainda não verificamos em que etapa ele é neutralizado.</li>
+<li><strong>Pelo ATBD, esses valores são válidos.</strong> Quando o valor medido fica fora da faixa da tabela, o ATBD manda extrapolar em linha reta (seção 5.5), e o vento LES só é marcado como inválido a partir de <strong>99 m/s</strong> (flags de qualidade do produto). Então a regra do ATBD <strong>não</strong> permite descartar essas amostras da comparação.</li>
+<li><strong>O código próprio também extrapola</strong>, da mesma forma, mas chega a cerca de 18 m/s. A diferença deve estar no <strong>extremo de vento forte da tabela do LES</strong>, que difere entre a tabela própria e a oficial. A causa ainda não foi investigada.</li>
+<li><strong>Consequência para o M2.</strong> Excluir essas amostras deixaria o LES a 0,58 m/s, ainda acima do limite. Mas, como o ATBD as considera válidas, excluí-las seria ajustar o teste para passar. Por isso o resultado oficial do M2 continua sendo <strong>1,05 m/s</strong>, e o número sem essas amostras (0,58 m/s) fica registrado só como diagnóstico.</li>
 </ul>
 <h2 id="comparacao-com-o-era5">Comparação com o ERA5<a class="headerlink" href="#comparacao-com-o-era5" title="Permanent link">&para;</a></h2>
 <p><img alt="Viés e RMSD contra o ERA5" src="../../assets/img/eval2022_era5.png" /></p>
@@ -1359,7 +1581,7 @@
 <tr>
 <td>Oficial do CYGNSS</td>
 <td>+0,31 m/s</td>
-<td>1,59 m/s</td>
+<td>1,58 m/s</td>
 <td>0,842</td>
 </tr>
 </tbody>
@@ -1377,7 +1599,7 @@
 <p>O relatório do M4 foi gerado, mas ficou <strong>insuficiente</strong>: não há nenhum pareamento com boia em oceano aberto em 2022, e o mínimo é de 1.000. O SiMCosta tem só 61 dias baixados, todos de 2021, e o PIRATA e o PNBOIA ainda não têm fonte (<a href="../../dados/downloads/">Estado dos downloads</a>).</p>
 <h2 id="o-que-vem-a-seguir">O que vem a seguir<a class="headerlink" href="#o-que-vem-a-seguir" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Entender os valores de 68 m/s do LES oficial</strong>: ver se são um limite do produto e se o ATBD manda descartá-los. Se for o caso, a comparação do M2 deve deixá-los de fora, e o LES fica a 0,58 m/s do limite.</li>
+<li><strong>Comparar o extremo de vento forte da tabela do LES</strong>, a própria e a oficial, para entender por que a extrapolação oficial chega a 70 m/s e a própria a cerca de 18 m/s nas mesmas amostras.</li>
 <li><strong>Investigar a diferença restante do LES</strong> (0,58 m/s), por faixa de ângulo e de vento.</li>
 <li><strong>Investigar o viés de −0,29 m/s do vento final</strong> contra o oficial, que sozinho decide o M3.</li>
 <li><strong>Comparar com o escaterômetro</strong>, a primeira referência independente do ERA5 em oceano aberto.</li>
