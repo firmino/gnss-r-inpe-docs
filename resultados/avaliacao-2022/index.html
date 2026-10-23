@@ -879,6 +879,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Os vereditos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ponto-a-ponto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ponto a ponto
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1213,6 +1230,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Os vereditos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ponto-a-ponto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ponto a ponto
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1480,6 +1514,15 @@
 </tbody>
 </table>
 <p>O vento final próprio acompanha o oficial de perto (correlação de 0,99). O que falta para o M3 é um <strong>viés pequeno e constante</strong>: o vento final fica, em média, 0,29 m/s abaixo do oficial. Sem esse viés, a diferença seria de 0,43 m/s.</p>
+<h3 id="ponto-a-ponto">Ponto a ponto<a class="headerlink" href="#ponto-a-ponto" title="Permanent link">&para;</a></h3>
+<p><img alt="Vento próprio contra o oficial, ponto a ponto, numa amostra de 2022" src="../../assets/img/eval2022_own_vs_official.png" /></p>
+<p>Cada painel é um dos critérios acima, com <strong>1 milhão de pontos</strong> sorteados ao acaso entre os que passam no QC oficial (3.000 por dia, nos 334 dias, com semente fixa). A cor é o número de pontos em cada hexágono, em escala logarítmica (amarelo é onde há mais pontos). A linha tracejada é onde o vento próprio seria igual ao oficial. Os RMSD da amostra (0,45, 1,07 e 0,52 m/s) são praticamente os do ano inteiro (0,45, 1,05 e 0,52 m/s), então a amostra representa bem o período.</p>
+<ul>
+<li><strong>DDMA:</strong> a nuvem é estreita e segue a diagonal até 25 m/s, um pouco acima dela (é o viés de +0,31 m/s).</li>
+<li><strong>LES:</strong> estreita até uns 12 m/s, depois se abre. O vento LES próprio para em cerca de 18 a 20 m/s, enquanto o oficial continua; 312 pontos da amostra estão fora do eixo, quase todos com o LES oficial de 68 a 70 m/s (<a href="#os-valores-de-68-a-70-ms-do-les-oficial">ver abaixo</a>).</li>
+<li><strong>Vento fraco:</strong> nos dois painéis do M2, quando o vento oficial fica abaixo de cerca de 2 m/s, o vento próprio vale <strong>zero</strong> (a faixa horizontal no canto de baixo). É a extrapolação da tabela própria abaixo do seu menor vento, que dá valores negativos, cortados em zero: num dia (01/03/2022), cerca de 5.700 pontos no DDMA e 6.300 no LES, uns 0,4% do dia. O oficial não faz isso; é um ponto a investigar.</li>
+<li><strong>Final:</strong> a nuvem é mais larga que as do M2, porque o vento final passa pela combinação e pelas correções, mas continua centrada na diagonal, um pouco abaixo dela em ventos médios (o viés de −0,29 m/s).</li>
+</ul>
 <p><strong>À direita: o vento acerta o vento?</strong> Aqui <strong>todas as etapas</strong> são medidas contra a <strong>mesma referência</strong>, o ERA5, então dá para compará-las entre si. A barra cinza é o vento final da NASA, na mesma régua.</p>
 <table>
 <thead>
