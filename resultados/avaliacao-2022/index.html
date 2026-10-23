@@ -1334,7 +1334,7 @@
 <li><strong>M2: não passou.</strong> A tabela do NBRCS passa (0,45 m/s), a do LES não (1,05 m/s).</li>
 <li><strong>M3: não passou, por pouco.</strong> O vento final fica a 0,52 m/s do oficial, para um limite de 0,5 m/s.</li>
 <li><strong>Contra o ERA5, o vento próprio empata com o oficial</strong>: RMSD de 1,53 m/s contra 1,58 m/s, e viés quase zero (+0,02 m/s contra +0,31 m/s).</li>
-<li><strong>Contra o escaterômetro (referência independente), o vento próprio também empata com o oficial</strong>: RMSD de 1,48 m/s contra 1,49 m/s, com 44 milhões de pares. Os dois <strong>subestimam o vento forte</strong> (−1,5 m/s a 12 m/s e até −3,5 m/s acima de 22 m/s). Este resultado ainda deixa de fora os ventos de até 3 m/s e acima de 30 m/s, por um filtro que vai ser corrigido (<a href="#comparacao-com-o-escaterometro">detalhes</a>).</li>
+<li><strong>Contra o escaterômetro (referência independente), o vento próprio também empata com o oficial</strong>: RMSD de 1,45 m/s contra 1,46 m/s, com 48 milhões de pares e todos os ventos incluídos. Os dois <strong>subestimam o vento forte</strong> (−1,5 m/s a 12 m/s e até −3,5 m/s acima de 22 m/s) (<a href="#comparacao-com-o-escaterometro">detalhes</a>).</li>
 <li><strong>Combinar os dados ajuda</strong>: na mesma régua (o ERA5), cada etapa da cadeia melhora o vento, e a correção de estado do mar é a que mais ajuda.</li>
 <li>Boa parte da falha do LES vem de <strong>0,03% das amostras</strong> em que o vento LES oficial é de 68 m/s ou mais, mas o vento final oficial delas é de cerca de 9 m/s. Sem elas, o RMSD do LES cairia para 0,58 m/s, mas o ATBD as considera válidas, então continuam na conta (<a href="#os-valores-de-68-a-70-ms-do-les-oficial">detalhes</a>).</li>
 </ul>
@@ -1620,9 +1620,9 @@
 </div>
 <h2 id="comparacao-com-o-escaterometro">Comparação com o escaterômetro<a class="headerlink" href="#comparacao-com-o-escaterometro" title="Permanent link">&para;</a></h2>
 <p>O escaterômetro é um radar em órbita feito para medir vento no mar (<a href="../../dados/escaterometro/">Escaterômetro</a>). <strong>Nem as tabelas próprias nem as da NASA foram ajustadas com ele</strong>, então ele é a primeira régua <strong>independente</strong> do projeto. Cada ponto do CYGNSS foi pareado com a medida do escaterômetro mais próxima, a até <strong>25 km e 30 min</strong> (três instrumentos, ASCAT do Metop-B e do Metop-C e HSCAT do HY-2B, nas duas passagens).</p>
-<div class="admonition warning">
-<p class="admonition-title">Resultado provisório: falta incluir os ventos extremos</p>
-<p>O filtro de qualidade usado aqui aceitou só as células do escaterômetro <strong>sem nenhuma marca</strong>. Duas das marcas do produto, porém, não indicam defeito, só a faixa do vento: <em>vento de até 3 m/s</em> e <em>vento acima de 30 m/s</em>. Por isso esta comparação <strong>deixou de fora todos os ventos de até 3 m/s e acima de 30 m/s</strong> (o menor vento pareado é de 3,01 m/s). O filtro vai ser corrigido para aceitar essas duas marcas e continuar recusando as de defeito (chuva, gelo, terra, falha de controle de qualidade); o pareamento e a avaliação serão refeitos, e esta seção, atualizada.</p>
+<div class="admonition info">
+<p class="admonition-title">Todos os ventos entram, inclusive os extremos</p>
+<p>O filtro de qualidade recusa uma célula do escaterômetro só quando ela tem uma marca de <strong>defeito</strong> (chuva, gelo, terra, falha de controle de qualidade). As duas marcas que só informam a faixa do vento (<em>até 3 m/s</em> e <em>acima de 30 m/s</em>) não a recusam. Uma primeira versão do filtro recusava também essas duas e deixava de fora os ventos de até 3 m/s; ela foi corrigida, e os números abaixo já incluem todos os ventos. Em 2022 o vento pareado vai de <strong>0,2 a 26,4 m/s</strong>: não houve nenhum par acima de 30 m/s.</p>
 </div>
 <table>
 <thead>
@@ -1634,7 +1634,7 @@
 <tbody>
 <tr>
 <td>Pares</td>
-<td><strong>44,1 milhões</strong> em 334 dias (nenhum dia sem escaterômetro), cerca de 10% dos pontos com QC oficial</td>
+<td><strong>48,2 milhões</strong> em 334 dias (nenhum dia sem escaterômetro), cerca de 11% dos pontos com QC oficial</td>
 </tr>
 <tr>
 <td>Distância e tempo</td>
@@ -1642,7 +1642,7 @@
 </tr>
 <tr>
 <td>Faixa de vento comparada</td>
-<td>de 3 a 30 m/s (ver o aviso acima)</td>
+<td>de 0,2 a 26,4 m/s, todos os ventos pareados</td>
 </tr>
 </tbody>
 </table>
@@ -1658,18 +1658,19 @@
 <tbody>
 <tr>
 <td><strong>Final próprio</strong></td>
-<td><strong>−0,23 m/s</strong></td>
-<td><strong>1,48 m/s</strong></td>
-<td>0,820</td>
+<td><strong>−0,19 m/s</strong></td>
+<td><strong>1,45 m/s</strong></td>
+<td>0,861</td>
 </tr>
 <tr>
 <td>Final oficial (NASA)</td>
-<td>+0,05 m/s</td>
-<td>1,49 m/s</td>
-<td>0,815</td>
+<td>+0,08 m/s</td>
+<td>1,46 m/s</td>
+<td>0,857</td>
 </tr>
 </tbody>
 </table>
+<p>Os intervalos de confiança de 95% (<em>bootstrap</em> por instrumento e dia) não se sobrepõem no viés (próprio de −0,21 a −0,18 m/s; oficial de +0,07 a +0,09 m/s) e se sobrepõem no RMSD (próprio de 1,43 a 1,47 m/s; oficial de 1,45 a 1,48 m/s).</p>
 <p><img alt="Viés, RMSD e número de pares contra o escaterômetro por faixa de vento" src="../../assets/img/eval2022_scatterometer.png" /></p>
 <p>As faixas são de 2 m/s do vento <strong>do escaterômetro</strong>. Em cima o viés (vento menos escaterômetro), no meio o RMSD, embaixo a fração dos pares em cada faixa, em escala logarítmica.</p>
 <table>
@@ -1685,18 +1686,26 @@
 </thead>
 <tbody>
 <tr>
-<td>3 a 4</td>
-<td>2,5 mi</td>
+<td>0 a 2</td>
+<td>1,3 mi</td>
+<td>+0,32</td>
+<td>+0,55</td>
+<td>0,93</td>
+<td>1,05</td>
+</tr>
+<tr>
+<td>2 a 4</td>
+<td>5,4 mi</td>
 <td>+0,04</td>
-<td>+0,22</td>
+<td>+0,23</td>
+<td>1,07</td>
 <td>1,08</td>
-<td>1,09</td>
 </tr>
 <tr>
 <td>4 a 6</td>
-<td>11,5 mi</td>
-<td>+0,10</td>
-<td>+0,34</td>
+<td>11,4 mi</td>
+<td>+0,11</td>
+<td>+0,35</td>
 <td>1,17</td>
 <td>1,24</td>
 </tr>
@@ -1776,10 +1785,11 @@
 </table>
 <p><strong>Como ler:</strong></p>
 <ul>
-<li><strong>Na régua independente, os dois ventos empatam</strong> no total (RMSD de 1,48 contra 1,49 m/s).</li>
-<li><strong>Até 8 m/s</strong>, onde estão quase dois terços dos pares (64%), o vento próprio tem viés mais perto de zero e RMSD um pouco menor. <strong>Acima de 8 m/s</strong>, ele subestima um pouco mais que o oficial.</li>
+<li><strong>Na régua independente, os dois ventos empatam</strong> no total (RMSD de 1,45 contra 1,46 m/s).</li>
+<li><strong>Até 8 m/s</strong>, onde estão dois terços dos pares (67%), o vento próprio tem viés mais perto de zero e RMSD um pouco menor. <strong>Acima de 8 m/s</strong>, ele subestima um pouco mais que o oficial.</li>
+<li><strong>Em vento fraco (até 2 m/s)</strong>, os dois superestimam, o oficial mais que o próprio (+0,55 contra +0,32 m/s).</li>
 <li><strong>Os dois subestimam muito o vento forte</strong>, cada vez mais à medida que o vento cresce. É o que se espera de duas cadeias ajustadas ao ERA5, que subestima vento forte. Mostra onde está o maior espaço para melhorar, sem descartar os extremos.</li>
-<li><strong>O viés do M3 muda de leitura.</strong> Contra o ERA5, o oficial fica 0,31 m/s acima e o próprio, 0,02. Contra o escaterômetro, o oficial fica 0,05 m/s acima e o próprio, 0,23 abaixo. Nesses pontos, o escaterômetro fica cerca de 0,25 m/s acima do ERA5. Então o +0,31 do oficial contra o ERA5 parece ser, em boa parte, o <strong>ERA5 baixo</strong>, e não um defeito do oficial: aproximar o vento próprio do oficial (o que o M3 pede) deve também aproximá-lo do vento medido.</li>
+<li><strong>O viés do M3 muda de leitura.</strong> Contra o ERA5, o oficial fica 0,31 m/s acima e o próprio, 0,02. Contra o escaterômetro, o oficial fica 0,08 m/s acima e o próprio, 0,19 abaixo. Nesses pontos, o escaterômetro fica cerca de 0,2 m/s acima do ERA5. Então o +0,31 do oficial contra o ERA5 parece ser, em boa parte, o <strong>ERA5 baixo</strong>, e não um defeito do oficial: aproximar o vento próprio do oficial (o que o M3 pede) deve também aproximá-lo do vento medido.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">O que o escaterômetro mede</p>
@@ -1792,7 +1802,6 @@
 <li><strong>Comparar o extremo de vento forte da tabela do LES</strong>, a própria e a oficial, para entender por que a extrapolação oficial chega a 70 m/s e a própria a cerca de 18 m/s nas mesmas amostras.</li>
 <li><strong>Investigar a diferença restante do LES</strong> (0,58 m/s), por faixa de ângulo e de vento.</li>
 <li><strong>Investigar o viés de −0,29 m/s do vento final</strong> contra o oficial, que sozinho decide o M3. A comparação com o escaterômetro indica que corrigi-lo também aproximaria o vento próprio do vento medido.</li>
-<li><strong>Corrigir o filtro de qualidade do escaterômetro</strong> para incluir os ventos de até 3 m/s e acima de 30 m/s, e refazer a comparação.</li>
 <li><strong>Melhorar o vento forte</strong>, onde os dois ventos mais erram contra o escaterômetro.</li>
 </ol>
 <p>Os critérios de 0,5 m/s são propostas iniciais. Como diz <a href="../../andamento/etapas/#criterios-de-aceitacao">Andamento por etapa</a>, um critério não atingido é registrado e diagnosticado, e o teste não é ajustado para passar.</p>
