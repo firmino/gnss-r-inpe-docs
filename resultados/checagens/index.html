@@ -938,10 +938,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#controle-de-qualidade-em-quatro-dias-reais" class="md-nav__link">
+  <a href="#controle-de-qualidade-em-2021-e-2022" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Controle de qualidade em quatro dias reais
+        Controle de qualidade em 2021 e 2022
       
     </span>
   </a>
@@ -964,17 +964,6 @@
     <span class="md-ellipsis">
       
         Pesos do MV
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ventos-proprios-contra-o-oficial-preliminar" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Ventos próprios contra o oficial (preliminar)
       
     </span>
   </a>
@@ -1255,10 +1244,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#controle-de-qualidade-em-quatro-dias-reais" class="md-nav__link">
+  <a href="#controle-de-qualidade-em-2021-e-2022" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Controle de qualidade em quatro dias reais
+        Controle de qualidade em 2021 e 2022
       
     </span>
   </a>
@@ -1281,17 +1270,6 @@
     <span class="md-ellipsis">
       
         Pesos do MV
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ventos-proprios-contra-o-oficial-preliminar" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Ventos próprios contra o oficial (preliminar)
       
     </span>
   </a>
@@ -1327,7 +1305,7 @@
 
 
 <h1 id="checagens-do-fluxo">Checagens do fluxo<a class="headerlink" href="#checagens-do-fluxo" title="Permanent link">&para;</a></h1>
-<p><strong>Checagens do fluxo em poucos dias</strong>, feitas antes da avaliação completa: servem para ver que cada etapa funciona, não são resultados de verificação. O veredito do M2 e do M3 está em <a href="../avaliacao-2022/">Avaliação em 2022</a>. As figuras abaixo vêm de dias reais e foram geradas pelo próprio código do projeto (<code>viz/</code>).</p>
+<p>Checagens de cada etapa do fluxo: o M0 e as boias, feitos em poucos dias, e o controle de qualidade e as tabelas ajustadas (GMF e MV), com 2021 e 2022 inteiros. Não são o veredito: o M2 e o M3 estão em <a href="../avaliacao-2022/">Avaliação em 2022</a>. As figuras vêm de dados reais e foram geradas pelo próprio código do projeto (<code>viz/</code>).</p>
 <h2 id="m0-um-dia-real-do-cygnss-l2-2022-03-01">M0: um dia real do CYGNSS L2 (2022-03-01)<a class="headerlink" href="#m0-um-dia-real-do-cygnss-l2-2022-03-01" title="Permanent link">&para;</a></h2>
 <p>O primeiro marco foi ler e plotar um dia real. O vento é o <code>wind_speed</code> <strong>oficial</strong> do produto, usado só para conferir que o dia parece certo.</p>
 <h3 id="mapa-do-vento">Mapa do vento<a class="headerlink" href="#mapa-do-vento" title="Permanent link">&para;</a></h3>
@@ -1339,12 +1317,13 @@
 <h3 id="mapa-interativo">Mapa interativo<a class="headerlink" href="#mapa-interativo" title="Permanent link">&para;</a></h3>
 <p><a class="md-button" href="../../assets/m0_wind_map.html">Abrir o mapa interativo de 2022-03-01</a></p>
 <p>O arquivo tem ~4 MB. Ao passar o mouse mostra valores agregados por célula (o ponto individual não é possível em dados rasterizados).</p>
-<h2 id="controle-de-qualidade-em-quatro-dias-reais">Controle de qualidade em quatro dias reais<a class="headerlink" href="#controle-de-qualidade-em-quatro-dias-reais" title="Permanent link">&para;</a></h2>
-<p><img alt="Amostras rejeitadas por regra de QC" src="../../assets/img/qc_funnel.png" /></p>
+<h2 id="controle-de-qualidade-em-2021-e-2022">Controle de qualidade em 2021 e 2022<a class="headerlink" href="#controle-de-qualidade-em-2021-e-2022" title="Permanent link">&para;</a></h2>
+<p><img alt="Amostras rejeitadas por regra de QC, mês a mês" src="../../assets/img/qc_funnel.png" /></p>
 <table>
 <thead>
 <tr>
-<th>Dia</th>
+<th>Ano</th>
+<th>Dias</th>
 <th>Linhas do L2</th>
 <th>Mantidas</th>
 <th>Falham <code>rcg_low</code></th>
@@ -1354,72 +1333,32 @@
 </thead>
 <tbody>
 <tr>
-<td>2021-01-01</td>
-<td>1.202.056</td>
-<td>1.168.500 (97,2 %)</td>
-<td>30.003</td>
-<td>5.996</td>
-<td>945</td>
+<td>2021 (treino)</td>
+<td>365</td>
+<td>482.964.321</td>
+<td>468.050.335 (96,9 %)</td>
+<td>13.426.956</td>
+<td>2.732.133</td>
+<td>301.988</td>
 </tr>
 <tr>
-<td>2021-01-02</td>
-<td>1.326.945</td>
-<td>1.290.491 (97,3 %)</td>
-<td>32.451</td>
-<td>6.341</td>
-<td>1.142</td>
-</tr>
-<tr>
-<td>2021-01-03</td>
-<td>1.322.471</td>
-<td>1.286.869 (97,3 %)</td>
-<td>32.133</td>
-<td>6.527</td>
-<td>473</td>
-</tr>
-<tr>
-<td>2022-03-01</td>
-<td>1.435.363</td>
-<td>1.392.321 (97,0 %)</td>
-<td>38.780</td>
-<td>8.154</td>
-<td>312</td>
+<td>2022 (teste)</td>
+<td>334</td>
+<td>453.624.407</td>
+<td>440.340.404 (97,1 %)</td>
+<td>11.700.831</td>
+<td>2.572.831</td>
+<td>328.189</td>
 </tr>
 </tbody>
 </table>
-<p>Cerca de 3 % das amostras saem, quase todas por RCG baixo.</p>
+<p>Cerca de 3 % das amostras saem, quase todas por RCG baixo, e a proporção é estável mês a mês. Janeiro de 2022 é o intervalo entre treino e teste e não foi processado.</p>
 <h2 id="curvas-da-gmf">Curvas da GMF<a class="headerlink" href="#curvas-da-gmf" title="Permanent link">&para;</a></h2>
 <p><img alt="Curvas da GMF" src="../../assets/img/gmf_curves.png" /></p>
-<p><em>Ajuste preliminar com 3 dias de 2021, 3,7 milhões de amostras, só para validar o fluxo.</em> A curva cai com o NBRCS: sinal mais forte significa mar mais calmo.</p>
+<p>Versão <code>v1</code>, ajustada com 2021 inteiro (468 milhões de amostras). A curva cai com o observável: sinal mais forte significa mar mais calmo. Acima de ~20 m/s as duas curvas ficam quase verticais, com o observável perto de zero: ali uma diferença pequena no sinal muda muito o vento.</p>
 <h2 id="pesos-do-mv">Pesos do MV<a class="headerlink" href="#pesos-do-mv" title="Permanent link">&para;</a></h2>
 <p><img alt="Pesos do MV" src="../../assets/img/mv_weights.png" /></p>
-<p><em>Mesmo ajuste preliminar.</em> Com 3 dias não há amostras suficientes acima de ~15 m/s: esses intervalos copiam o vizinho estimável mais próximo.</p>
-<h2 id="ventos-proprios-contra-o-oficial-preliminar">Ventos próprios contra o oficial (preliminar)<a class="headerlink" href="#ventos-proprios-contra-o-oficial-preliminar" title="Permanent link">&para;</a></h2>
-<p><img alt="Ventos próprios contra o oficial" src="../../assets/img/wind_vs_official.png" /></p>
-<p>Com o ajuste de 3 dias aplicado ao próprio dia 2021-01-01 (portanto <strong>dentro da amostra</strong>, não é o veredito):</p>
-<table>
-<thead>
-<tr>
-<th>Comparação</th>
-<th>RMSD</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>DDMA × oficial da etapa 4</td>
-<td>0,53 m/s</td>
-</tr>
-<tr>
-<td>LES × oficial da etapa 4</td>
-<td>1,10 m/s</td>
-</tr>
-<tr>
-<td>MV × oficial final</td>
-<td>1,07 m/s</td>
-</tr>
-</tbody>
-</table>
-<p>O critério do M2 é RMSD &lt; 0,5 m/s nos dois primeiros, <strong>em 2022</strong>, com o ano de treino completo. O DDMA já está perto mesmo com 3 dias; o LES ainda não, e o MV contra o oficial final não é critério porque o oficial final inclui o estado do mar e o debias (<a href="../../metodologia/metodo-lut/">Método LUT</a>).</p>
+<p>Versão <code>v1</code>, com o mesmo ano de treino. O DDMA domina no vento fraco (peso ~0,97 perto de 4–5 m/s), o LES ganha peso até ~0,36 perto de 15 m/s e depois volta a perder. É o mesmo formato da Figura B4 do ATBD, com o pico do DDMA deslocado (na B4 ele fica perto de 2–3 m/s). Acima de ~23 m/s há poucas amostras de treino (tracejado): esses intervalos repetem o último estimado, enquanto na B4 o peso do LES vai a zero. O vento de cada etapa contra o oficial está em <a href="../avaliacao-2022/">Avaliação em 2022</a>.</p>
 <h2 id="boias-do-simcosta">Boias do SiMCosta<a class="headerlink" href="#boias-do-simcosta" title="Permanent link">&para;</a></h2>
 <p><img alt="Plataformas do SiMCosta" src="../../assets/img/simcosta_stations.png" /></p>
 <p><img alt="Vento de plataformas do SiMCosta em 2022-03-05" src="../../assets/img/simcosta_wind_20220305.png" /></p>
@@ -1427,7 +1366,7 @@
 <p>As três figuras são explicadas em <a href="../../dados/boias/">Boias e pareamento</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Como as figuras são geradas</p>
-<p><code>uv run task docs-figures</code> as refaz a partir do que estiver em <code>DATA_ROOT</code> e as grava junto das páginas. A publicação do site roda <strong>sem dados</strong>, então as figuras são commitadas. Quando os resultados reais de 2021 e 2022 existirem, basta rodar o comando de novo.</p>
+<p><code>uv run task docs-figures</code> as refaz a partir do que estiver em <code>DATA_ROOT</code> e as grava junto das páginas. A publicação do site roda <strong>sem dados</strong>, então as figuras são commitadas. Quando houver resultados novos, basta rodar o comando de novo.</p>
 </div>
 
 
