@@ -1074,7 +1074,7 @@
 
 
 <h1 id="estado-dos-downloads">Estado dos downloads<a class="headerlink" href="#estado-dos-downloads" title="Permanent link">&para;</a></h1>
-<p>Situação em <strong>22/10/2026, 22h45 UTC</strong>, conferida no servidor do projeto. Esta seção não se atualiza sozinha: é refeita quando algo muda.</p>
+<p>Situação em <strong>23/10/2026, 0h30 UTC</strong>, conferida no servidor do projeto. Esta seção não se atualiza sozinha: é refeita quando algo muda.</p>
 <p>A meta de cada fonte é o período de treino (2021, 365 dias) mais o de teste (fevereiro a dezembro de 2022, 334 dias): <strong>699 dias</strong>. O percentual é a fração desses dias já no disco.</p>
 <table>
 <thead>
@@ -1103,10 +1103,10 @@
 </tr>
 <tr>
 <td><strong>Escaterômetro</strong> (Copernicus Marine)</td>
-<td>587 de 699</td>
-<td><span style="display:inline-block;width:8rem;height:0.65rem;background:var(--md-default-fg-color--lightest);border-radius:3px;vertical-align:middle;overflow:hidden"><span style="display:block;height:100%;width:84%;background:var(--md-primary-fg-color)"></span></span></td>
-<td>84%</td>
-<td><strong>Em andamento</strong>: 2021 inteiro e 2022 até cerca de 10/09, sem falhas. Três instrumentos (ASCAT do Metop-B e do Metop-C, HSCAT do HY-2B), duas passagens, 6 arquivos e cerca de 8 MB por dia. Término previsto para a madrugada de 23/10</td>
+<td>699 de 699</td>
+<td><span style="display:inline-block;width:8rem;height:0.65rem;background:var(--md-default-fg-color--lightest);border-radius:3px;vertical-align:middle;overflow:hidden"><span style="display:block;height:100%;width:100%;background:var(--md-primary-fg-color)"></span></span></td>
+<td>100%</td>
+<td>Completo em 22/10, 23h52 UTC, sem rejeições nem falhas. Três instrumentos (ASCAT do Metop-B e do Metop-C, HSCAT do HY-2B), duas passagens, 6 arquivos e cerca de 8 MB por dia, 5,5 GB no total</td>
 </tr>
 <tr>
 <td><strong>Boias SiMCosta</strong></td>
@@ -1142,13 +1142,13 @@
 <ul>
 <li><strong>SiMCosta</strong>: 638 dias, e só depois de o site voltar.</li>
 <li><strong>PIRATA e PNBOIA</strong>: sem forma de obter os dados. Ver <a href="../../andamento/pendencias/">Pendências</a>.</li>
-<li><strong>Escaterômetro</strong>: os últimos 112 dias de 2022, em andamento. Depois do download, falta o pareamento com o CYGNSS (etapa 12), que ainda não foi escrito. Ver <a href="../escaterometro/">Escaterômetro</a>.</li>
+<li><strong>Escaterômetro</strong>: nada; o download terminou. Falta o pareamento com o CYGNSS (etapa 12), que ainda não foi escrito. Ver <a href="../escaterometro/">Escaterômetro</a>.</li>
 <li><strong>L1</strong> de 2021 e 2022, se a fase 2 da rede neural for adiante.</li>
 </ul>
 <h3 id="o-problema-com-as-boias">O problema com as boias<a class="headerlink" href="#o-problema-com-as-boias" title="Permanent link">&para;</a></h3>
 <p>O download das boias do SiMCosta tem três problemas, de natureza diferente:</p>
 <ol>
-<li><strong>O site está com falha.</strong> O download foi bem até 02/03/2021 (61 dias, 12 minutos por dia). Depois disso, <code>simcosta.furg.br</code> passou a não responder: cada conexão esgotava o tempo. Testamos <strong>do servidor e do computador do responsável do projeto, e nos dois o site não respondia</strong>, então não é falha da nossa rede. Na noite de 22/10 o site voltou a responder, mas com erro (HTTP 502, <em>Bad Gateway</em>): o servidor da FURG está no ar, e o serviço por trás dele ainda falha. O código tenta cada dia algumas vezes e marca os dias sem resposta como falhos, sem gravar nada; quando o site voltar, a execução recomeça do ponto onde parou, porque dias já baixados são pulados.</li>
+<li><strong>O site está com falha.</strong> O download foi bem até 02/03/2021 (61 dias, 12 minutos por dia). Depois disso, <code>simcosta.furg.br</code> passou a não responder: cada conexão esgotava o tempo. Testamos <strong>do servidor e do computador do responsável do projeto, e nos dois o site não respondia</strong>, então não é falha da nossa rede. Na noite de 22/10 o site voltou a responder, mas com erro (HTTP 502, <em>Bad Gateway</em>): o servidor da FURG está no ar, e o serviço por trás dele ainda falha. Em 23/10, 0h30 UTC, o erro continuava. O código tenta cada dia algumas vezes e marca os dias sem resposta como falhos, sem gravar nada; quando o site voltar, a execução recomeça do ponto onde parou, porque dias já baixados são pulados.</li>
 <li><strong>Só 12 das 45 estações têm a altura do anemômetro.</strong> Sem ela não dá para ajustar o vento da boia para 10 m, então as outras 33 ficam de fora do download. A altura das demais é uma pergunta aberta para o INPE (<a href="../../andamento/pendencias/">Pendências</a>).</li>
 <li><strong>É lento.</strong> A API devolve uma estação por consulta: cerca de 12 minutos por dia, o que dá uns 6 dias para os 699 dias. A saída é baixar vários dias em paralelo (2 a 4 conexões, como nas outras fontes), o que ainda depende de o site aceitar e de ele voltar.</li>
 </ol>
