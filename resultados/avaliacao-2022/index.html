@@ -949,6 +949,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#os-tres-modelos-com-e-sem-weibull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Os três modelos: com e sem Weibull
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#boias-m4" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1300,6 +1311,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#os-tres-modelos-com-e-sem-weibull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Os três modelos: com e sem Weibull
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#boias-m4" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1339,7 +1361,7 @@
 
 
 <h1 id="avaliacao-em-2022-m2-e-m3">Avaliação em 2022 (M2 e M3)<a class="headerlink" href="#avaliacao-em-2022-m2-e-m3" title="Permanent link">&para;</a></h1>
-<p>O primeiro resultado de verificação do projeto. As tabelas próprias (GMF, MV, estado do mar e debias, versão <code>v1</code>) foram ajustadas <strong>só com 2021</strong> e aplicadas ao período de teste, <strong>fevereiro a dezembro de 2022</strong>, que elas nunca viram. A versão de vento avaliada é <code>gmf-v1_mv-v1_ss-v1_db-v1</code>.</p>
+<p>O primeiro resultado de verificação do projeto. As tabelas próprias (GMF, MV, estado do mar e debias, versão <code>v1</code>) foram ajustadas <strong>só com 2021</strong> e aplicadas ao período de teste, <strong>fevereiro a dezembro de 2022</strong>, que elas nunca viram. A versão de vento avaliada em detalhe é a do <strong>modelo A</strong>, <code>gmf-v1_mv-v1_ss-v1_db-v1</code>, sem a distribuição de Weibull. Os modelos B e C, que usam a Weibull, são comparados com ele <a href="#os-tres-modelos-com-e-sem-weibull">no fim da página</a>.</p>
 <table>
 <thead>
 <tr>
@@ -1369,6 +1391,7 @@
 <li><strong>M3: não passou, por pouco.</strong> O vento final fica a 0,52 m/s do oficial, para um limite de 0,5 m/s.</li>
 <li><strong>Contra o ERA5, o vento próprio empata com o oficial</strong>: RMSD de 1,53 m/s contra 1,58 m/s, e viés quase zero (+0,02 m/s contra +0,31 m/s).</li>
 <li><strong>Contra o escaterômetro (referência independente), o vento próprio também empata com o oficial</strong>: RMSD de 1,45 m/s contra 1,46 m/s, com 48 milhões de pares e todos os ventos incluídos. Os dois <strong>subestimam o vento forte</strong> (−1,5 m/s a 12 m/s e até −3,5 m/s acima de 22 m/s) (<a href="#comparacao-com-o-escaterometro">detalhes</a>).</li>
+<li><strong>A distribuição de Weibull não melhora o vento.</strong> Usada na GMF (modelo B), dá o mesmo resultado que o modelo sem ela; usada no debias (modelo C), piora o vento forte, até −5,9 m/s acima de 22 m/s contra o escaterômetro. O modelo A, sem Weibull, continua o padrão (<a href="#os-tres-modelos-com-e-sem-weibull">detalhes</a>).</li>
 <li><strong>Combinar os dados ajuda</strong>: na mesma régua (o ERA5), cada etapa da cadeia melhora o vento, e a correção de estado do mar é a que mais ajuda.</li>
 <li>Boa parte da falha do LES vem de <strong>0,03% das amostras</strong> em que o vento LES oficial é de 68 m/s ou mais, mas o vento final oficial delas é de cerca de 9 m/s. Sem elas, o RMSD do LES cairia para 0,58 m/s, mas o ATBD as considera válidas, então continuam na conta (<a href="#os-valores-de-68-a-70-ms-do-les-oficial">detalhes</a>).</li>
 </ul>
@@ -1472,7 +1495,7 @@
 </tbody>
 </table>
 <h2 id="os-vereditos">Os vereditos<a class="headerlink" href="#os-vereditos" title="Permanent link">&para;</a></h2>
-<p><img alt="À esquerda, o RMSD de cada critério contra o vento oficial equivalente; à direita, o RMSD de cada etapa contra o ERA5" src="../../assets/img/eval2022_verdict.png" /></p>
+<p><img alt="À esquerda, o RMSD de cada critério contra o vento oficial equivalente; à direita, o RMSD de cada etapa contra o ERA5" src="../../assets/img/eval2022_verdict_a.png" /></p>
 <p>A figura responde a <strong>duas perguntas diferentes</strong>, e por isso tem dois painéis. As barras de um painel <strong>não se comparam</strong> com as do outro, porque cada painel usa uma referência diferente.</p>
 <p><strong>À esquerda: o vento próprio reproduz o oficial?</strong> Cada barra compara uma etapa própria com a <strong>mesma etapa da NASA</strong>. É o que decide o M2 e o M3. Verde passa no critério de <strong>0,5 m/s</strong>, vermelho não passa. Uma barra curta aqui quer dizer "imita bem a NASA", e <strong>não</strong> "acerta o vento real": o 0,45 do DDMA mostra que a tabela do NBRCS própria é parecida com a da NASA, não que o DDMA sozinho seja o melhor vento.</p>
 <table>
@@ -1515,7 +1538,7 @@
 </table>
 <p>O vento final próprio acompanha o oficial de perto (correlação de 0,99). O que falta para o M3 é um <strong>viés pequeno e constante</strong>: o vento final fica, em média, 0,29 m/s abaixo do oficial. Sem esse viés, a diferença seria de 0,43 m/s.</p>
 <h3 id="ponto-a-ponto">Ponto a ponto<a class="headerlink" href="#ponto-a-ponto" title="Permanent link">&para;</a></h3>
-<p><img alt="Vento próprio contra o oficial, ponto a ponto, numa amostra de 2022" src="../../assets/img/eval2022_own_vs_official.png" /></p>
+<p><img alt="Vento próprio contra o oficial, ponto a ponto, numa amostra de 2022" src="../../assets/img/eval2022_own_vs_official_a.png" /></p>
 <p>Cada painel é um dos critérios acima, com <strong>1 milhão de pontos</strong> sorteados ao acaso entre os que passam no QC oficial (3.000 por dia, nos 334 dias, com semente fixa). A cor é o número de pontos em cada hexágono, em escala logarítmica (amarelo é onde há mais pontos). A linha tracejada é onde o vento próprio seria igual ao oficial. Os RMSD da amostra (0,45, 1,07 e 0,52 m/s) são praticamente os do ano inteiro (0,45, 1,05 e 0,52 m/s), então a amostra representa bem o período.</p>
 <ul>
 <li><strong>DDMA:</strong> a nuvem é estreita e segue a diagonal até 25 m/s, um pouco acima dela (é o viés de +0,31 m/s).</li>
@@ -1568,7 +1591,7 @@
 <p>As etapas intermediárias próprias (MV e estado do mar) também podem ser comparadas com o <strong>final oficial</strong>: dão 0,96 e 0,75 m/s. Esses números saíram da figura porque confundem: o final oficial já passou por todas as correções, e o MV ainda não. É natural que fique longe, sem que isso diga se o MV é bom.</p>
 </div>
 <h2 id="erro-por-faixa-de-vento">Erro por faixa de vento<a class="headerlink" href="#erro-por-faixa-de-vento" title="Permanent link">&para;</a></h2>
-<p><img alt="RMSD, viés e número de amostras por faixa do vento oficial" src="../../assets/img/eval2022_by_wind.png" /></p>
+<p><img alt="RMSD, viés e número de amostras por faixa do vento oficial" src="../../assets/img/eval2022_by_wind_a.png" /></p>
 <p>Os três painéis usam as mesmas faixas de 1 m/s do vento <strong>oficial</strong>: em cima o RMSD, no meio o viés (próprio menos oficial), embaixo a fração das amostras em cada faixa, em escala logarítmica.</p>
 <ul>
 <li><strong>Entre 3 e 18 m/s</strong>, onde estão quase todas as amostras, o vento final fica perto do limite de 0,5 m/s.</li>
@@ -1614,7 +1637,7 @@
 <li><strong>Consequência para o M2.</strong> Excluir essas amostras deixaria o LES a 0,58 m/s, ainda acima do limite. Mas, como o ATBD as considera válidas, excluí-las seria ajustar o teste para passar. Por isso o resultado oficial do M2 continua sendo <strong>1,05 m/s</strong>, e o número sem essas amostras (0,58 m/s) fica registrado só como diagnóstico.</li>
 </ul>
 <h2 id="comparacao-com-o-era5">Comparação com o ERA5<a class="headerlink" href="#comparacao-com-o-era5" title="Permanent link">&para;</a></h2>
-<p><img alt="Viés e RMSD contra o ERA5" src="../../assets/img/eval2022_era5.png" /></p>
+<p><img alt="Viés e RMSD contra o ERA5" src="../../assets/img/eval2022_era5_a.png" /></p>
 <p>À esquerda, cada etapa do algoritmo próprio e o vento oficial contra o vento do ERA5 no mesmo ponto e hora. À direita, o erro do vento final contra o ERA5 por altura de onda.</p>
 <table>
 <thead>
@@ -1714,14 +1737,14 @@
 </tbody>
 </table>
 <p>Os intervalos de confiança de 95% (<em>bootstrap</em> por instrumento e dia) não se sobrepõem no viés (próprio de −0,21 a −0,18 m/s; oficial de +0,07 a +0,09 m/s) e se sobrepõem no RMSD (próprio de 1,43 a 1,47 m/s; oficial de 1,45 a 1,48 m/s).</p>
-<p><img alt="Vento final próprio e oficial contra o escaterômetro, ponto a ponto, numa amostra de 2022" src="../../assets/img/eval2022_winds_vs_scatterometer.png" /></p>
+<p><img alt="Vento final próprio e oficial contra o escaterômetro, ponto a ponto, numa amostra de 2022" src="../../assets/img/eval2022_winds_vs_scatterometer_a.png" /></p>
 <p><strong>Ponto a ponto.</strong> Os mesmos <strong>1 milhão de pares</strong> (3.000 por dia, sorteados entre os que têm escaterômetro e QC oficial, com semente fixa) nos dois painéis: à esquerda o vento final próprio, à direita o oficial, os dois contra o escaterômetro no eixo horizontal. A cor é o número de pares em cada hexágono, em escala logarítmica; a linha tracejada é onde o vento seria igual ao do escaterômetro. Os números da amostra (próprio −0,20 m/s e 1,47 m/s; oficial +0,08 m/s e 1,48 m/s) são praticamente os do ano inteiro.</p>
 <ul>
 <li><strong>As duas nuvens são quase iguais</strong>: o mesmo espalhamento, que é o erro comum aos dois (o CYGNSS e o escaterômetro não medem exatamente o mesmo lugar e a mesma hora, e cada um tem o seu ruído).</li>
 <li><strong>Acima de uns 12 m/s, as duas nuvens ficam abaixo da diagonal</strong>: os dois ventos subestimam o vento forte, como mostra a tabela por faixa abaixo.</li>
 <li><strong>Em vento fraco</strong>, o próprio fica um pouco mais perto da diagonal; o oficial fica um pouco acima dela.</li>
 </ul>
-<p><img alt="Viés, RMSD e número de pares contra o escaterômetro por faixa de vento" src="../../assets/img/eval2022_scatterometer.png" /></p>
+<p><img alt="Viés, RMSD e número de pares contra o escaterômetro por faixa de vento" src="../../assets/img/eval2022_scatterometer_a.png" /></p>
 <p>As faixas são de 2 m/s do vento <strong>do escaterômetro</strong>. Em cima o viés (vento menos escaterômetro), no meio o RMSD, embaixo a fração dos pares em cada faixa, em escala logarítmica.</p>
 <table>
 <thead>
@@ -1845,6 +1868,255 @@
 <p class="admonition-title">O que o escaterômetro mede</p>
 <p>O vento do produto é o <em>vento equivalente de tensão a 10 m</em>, que difere um pouco do vento a 10 m de um anemômetro; ele é usado como o produto o entrega, sem conversão. Se o INPE prefere uma conversão é uma pergunta em aberto (<a href="../../andamento/pendencias/">Pendências</a>).</p>
 </div>
+<h2 id="os-tres-modelos-com-e-sem-weibull">Os três modelos: com e sem Weibull<a class="headerlink" href="#os-tres-modelos-com-e-sem-weibull" title="Permanent link">&para;</a></h2>
+<p>O documento do INPE cita a <strong>distribuição de Weibull</strong> para descrever o vento no casamento de distribuições, e o ATBD usa a contagem real (a forma <em>empírica</em>). Para responder com dados, o projeto ajustou três modelos com o mesmo treino (2021) e o mesmo teste (2022), cada um mudando uma coisa só (<a href="../../metodologia/metodo-lut/#a-distribuicao-do-vento-empirica-ou-weibull">Método LUT</a>):</p>
+<table>
+<thead>
+<tr>
+<th>Modelo</th>
+<th>Onde entra a Weibull</th>
+<th>Versão do vento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong></td>
+<td>em nenhum lugar (o padrão, como no ATBD)</td>
+<td><code>gmf-v1_mv-v1_ss-v1_db-v1</code></td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td>na GMF, a tabela que converte o sinal em vento</td>
+<td><code>gmf-v2_mv-v2_ss-v2_db-v2</code></td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td>no debias, o ajuste fino do fim da cadeia</td>
+<td><code>gmf-v1_mv-v1_ss-v1_db-v3</code></td>
+</tr>
+</tbody>
+</table>
+<p>As curvas de Weibull ajustadas ao vento do ERA5 de 2021 ficaram muito parecidas em todos os ângulos e grupos: forma <em>k</em> entre <strong>2,4 e 2,7</strong> e escala <em>c</em> entre <strong>7,1 e 7,8 m/s</strong>.</p>
+<p><img alt="Os três modelos lado a lado: à esquerda, o RMSD contra o vento oficial equivalente; à direita, o vento final contra o ERA5 e contra o escaterômetro" src="../../assets/img/eval2022_models_overview.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Vento final</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>Oficial (NASA)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Contra o final oficial (M3), RMSD</td>
+<td><strong>0,52</strong> m/s</td>
+<td><strong>0,52</strong> m/s</td>
+<td>0,55 m/s</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Contra o final oficial, viés</td>
+<td>−0,29 m/s</td>
+<td>−0,29 m/s</td>
+<td>−0,30 m/s</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Contra o ERA5, RMSD</td>
+<td><strong>1,53</strong> m/s</td>
+<td><strong>1,53</strong> m/s</td>
+<td>1,54 m/s</td>
+<td>1,58 m/s</td>
+</tr>
+<tr>
+<td>Contra o ERA5, viés</td>
+<td>+0,02 m/s</td>
+<td>+0,02 m/s</td>
+<td>+0,01 m/s</td>
+<td>+0,31 m/s</td>
+</tr>
+<tr>
+<td><strong>Contra o escaterômetro, RMSD</strong></td>
+<td><strong>1,45</strong> m/s</td>
+<td><strong>1,45</strong> m/s</td>
+<td>1,46 m/s</td>
+<td>1,46 m/s</td>
+</tr>
+<tr>
+<td>Contra o escaterômetro, viés</td>
+<td>−0,19 m/s</td>
+<td>−0,19 m/s</td>
+<td>−0,21 m/s</td>
+<td>+0,08 m/s</td>
+</tr>
+</tbody>
+</table>
+<p>As tabelas do M2 (DDMA e LES) do modelo B ficam a 0,47 e 1,08 m/s do oficial, contra 0,45 e 1,05 m/s do A; as do C são as mesmas do A, porque ele só muda o debias.</p>
+<p><img alt="Viés e RMSD do vento final de cada modelo contra o escaterômetro, por faixa de vento" src="../../assets/img/eval2022_models_scatterometer.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Faixa do escaterômetro (m/s)</th>
+<th>Pares</th>
+<th>Viés A</th>
+<th>Viés B</th>
+<th>Viés C</th>
+<th>RMSD A</th>
+<th>RMSD B</th>
+<th>RMSD C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 a 2</td>
+<td>1,3 mi</td>
+<td>+0,32</td>
+<td>+0,32</td>
+<td>+0,43</td>
+<td>0,93</td>
+<td>0,94</td>
+<td>0,94</td>
+</tr>
+<tr>
+<td>2 a 4</td>
+<td>5,4 mi</td>
+<td>+0,04</td>
+<td>+0,05</td>
+<td>+0,06</td>
+<td>1,07</td>
+<td>1,06</td>
+<td>1,00</td>
+</tr>
+<tr>
+<td>4 a 6</td>
+<td>11,4 mi</td>
+<td>+0,11</td>
+<td>+0,11</td>
+<td>+0,01</td>
+<td>1,17</td>
+<td>1,17</td>
+<td>1,17</td>
+</tr>
+<tr>
+<td>6 a 8</td>
+<td>14,3 mi</td>
+<td>−0,01</td>
+<td>−0,01</td>
+<td>−0,05</td>
+<td>1,30</td>
+<td>1,30</td>
+<td>1,38</td>
+</tr>
+<tr>
+<td>8 a 10</td>
+<td>9,7 mi</td>
+<td>−0,42</td>
+<td>−0,42</td>
+<td>−0,34</td>
+<td>1,55</td>
+<td>1,55</td>
+<td>1,60</td>
+</tr>
+<tr>
+<td>10 a 12</td>
+<td>4,1 mi</td>
+<td>−0,96</td>
+<td>−0,96</td>
+<td>−0,84</td>
+<td>2,01</td>
+<td>2,01</td>
+<td>1,94</td>
+</tr>
+<tr>
+<td>12 a 14</td>
+<td>1,4 mi</td>
+<td>−1,48</td>
+<td>−1,48</td>
+<td>−1,46</td>
+<td>2,55</td>
+<td>2,55</td>
+<td>2,39</td>
+</tr>
+<tr>
+<td>14 a 16</td>
+<td>421 mil</td>
+<td>−1,77</td>
+<td>−1,77</td>
+<td>−2,04</td>
+<td>2,96</td>
+<td>2,96</td>
+<td>2,83</td>
+</tr>
+<tr>
+<td>16 a 18</td>
+<td>107 mil</td>
+<td>−2,09</td>
+<td>−2,09</td>
+<td>−2,76</td>
+<td>3,25</td>
+<td>3,26</td>
+<td>3,35</td>
+</tr>
+<tr>
+<td>18 a 20</td>
+<td>24 mil</td>
+<td>−2,60</td>
+<td>−2,60</td>
+<td>−3,68</td>
+<td>3,60</td>
+<td>3,60</td>
+<td>4,09</td>
+</tr>
+<tr>
+<td>20 a 22</td>
+<td>5 mil</td>
+<td>−2,82</td>
+<td>−2,76</td>
+<td>−4,53</td>
+<td>3,88</td>
+<td>3,88</td>
+<td>4,90</td>
+</tr>
+<tr>
+<td>22 ou mais</td>
+<td>2 mil</td>
+<td>−3,48</td>
+<td>−3,37</td>
+<td>−5,87</td>
+<td>4,11</td>
+<td>3,97</td>
+<td>6,06</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Como ler:</strong></p>
+<ul>
+<li><strong>B é igual a A.</strong> A Weibull muda a GMF, mas as etapas seguintes (o MV, o estado do mar e, sobretudo, o debias) são refeitas sobre ela e casam de novo o vento com a distribuição do ERA5. O efeito da Weibull na GMF não chega ao vento final.</li>
+<li><strong>C piora o vento forte.</strong> No debias, a Weibull define diretamente a distribuição do vento final. A cauda da curva de Weibull (com <em>k</em> perto de 2,5) cai mais rápido que a dos ventos reais do ERA5: a curva diz que vento forte é mais raro do que é. O debias então puxa os ventos fortes para baixo. Acima de 16 m/s, o vento do C subestima o escaterômetro de 0,7 a 2,4 m/s mais que o do A. Entre 10 e 14 m/s ele melhora um pouco, mas no total fica pior.</li>
+<li><strong>Conclusão:</strong> a <strong>forma empírica (modelo A) continua o padrão</strong> do projeto. A Weibull não melhora o vento em nenhum uso, e no debias piora justamente o vento forte, que já é o ponto fraco das duas cadeias. A pergunta ao INPE sobre o uso da Weibull continua em <a href="../../andamento/pendencias/">Pendências</a>.</li>
+</ul>
+<p><strong>As figuras de cada modelo.</strong> As mesmas figuras das seções anteriores, para cada modelo:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">A: sem Weibull</label><label for="__tabbed_1_2">B: Weibull na GMF</label><label for="__tabbed_1_3">C: Weibull no debias</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><img alt="Vereditos do modelo A" src="../../assets/img/eval2022_verdict_a.png" />
+<img alt="Por faixa de vento oficial, modelo A" src="../../assets/img/eval2022_by_wind_a.png" />
+<img alt="Contra o escaterômetro por faixa, modelo A" src="../../assets/img/eval2022_scatterometer_a.png" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="Vereditos do modelo B" src="../../assets/img/eval2022_verdict_b.png" />
+<img alt="Por faixa de vento oficial, modelo B" src="../../assets/img/eval2022_by_wind_b.png" />
+<img alt="Contra o escaterômetro por faixa, modelo B" src="../../assets/img/eval2022_scatterometer_b.png" /></p>
+</div>
+<div class="tabbed-block">
+<p><img alt="Vereditos do modelo C" src="../../assets/img/eval2022_verdict_c.png" />
+<img alt="Por faixa de vento oficial, modelo C" src="../../assets/img/eval2022_by_wind_c.png" />
+<img alt="Contra o escaterômetro por faixa, modelo C" src="../../assets/img/eval2022_scatterometer_c.png" /></p>
+</div>
+</div>
+</div>
 <h2 id="boias-m4">Boias (M4)<a class="headerlink" href="#boias-m4" title="Permanent link">&para;</a></h2>
 <p>O relatório do M4 foi gerado, mas ficou <strong>insuficiente</strong>: não há nenhum pareamento com boia em oceano aberto em 2022, e o mínimo é de 1.000. O SiMCosta tem só 61 dias baixados, todos de 2021, e o PIRATA e o PNBOIA ainda não têm fonte (<a href="../../dados/downloads/">Estado dos downloads</a>).</p>
 <h2 id="o-que-vem-a-seguir">O que vem a seguir<a class="headerlink" href="#o-que-vem-a-seguir" title="Permanent link">&para;</a></h2>
@@ -1857,7 +2129,7 @@
 <p>Os critérios de 0,5 m/s são propostas iniciais. Como diz <a href="../../andamento/etapas/#criterios-de-aceitacao">Andamento por etapa</a>, um critério não atingido é registrado e diagnosticado, e o teste não é ajustado para passar.</p>
 <div class="admonition note">
 <p class="admonition-title">De onde vêm os números</p>
-<p>Dos relatórios <code>m2.json</code>, <code>m3.json</code> e <code>m4.json</code> do job <code>evaluate</code>, em <code>reports/gmf-v1_mv-v1_ss-v1_db-v1/</code>. As figuras são feitas por <code>uv run task docs-figures</code>.</p>
+<p>Dos relatórios <code>m2.json</code>, <code>m3.json</code> e <code>m4.json</code> do job <code>evaluate</code>, em <code>reports/&lt;versão&gt;/</code> de cada modelo (A: <code>gmf-v1_mv-v1_ss-v1_db-v1</code>, B: <code>gmf-v2_mv-v2_ss-v2_db-v2</code>, C: <code>gmf-v1_mv-v1_ss-v1_db-v3</code>). Os valores de <em>k</em> e <em>c</em> estão no <code>meta.json</code> de <code>models/gmf/v2/</code> e <code>models/debias/v3/</code>. As figuras são feitas por <code>uv run task docs-figures</code>.</p>
 </div>
 
 

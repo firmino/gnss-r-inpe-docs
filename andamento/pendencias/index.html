@@ -1282,7 +1282,7 @@
 <p><strong>LUTs do INPE:</strong> o INPE não tem as LUTs da NASA, só as que gerou seguindo o ATBD. Elas podem ser compartilhadas? O INPE enviou os dados de 2021 que usou para gerá-las (por ângulo de incidência, DDM-L2 e ERA5); falta conferir o formato.</p>
 </li>
 <li>
-<p><strong>Weibull ou CDF empírica:</strong> o documento do INPE menciona a distribuição de Weibull para a distribuição acumulada usada na GMF, enquanto o ATBD do CYGNSS (seção 5.4.1) usa distribuições acumuladas empíricas, sem supor uma forma. O projeto seguiu o ATBD. A Weibull é intencional no método do INPE (por exemplo, para o Amazonia-1B)? Se for, as tabelas do INPE e as do projeto não são diretamente comparáveis.</p>
+<p><strong>Weibull ou CDF empírica:</strong> o documento do INPE menciona a distribuição de Weibull para a distribuição acumulada usada na GMF, enquanto o ATBD do CYGNSS (seção 5.4.1) usa distribuições acumuladas empíricas, sem supor uma forma. O projeto seguiu o ATBD e, para responder com dados, também ajustou modelos com a Weibull (na GMF e no debias), comparados em <a href="../../resultados/avaliacao-2022/#os-tres-modelos-com-e-sem-weibull">Avaliação em 2022</a>. Resultado: na GMF a Weibull não muda o vento final, e no debias ela piora o vento forte; o projeto mantém a forma empírica. A Weibull é intencional no método do INPE (por exemplo, para o Amazonia-1B)? Se for, em qual etapa: na GMF, no debias ou nas duas?</p>
 </li>
 </ol>
 <h2 id="duvida-para-a-equipe-do-cygnss">Dúvida para a equipe do CYGNSS<a class="headerlink" href="#duvida-para-a-equipe-do-cygnss" title="Permanent link">&para;</a></h2>

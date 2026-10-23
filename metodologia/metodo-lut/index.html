@@ -467,6 +467,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="2. As LUTs: como se constroem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-distribuicao-do-vento-empirica-ou-weibull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A distribuição do vento: empírica ou Weibull
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1297,6 +1314,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="2. As LUTs: como se constroem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-distribuicao-do-vento-empirica-ou-weibull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A distribuição do vento: empírica ou Weibull
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1570,6 +1604,51 @@
 <li>Os parâmetros ficam no <code>meta.json</code> da versão: 700 níveis, suavização de 10° e de 3 m/s, mínimo de 1000 amostras por faixa.</li>
 </ul>
 </details>
+<h3 id="a-distribuicao-do-vento-empirica-ou-weibull">A distribuição do vento: empírica ou Weibull<a class="headerlink" href="#a-distribuicao-do-vento-empirica-ou-weibull" title="Permanent link">&para;</a></h3>
+<p>O casamento usa duas <strong>distribuições</strong>: a do sinal e a do vento. Uma distribuição diz <strong>com que frequência cada valor aparece</strong>. Por exemplo: de cada 100 amostras a 30°, quantas têm vento entre 5 e 6 m/s, quantas entre 6 e 7, e assim por diante. A <em>distribuição acumulada</em> (a CDF do nome <em>CDF matching</em>) é a mesma informação somada: que fração das amostras tem vento <strong>até</strong> cada valor.</p>
+<p>O projeto testa <strong>duas formas</strong> de obter a distribuição do vento do ERA5:</p>
+<ul>
+<li><strong>Empírica</strong> (a do ATBD, o padrão). É a contagem real: o histograma dos ventos do ERA5 da faixa de ângulo, em degraus de 0,1 m/s, usado como está, sem nenhuma curva ajustada.</li>
+<li>
+<p><strong>Weibull</strong> (citada no documento do INPE). Em vez da contagem, usa-se uma <strong>curva suave de dois números</strong>, a distribuição de Weibull, que é a curva clássica para descrever a frequência de velocidades de vento:</p>
+<p><strong>F(u) = 1 − exp(−(u / c)^k)</strong></p>
+<p>F(u) é a fração das amostras com vento até <em>u</em>. O número <strong>c</strong> (escala, em m/s) diz onde está a maior parte dos ventos, e <strong>k</strong> (forma) diz quão concentrados eles estão em volta disso. Um oceano típico tem <em>k</em> perto de 2 e <em>c</em> perto de 8 m/s. Nos ventos do ERA5 de 2021 do projeto, <em>k</em> ficou entre 2,4 e 2,7 e <em>c</em> entre 7,1 e 7,8 m/s, em todos os ângulos.</p>
+</li>
+</ul>
+<p><strong>Como a Weibull é ajustada.</strong> Para cada faixa de ângulo, a curva é ajustada <strong>ao mesmo histograma</strong> de ventos do ERA5 que a forma empírica usaria, por <strong>máxima verossimilhança</strong>: escolhem-se os valores de <em>k</em> e <em>c</em> que tornam mais provável a contagem observada. Cada degrau de 0,1 m/s entra com o seu valor central e um peso igual ao número de amostras nele. A curva ajustada vira de novo uma contagem nos mesmos degraus, e o resto do casamento não muda. <strong>Só o lado do vento muda</strong>: a distribuição do sinal continua empírica nas duas formas, porque a Weibull descreve vento, não NBRCS nem LES.</p>
+<p><strong>O que se espera.</strong> Com centenas de milhões de amostras, a contagem empírica já é suave entre uns 3 e 18 m/s, e as duas formas devem dar quase o mesmo resultado nessa faixa. A diferença aparece nas <strong>pontas</strong> (vento muito fraco e muito forte), onde há poucas amostras e a curva da Weibull "completa" a contagem. Ela pode ajudar ou atrapalhar, porque o vento real do oceano não segue exatamente uma Weibull.</p>
+<p><strong>Três modelos próprios.</strong> Para saber o efeito de cada uso da Weibull, o projeto ajusta e avalia três modelos, todos com o mesmo ano de treino (2021) e o mesmo ano de teste (2022):</p>
+<table>
+<thead>
+<tr>
+<th>Modelo</th>
+<th>GMF (seção 2)</th>
+<th>Debias (seção 6)</th>
+<th>Versões</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong>: sem Weibull</td>
+<td>empírica</td>
+<td>empírica</td>
+<td><code>gmf-v1_mv-v1_ss-v1_db-v1</code></td>
+</tr>
+<tr>
+<td><strong>B</strong>: Weibull na GMF</td>
+<td><strong>Weibull</strong></td>
+<td>empírica</td>
+<td><code>gmf-v2_mv-v2_ss-v2_db-v2</code> (o MV, o estado do mar e o debias são refeitos sobre a GMF nova)</td>
+</tr>
+<tr>
+<td><strong>C</strong>: Weibull no debias</td>
+<td>empírica</td>
+<td><strong>Weibull</strong></td>
+<td><code>gmf-v1_mv-v1_ss-v1_db-v3</code></td>
+</tr>
+</tbody>
+</table>
+<p>Cada modelo muda <strong>uma coisa só</strong> em relação ao A. Os resultados dos três, lado a lado, estão em <a href="../../resultados/avaliacao-2022/#os-tres-modelos-com-e-sem-weibull">Avaliação em 2022</a>. Resumo: o B dá o mesmo vento que o A, e o C piora o vento forte, porque a cauda da Weibull é mais fina que a dos ventos reais. <strong>A forma empírica continua o padrão.</strong> A escolha fica registrada no <code>meta.json</code> de cada versão (<code>wind_cdf</code>), com os valores de <em>k</em> e <em>c</em> de cada faixa.</p>
 <h2 id="3-as-luts-como-se-usam">3. As LUTs: como se usam<a class="headerlink" href="#3-as-luts-como-se-usam" title="Permanent link">&para;</a></h2>
 <p>Para estimar o vento de uma amostra, usa-se a <strong>tabela do ângulo dela</strong> e interpola-se entre as linhas vizinhas.</p>
 <p><strong>Exemplo.</strong> Uma amostra a <strong>30° de incidência</strong>, com NBRCS = 3,0 e LES = 26 (os valores calculados em <a href="../fundamentos/">Fundamentos</a>). Trechos ilustrativos das tabelas de 30°:</p>
@@ -1719,6 +1798,7 @@
 <p>O vento corrigido da amostra é 6,5 m/s. Na tabela do grupo dela, ele está entre 6 (→ 6,6) e 8 (→ 9,0):</p>
 <p>6,6 + (6,5 − 6) / (8 − 6) × (9,0 − 6,6) = 6,6 + 0,25 × 2,4 = <strong>7,2 m/s</strong></p>
 <p>O debias aumentou o vento em 0,7 m/s. Esse é o <strong>vento final</strong>.</p>
+<p><strong>Opção Weibull (modelo C).</strong> O lado do ERA5 desse casamento também pode ser uma Weibull, ajustada da mesma forma da seção 2 (máxima verossimilhança sobre o histograma do ERA5), <strong>uma para cada grupo e cada conjunto</strong>. O lado do satélite e as transições graduais não mudam. Ver <a href="#a-distribuicao-do-vento-empirica-ou-weibull">os três modelos</a>.</p>
 <details class="note">
 <summary>Detalhes técnicos</summary>
 <ul>
