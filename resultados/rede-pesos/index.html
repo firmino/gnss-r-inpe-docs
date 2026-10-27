@@ -1,0 +1,2013 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Vento na superfície do mar por GNSS-R (CYGNSS), base para o produto do Amazonia-1B">
+      
+      
+      
+      
+        <link rel="prev" href="../avaliacao-2022/">
+      
+      
+        <link rel="next" href="../checagens/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Rede de pesos (mvnet) - vsm-gnssr</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rede-de-pesos-mvnet" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../.." title="vsm-gnssr" class="md-header__button md-logo" aria-label="vsm-gnssr" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            vsm-gnssr
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Rede de pesos (mvnet)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Tema escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Tema claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="vsm-gnssr" class="md-nav__button md-logo" aria-label="vsm-gnssr" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    vsm-gnssr
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metodologia
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Metodologia
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../metodologia/fundamentos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentos (ângulo, DDM, NBRCS e LES)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../metodologia/qc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controle de qualidade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../metodologia/metodo-lut/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Método LUT: construção e uso das tabelas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../metodologia/avaliacao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Como avaliamos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dados
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Dados
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dados/fontes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fontes e cobertura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dados/downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estado dos downloads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dados/boias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boias e pareamento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dados/escaterometro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escaterômetro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Arquitetura
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitetura/visao-geral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visão geral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitetura/pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pipeline e jobs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitetura/interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interface e servidor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resultados
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resultados
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../avaliacao-2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Avaliação em 2022 (M2 e M3)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rede de pesos (mvnet)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rede de pesos (mvnet)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-e-testado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que é testado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entradas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entradas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquitetura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitetura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estrategia-de-treino" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estratégia de treino
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-foi-assumido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que foi assumido
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#teto-linear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teto linear
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resultados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resultados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onde-cada-variante-e-julgada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Onde cada variante é julgada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-faixa-de-vento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por faixa de vento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#os-pesos-aprendidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Os pesos aprendidos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Os pesos aprendidos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sobre-os-dois-ventos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sobre os dois ventos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contra-cada-condicao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contra cada condição
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-formato-da-figura-b4-do-atbd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No formato da Figura B4 do ATBD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-les-muito-baixo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O LES muito baixo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-ler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como ler
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../checagens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checagens do fluxo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Andamento
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Andamento
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../andamento/etapas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Andamento por etapa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../andamento/decisoes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisões e alternativas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../andamento/pendencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pendências e perguntas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apêndices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Apêndices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../apendices/mv-5050/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A: hipótese da média 50/50 no MV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossário
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-e-testado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que é testado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entradas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entradas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arquitetura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitetura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estrategia-de-treino" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estratégia de treino
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-foi-assumido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que foi assumido
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#teto-linear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teto linear
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resultados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resultados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onde-cada-variante-e-julgada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Onde cada variante é julgada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-faixa-de-vento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Por faixa de vento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#os-pesos-aprendidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Os pesos aprendidos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Os pesos aprendidos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sobre-os-dois-ventos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sobre os dois ventos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contra-cada-condicao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contra cada condição
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-formato-da-figura-b4-do-atbd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No formato da Figura B4 do ATBD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-les-muito-baixo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O LES muito baixo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-ler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como ler
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="rede-de-pesos-mvnet">Rede de pesos (mvnet)<a class="headerlink" href="#rede-de-pesos-mvnet" title="Permanent link">&para;</a></h1>
+<p>Uma rede neural pequena que <strong>escolhe, amostra a amostra, quanto confiar no vento do NBRCS (DDMA) e no vento do LES</strong>. Ela substitui só uma etapa do algoritmo de tabelas: a combinação de mínima variância (MV). Tudo o mais é o mesmo do <a href="../avaliacao-2022/">modelo A</a>: a mesma GMF, o mesmo período de treino (2021) e o mesmo período de teste (fevereiro a dezembro de 2022). A especificação completa é a história 13 do projeto.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Treino</td>
+<td>2021: 317 dias de treino, 32 de validação; cinco sementes</td>
+</tr>
+<tr>
+<td>Teste</td>
+<td>01/02/2022 a 31/12/2022, as mesmas amostras e referências do <a href="../avaliacao-2022/">modelo A</a></td>
+</tr>
+<tr>
+<td>Data da rodada</td>
+<td>26 e 27/10/2026, no servidor do projeto</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition abstract">
+<p class="admonition-title">Resumo</p>
+<ul>
+<li><strong>A rede escolhe pesos melhores que a tabela do MV.</strong> Na etapa da combinação, o erro contra o ERA5 cai de 1,88 para 1,56 m/s.</li>
+<li><strong>Mas, no vento final, perde para o método de tabelas completo</strong> (MV, correção de estado do mar e debias): 1,51 contra 1,45 m/s contra o escaterômetro e 1,59 contra 1,53 m/s contra o ERA5. No vento forte a perda é grande: acima de 20 m/s, o viés contra o escaterômetro é de −5,1 a −6,4 m/s, contra −2,8 a −3,5 m/s do modelo A.</li>
+<li><strong>Por quê:</strong> o vento da rede sai achatado em direção à média. Ela aprendeu a puxar para o menor dos dois ventos, o que reduz o erro médio mas subestima o vento forte. O debias estica a distribuição de volta, mas não o suficiente. No modelo A, o vento forte é corrigido pela etapa de estado do mar, que aqui não existe.</li>
+<li><strong>As cinco sementes dão o mesmo resultado</strong> (variação de cerca de 0,003 m/s): a conclusão não depende do sorteio.</li>
+<li><strong>Pelo critério de ganho do projeto</strong> (melhorar a média das faixas sem piorar o erro geral além de 0,05 m/s), <strong>a rede não substitui a tabela do MV</strong> no método completo.</li>
+</ul>
+</div>
+<h2 id="o-que-e-testado">O que é testado<a class="headerlink" href="#o-que-e-testado" title="Permanent link">&para;</a></h2>
+<p>Hoje o MV escolhe dois pesos fixos em uma tabela, olhando um único número: a média 80/20 dos dois ventos, em faixas de 0,1 m/s. A pergunta deste teste é:</p>
+<blockquote>
+<p><strong>Qual o melhor peso do vento DDMA e do vento LES para cada combinação dos dois ventos, do ângulo de incidência, do RCG e do estado do mar?</strong> E usar esse peso melhora o vento em relação à tabela do MV?</p>
+</blockquote>
+<p>O vento da rede é <code>u = t × DDMA + (1 − t) × LES</code>, em que <code>t</code> é o peso do DDMA. A GMF não é reajustada, então qualquer diferença no resultado vem só da combinação.</p>
+<table>
+<thead>
+<tr>
+<th>Etapa</th>
+<th>Modelo A (tabelas)</th>
+<th>Rede de pesos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GMF</td>
+<td><code>gmf/v1</code></td>
+<td><code>gmf/v1</code>, a mesma</td>
+</tr>
+<tr>
+<td>Combinação</td>
+<td>tabela do MV <code>mv/v1</code></td>
+<td>a rede</td>
+</tr>
+<tr>
+<td>Estado do mar</td>
+<td><code>seastate/v1</code></td>
+<td><strong>nenhuma</strong>: a altura de onda já é entrada da rede</td>
+</tr>
+<tr>
+<td>Debias</td>
+<td><code>debias/v1</code></td>
+<td>reajustado sobre o vento da rede, em 2021</td>
+</tr>
+</tbody>
+</table>
+<p>A altura de onda entra <strong>uma vez só</strong>: como entrada da rede. Rodar também a correção de estado do mar da tabela usaria a mesma informação duas vezes, e não daria para saber qual etapa trouxe o ganho. Por isso a rede de pesos é comparada com o modelo A em <strong>duas etapas</strong>: a combinação sozinha (a rede contra o MV da tabela, as duas antes de qualquer correção de mar) e o vento final.</p>
+<p>Uma variante com correção aditiva (<code>mvnet+</code>, que também soma uma correção vinda do estado do mar) foi especificada, mas <strong>não foi treinada</strong>: o <a href="#teto-linear">teto linear</a> dela não mostrou ganho.</p>
+<h2 id="entradas">Entradas<a class="headerlink" href="#entradas" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Entrada</th>
+<th>De onde vem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>vento DDMA</td>
+<td>GMF <code>v1</code> aplicada ao NBRCS, <strong>antes do corte em zero</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>vento LES</td>
+<td>GMF <code>v1</code> aplicada ao LES, antes do corte em zero</td>
+</tr>
+<tr>
+<td>3</td>
+<td>ângulo de incidência</td>
+<td>produto L2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>RCG</td>
+<td>produto L2, em escala log</td>
+</tr>
+<tr>
+<td>5</td>
+<td>altura de onda (SWH)</td>
+<td>produto L2 (GFS), a mesma que a tabela de estado do mar usa</td>
+</tr>
+<tr>
+<td>6</td>
+<td>fração de swell</td>
+<td>produto L2</td>
+</tr>
+<tr>
+<td>7</td>
+<td>indicador de SWH ausente</td>
+<td>0 ou 1</td>
+</tr>
+</tbody>
+</table>
+<p>As entradas 1 a 6 são padronizadas (média 0, desvio 1) com a média e o desvio das amostras de treino.</p>
+<p>O que ficou de fora, e por quê:</p>
+<ul>
+<li><strong>NBRCS e LES.</strong> Para um mesmo ângulo, a GMF transforma cada um no seu vento de forma única, então o vento já traz a mesma informação. O único lugar em que o vento perde informação é o corte em zero no vento fraco; por isso os ventos entram antes desse corte.</li>
+<li><strong>Combinações dos dois ventos</strong> (a média 80/20, a diferença): a rede as forma sozinha.</li>
+<li><strong>Satélite, antena e PRN</strong>: os transmissores mudam de 2021 para 2022, e a rede aprenderia coisas que não valem no teste.</li>
+</ul>
+<h2 id="arquitetura">Arquitetura<a class="headerlink" href="#arquitetura" title="Permanent link">&para;</a></h2>
+<p>Escrita em <strong>PyTorch</strong>.</p>
+<ul>
+<li><strong>Corpo:</strong> rede densa de 3 camadas de 64 neurônios (<code>Linear</code>, <code>LayerNorm</code>, <code>SiLU</code>), cerca de 9 mil parâmetros.</li>
+<li><strong>Saída:</strong> o peso do DDMA, <code>t = 0,5 + tanh(z)</code>, limitado entre −0,5 e 1,5. O limite passa um pouco de 0 a 1 porque os pesos da própria tabela do MV também passam (o MV permite peso negativo quando os erros dos dois ventos andam juntos).</li>
+<li><strong>Início:</strong> o peso começa em 0,8, o peso médio do DDMA na tabela do MV. O treino parte de uma combinação próxima da tabela.</li>
+</ul>
+<h2 id="estrategia-de-treino">Estratégia de treino<a class="headerlink" href="#estrategia-de-treino" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Dias:</strong> 2021. Quatro blocos de 8 dias inteiros, espalhados pelo ano (fevereiro, maio, agosto e novembro), ficam para validação, com 2 dias de folga de cada lado que não entram em nenhuma parte. São 317 dias de treino e 32 de validação.</li>
+<li><strong>Amostragem estratificada, para acertar os extremos.</strong> Uma amostra uniforme quase não teria vento forte. Cada dia de treino contribui com até 200 mil amostras, divididas igualmente entre 11 faixas de vento (de 2 em 2 m/s até 20, e acima de 20). Uma faixa com poucas amostras entrega todas as que tem. No total, 42,4 milhões de amostras de treino; todas as amostras do ano acima de 14 m/s estão incluídas.</li>
+<li><strong>A faixa vem dos ventos da tabela, nunca do ERA5.</strong> Escolher as amostras pelo ERA5 seria escolher pela resposta e enviesaria os pesos.</li>
+<li><strong>Perda:</strong> Huber de 1 m/s entre o vento da rede e o ERA5, mais uma preferência fraca do peso por 0,8 (<code>0,01 × (t − 0,8)²</code>). Onde os dois ventos concordam, qualquer peso dá o mesmo vento; sem essa preferência, a rede deixaria ali valores aleatórios, e os mapas de peso mostrariam ruído.</li>
+<li><strong>Otimização:</strong> AdamW, taxa 0,001 com decaimento cosseno, lotes de 4.096, até 30 épocas.</li>
+<li><strong>Parada:</strong> quando a <strong>média do erro das 11 faixas</strong> na validação para de cair por 3 épocas. É a média das faixas, e não o erro geral, para que um ganho nos ventos comuns não esconda uma perda nos extremos.</li>
+<li><strong>Sementes:</strong> cinco treinos independentes. A variação entre eles mostra o quanto de uma diferença é acaso.</li>
+</ul>
+<h2 id="o-que-foi-assumido">O que foi assumido<a class="headerlink" href="#o-que-foi-assumido" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Suposição</th>
+<th>Consequência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O ERA5 é a referência do treino</td>
+<td>Um ganho só contra o ERA5 pode ser imitação dele; o veredito independente é o escaterômetro</td>
+</tr>
+<tr>
+<td>Os pesos valem para a <code>gmf/v1</code></td>
+<td>A ponta de vento fraco da <code>gmf/v1</code> tem uma distorção conhecida, e a rede compensa parte dela; uma GMF corrigida exige treinar de novo</td>
+</tr>
+<tr>
+<td>A altura de onda entra uma vez</td>
+<td>Sem a correção de estado do mar depois da rede; a comparação é feita na combinação e no vento final</td>
+</tr>
+<tr>
+<td>A altura de onda é a do GFS</td>
+<td>Como nas tabelas</td>
+</tr>
+<tr>
+<td>O debias é ajustado com 2021 inteiro, sobre o vento da rede</td>
+<td>Como nas tabelas, para a comparação com o modelo A ficar justa</td>
+</tr>
+</tbody>
+</table>
+<h2 id="teto-linear">Teto linear<a class="headerlink" href="#teto-linear" title="Permanent link">&para;</a></h2>
+<p>Antes de treinar, uma regressão linear com a mesma forma da rede mede se há ganho possível. Na regressão, o peso pode variar de forma linear com as condições e com o vento, e os dois pesos somam 1. Ela é ajustada nos dias de treino e avaliada nos dias de validação (40,7 milhões de amostras).</p>
+<p><strong>Critério de ganho:</strong> a média do erro das 11 faixas melhora, e o erro geral não piora mais de 0,05 m/s. Os extremos precisam melhorar sem que os ventos comuns paguem por isso.</p>
+<table>
+<thead>
+<tr>
+<th>Teto</th>
+<th>Erro geral (referência)</th>
+<th>Média das 11 faixas (referência)</th>
+<th>Ganha?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mvnet</code>: pesos</td>
+<td>1,882 m/s (1,864, MV)</td>
+<td><strong>3,87 m/s</strong> (4,72)</td>
+<td><strong>Sim</strong></td>
+</tr>
+<tr>
+<td><code>mvnet+</code>: pesos e correção</td>
+<td>1,802 m/s (1,501, MV + estado do mar)</td>
+<td>3,67 m/s (1,85)</td>
+<td>Não</td>
+</tr>
+</tbody>
+</table>
+<p>O ganho do <code>mvnet</code> está nos ventos fortes: acima de 20 m/s, o erro cai de 14,0 para 10,2 m/s. Nos ventos de 2 a 10 m/s, os dois ficam praticamente iguais. A correção linear do <code>mvnet+</code> perde para a tabela de estado do mar, que é uma grade de vento × altura de onda e corrige de forma diferente em cada vento.</p>
+<p>Uma primeira versão do teto foi descartada por dois defeitos: os pesos não somavam 1 (a regressão podia encolher os ventos fortes, o que a rede não pode) e o peso não podia variar com o vento (era menos flexível que a própria tabela do MV). O registro está na especificação.</p>
+<h2 id="resultados">Resultados<a class="headerlink" href="#resultados" title="Permanent link">&para;</a></h2>
+<p>Cinco sementes treinadas, cada uma com o seu debias, aplicadas a 2022 e avaliadas pelo mesmo <code>evaluate</code> do modelo A. Os valores da rede são a média das cinco, com o desvio entre elas. As figuras usam a semente mediana pela medida de validação (<code>mvnet/v5</code>).</p>
+<h3 id="onde-cada-variante-e-julgada">Onde cada variante é julgada<a class="headerlink" href="#onde-cada-variante-e-julgada" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Comparação</th>
+<th>Modelo A</th>
+<th>Rede de pesos (5 sementes)</th>
+<th>Oficial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Combinação (etapa MV) contra o ERA5, RMSD</strong></td>
+<td>1,879</td>
+<td><strong>1,557 ± 0,001</strong></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Vento final contra o oficial final (M3), RMSD</td>
+<td><strong>0,518</strong></td>
+<td>0,804 ± 0,003</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Vento final contra o ERA5, RMSD</td>
+<td><strong>1,527</strong></td>
+<td>1,591 ± 0,002</td>
+<td>1,585</td>
+</tr>
+<tr>
+<td>Vento final contra o ERA5, viés</td>
+<td>+0,02</td>
+<td>−0,00 ± 0,01</td>
+<td>+0,30</td>
+</tr>
+<tr>
+<td><strong>Vento final contra o escaterômetro, RMSD</strong></td>
+<td><strong>1,450</strong></td>
+<td>1,509 ± 0,003</td>
+<td>1,463</td>
+</tr>
+<tr>
+<td>Vento final contra o escaterômetro, viés</td>
+<td>−0,19</td>
+<td>−0,22 ± 0,01</td>
+<td>+0,08</td>
+</tr>
+<tr>
+<td>Média do RMSD por faixa do escaterômetro (0 a 24 m/s)</td>
+<td><strong>2,37</strong></td>
+<td>3,06</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>O M2 (vento DDMA e vento LES contra o oficial) não muda: a GMF é a mesma do modelo A.</p>
+<p><img alt="Modelo A e rede de pesos: à esquerda, o RMSD contra o vento oficial equivalente; à direita, o vento final contra o ERA5 e contra o escaterômetro" src="../../assets/img/mvnet_overview.png" /></p>
+<h3 id="por-faixa-de-vento">Por faixa de vento<a class="headerlink" href="#por-faixa-de-vento" title="Permanent link">&para;</a></h3>
+<p><img alt="Viés e RMSD do vento final contra o escaterômetro, por faixa do vento do escaterômetro" src="../../assets/img/mvnet_scatterometer.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Faixa do escaterômetro</th>
+<th>Pares</th>
+<th>Viés, modelo A</th>
+<th>Viés, rede</th>
+<th>RMSD, modelo A</th>
+<th>RMSD, rede</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0–2 m/s</td>
+<td>1,3 mi</td>
+<td>+0,32</td>
+<td>+0,30</td>
+<td>0,93</td>
+<td><strong>0,89</strong></td>
+</tr>
+<tr>
+<td>2–4 m/s</td>
+<td>5,4 mi</td>
+<td>+0,04</td>
+<td>−0,08</td>
+<td>1,07</td>
+<td><strong>1,00</strong></td>
+</tr>
+<tr>
+<td>6–8 m/s</td>
+<td>14,3 mi</td>
+<td>−0,01</td>
+<td>−0,00</td>
+<td><strong>1,30</strong></td>
+<td>1,37</td>
+</tr>
+<tr>
+<td>10–12 m/s</td>
+<td>4,1 mi</td>
+<td>−0,96</td>
+<td>−0,89</td>
+<td><strong>2,01</strong></td>
+<td>2,04</td>
+</tr>
+<tr>
+<td>14–16 m/s</td>
+<td>421 mil</td>
+<td>−1,77</td>
+<td>−2,30</td>
+<td><strong>2,96</strong></td>
+<td>3,40</td>
+</tr>
+<tr>
+<td>18–20 m/s</td>
+<td>24 mil</td>
+<td>−2,60</td>
+<td>−3,90</td>
+<td><strong>3,60</strong></td>
+<td>5,01</td>
+</tr>
+<tr>
+<td>22–24 m/s</td>
+<td>1,8 mil</td>
+<td>−3,48</td>
+<td>−6,44</td>
+<td><strong>4,11</strong></td>
+<td>7,20</td>
+</tr>
+</tbody>
+</table>
+<p>No vento fraco, abaixo de 4 m/s, a rede é um pouco melhor. A partir de 12 m/s ela perde, e a perda cresce com o vento.</p>
+<h2 id="os-pesos-aprendidos">Os pesos aprendidos<a class="headerlink" href="#os-pesos-aprendidos" title="Permanent link">&para;</a></h2>
+<h3 id="sobre-os-dois-ventos">Sobre os dois ventos<a class="headerlink" href="#sobre-os-dois-ventos" title="Permanent link">&para;</a></h3>
+<p><img alt="Peso médio do DDMA em cada par (vento DDMA, vento LES)" src="../../assets/img/mvnet_weight_map.png" /></p>
+<p>A leitura mais importante da página. Abaixo da diagonal, onde o vento DDMA é maior que o LES, o peso do DDMA é baixo (vermelho): a rede confia no LES. Acima da diagonal, onde o LES é maior, o peso do DDMA passa de 1 (azul): a rede confia no DDMA e até se afasta do LES. <strong>Nos dois lados, ela puxa para o menor dos dois ventos.</strong> Não é uma escolha de qual sensor é melhor em cada condição: é um jeito de reduzir o erro médio encolhendo o vento, o que custa caro no vento forte.</p>
+<h3 id="contra-cada-condicao">Contra cada condição<a class="headerlink" href="#contra-cada-condicao" title="Permanent link">&para;</a></h3>
+<p><img alt="Peso do DDMA contra o ângulo, o RCG, a altura de onda e a fração de swell" src="../../assets/img/mvnet_weight_by_condition.png" /></p>
+<p>Nas amostras em que os dois ventos diferem em mais de 1 m/s:</p>
+<ul>
+<li><strong>Ângulo:</strong> o peso médio do DDMA fica entre 0,65 e 0,95, mais alto abaixo de 15° e mais baixo entre 40° e 55°.</li>
+<li><strong>RCG:</strong> quase constante, com o DDMA ganhando peso só com RCG muito alto (acima de ~70).</li>
+<li><strong>Altura de onda:</strong> é a condição que mais muda o peso. Com mar baixo (menos de 1 m), o LES pesa mais; com mar alto (acima de 5 m), o DDMA pesa mais de 1. É o jeito que a rede tem de usar a altura de onda sem uma correção aditiva.</li>
+<li><strong>Fração de swell:</strong> quase não muda o peso.</li>
+</ul>
+<p>A faixa entre os percentis 10 e 90 vai de −0,5 a 1,5, os limites da saída: em muitas amostras a rede usa o peso no limite, o que confirma que ele está servindo para estender a reta entre os dois ventos, e não só para escolher entre eles.</p>
+<h3 id="no-formato-da-figura-b4-do-atbd">No formato da Figura B4 do ATBD<a class="headerlink" href="#no-formato-da-figura-b4-do-atbd" title="Permanent link">&para;</a></h3>
+<p><img alt="Pesos médios por faixa do vento médio 80/20: rede (linha cheia) e tabela do MV (tracejada)" src="../../assets/img/mvnet_weight_b4.png" /></p>
+<p>A tabela do MV dá ao DDMA de 0,65 a 0,97 em toda a faixa. A rede faz o contrário no vento forte: o peso do LES passa o do DDMA a partir de ~12 m/s e chega a 1 acima de 17 m/s. A Figura B4 do ATBD faz o oposto, zerando o LES no vento forte. A diferença tem a mesma origem: a rede escolhe o menor dos dois ventos, e no vento forte esse costuma ser o LES, que satura.</p>
+<h3 id="o-les-muito-baixo">O LES muito baixo<a class="headerlink" href="#o-les-muito-baixo" title="Permanent link">&para;</a></h3>
+<p><img alt="Peso do DDMA nas amostras com vento LES de 19 m/s ou mais, contra as demais" src="../../assets/img/mvnet_weight_strong_les.png" /></p>
+<p>Nas 531 amostras da figura com vento LES de 19 m/s ou mais, que vêm de um LES medido muito baixo (o caso dos 68 a 70 m/s do oficial), o peso do DDMA fica perto de 1. <strong>A rede aprendeu sozinha a deixar o LES de fora nesses casos</strong>, como o produto oficial faz.</p>
+<h2 id="como-ler">Como ler<a class="headerlink" href="#como-ler" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>O que se pode afirmar.</strong> Na mesma GMF, com o mesmo treino e o mesmo teste, a rede de pesos melhora a etapa da combinação, mas <strong>não</strong> melhora o vento final do método de tabelas: piora contra o escaterômetro (referência independente) e contra o ERA5, sobretudo acima de 12 m/s. A diferença é muito maior que a variação entre sementes.</li>
+<li><strong>A decisão que isso apoia:</strong> manter a tabela do MV no método. A rede não deve substituí-la.</li>
+<li><strong>O que fica de útil:</strong> a rede mostrou que o peso depende muito da diferença entre os dois ventos e da altura de onda, e que o LES muito baixo deve ser descartado. São pistas para melhorar a tabela, por exemplo com o MV por faixa de altura de onda.</li>
+<li><strong>Próximos testes possíveis:</strong> aplicar a correção de estado do mar da tabela depois da rede (rever a regra de usar a altura de onda uma vez só) e treinar o <code>mvnet+</code>, que soma uma correção. Os dois atacam a causa da perda: o vento forte achatado.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
