@@ -1,0 +1,2188 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Vento na superfície do mar por GNSS-R (CYGNSS), base para o produto do Amazonia-1B">
+      
+      
+      
+      
+        <link rel="prev" href="../avaliacao-2022/">
+      
+      
+        <link rel="next" href="../weibull/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>A: reprodução do algoritmo - vsm-gnssr</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#a-reproducao-do-algoritmo" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../.." title="vsm-gnssr" class="md-header__button md-logo" aria-label="vsm-gnssr" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            vsm-gnssr
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              A: reprodução do algoritmo
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Tema escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Tema claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="vsm-gnssr" class="md-nav__button md-logo" aria-label="vsm-gnssr" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    vsm-gnssr
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metodologia
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Metodologia
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../metodologia/fundamentos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentos (ângulo, DDM, NBRCS e LES)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../metodologia/qc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controle de qualidade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../metodologia/metodo-lut/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Método LUT: construção e uso das tabelas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../metodologia/avaliacao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Como avaliamos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../metodologia/checagens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checagens do fluxo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dados
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Dados
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dados/fontes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fontes e cobertura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dados/downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estado dos downloads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dados/boias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boias e pareamento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dados/escaterometro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escaterômetro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Arquitetura
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitetura/visao-geral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visão geral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitetura/pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pipeline e jobs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitetura/interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interface e servidor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resultados
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resultados
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../avaliacao-2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumo das abordagens
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A: reprodução do algoritmo
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A: reprodução do algoritmo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#de-onde-veio-a-ideia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        De onde veio a ideia
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-hipotese" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A hipótese
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-foi-testado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que foi testado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resultados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resultados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#os-vereditos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Os vereditos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ponto-a-ponto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ponto a ponto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erro-por-faixa-de-vento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Erro por faixa de vento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-valores-de-68-a-70-ms-do-les-oficial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Os valores de 68 a 70 m/s do LES oficial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparacao-com-o-era5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparação com o ERA5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparacao-com-o-escaterometro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparação com o escaterômetro
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparacao-com-as-abordagens-anteriores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparação com as abordagens anteriores
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-aprendemos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que aprendemos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#situacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Situação
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../weibull/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B e C: distribuição de Weibull
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mv-5050/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D: média 50/50 no MV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rede-pesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rede de pesos (mvnet)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gmf-ponta/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    E: ponta de vento fraco da GMF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Andamento
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Andamento
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../andamento/etapas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Andamento por etapa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../andamento/decisoes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisões e alternativas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../andamento/pendencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pendências e perguntas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../referencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artigos de referência
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossário
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#de-onde-veio-a-ideia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        De onde veio a ideia
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-hipotese" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A hipótese
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-foi-testado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que foi testado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resultados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resultados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#os-vereditos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Os vereditos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ponto-a-ponto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ponto a ponto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erro-por-faixa-de-vento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Erro por faixa de vento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-valores-de-68-a-70-ms-do-les-oficial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Os valores de 68 a 70 m/s do LES oficial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparacao-com-o-era5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparação com o ERA5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparacao-com-o-escaterometro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparação com o escaterômetro
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparacao-com-as-abordagens-anteriores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparação com as abordagens anteriores
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-aprendemos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que aprendemos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#situacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Situação
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="a-reproducao-do-algoritmo">A: reprodução do algoritmo<a class="headerlink" href="#a-reproducao-do-algoritmo" title="Permanent link">&para;</a></h1>
+<p>O modelo A é a base de todas as outras abordagens: o algoritmo do CYGNSS (ATBD Rev 8) refeito pelo projeto, com <strong>tabelas próprias</strong> ajustadas com 2021. As outras abordagens mudam uma única coisa nele.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Versão do vento</td>
+<td><code>gmf-v1_mv-v1_ss-v1_db-v1</code></td>
+</tr>
+<tr>
+<td>Treino</td>
+<td>2021 inteiro (468 milhões de amostras)</td>
+</tr>
+<tr>
+<td>Teste</td>
+<td>01/02/2022 a 31/12/2022: 334 dias, 437 milhões de amostras com QC oficial</td>
+</tr>
+<tr>
+<td>Data da rodada</td>
+<td>23/10/2026, no servidor do projeto</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition abstract">
+<p class="admonition-title">Resumo</p>
+<ul>
+<li><strong>M2: não passou.</strong> A tabela do NBRCS passa (0,45 m/s), a do LES não (1,05 m/s).</li>
+<li><strong>M3: não passou, por pouco.</strong> O vento final fica a 0,52 m/s do oficial, para um limite de 0,5 m/s.</li>
+<li><strong>Contra o escaterômetro (referência independente), o vento próprio empata com o oficial</strong>: RMSD de 1,45 m/s contra 1,46 m/s. Os dois <strong>subestimam o vento forte</strong>: −1,5 m/s a 12 m/s e até −3,5 m/s acima de 22 m/s.</li>
+<li><strong>Combinar ajuda</strong>: cada etapa da cadeia melhora o vento, e a correção de estado do mar é a que mais ajuda.</li>
+<li>Boa parte da falha do LES vem de <strong>0,03% das amostras</strong> em que o vento LES oficial é de 68 m/s ou mais, mas o vento final oficial delas é de cerca de 9 m/s.</li>
+</ul>
+</div>
+<h2 id="de-onde-veio-a-ideia">De onde veio a ideia<a class="headerlink" href="#de-onde-veio-a-ideia" title="Permanent link">&para;</a></h2>
+<p>O objetivo da primeira fase do projeto é <strong>reproduzir o produto de vento do CYGNSS</strong> (versão 3.2) seguindo o ATBD, o documento que descreve o algoritmo. Com isso, o INPE passa a ter um algoritmo próprio, entendido etapa por etapa, que pode ser ajustado aos dados do Amazonia-1B. As tabelas da NASA não são públicas; por isso, todas as tabelas (GMF, MV, estado do mar e debias) são ajustadas pelo próprio projeto, com 2021.</p>
+<h2 id="a-hipotese">A hipótese<a class="headerlink" href="#a-hipotese" title="Permanent link">&para;</a></h2>
+<p>Se o algoritmo for seguido fielmente, tabelas ajustadas com um ano de dados devem:</p>
+<ol>
+<li>reproduzir o vento oficial de cada etapa com diferença típica abaixo de <strong>0,5 m/s</strong> (os critérios do M2 e do M3);</li>
+<li>acertar o vento real <strong>tão bem quanto o oficial</strong>, medido por uma referência que nenhum dos dois usou, o escaterômetro.</li>
+</ol>
+<h2 id="o-que-foi-testado">O que foi testado<a class="headerlink" href="#o-que-foi-testado" title="Permanent link">&para;</a></h2>
+<p>A cadeia completa do ATBD, com as tabelas próprias (<a href="../../metodologia/metodo-lut/">Método LUT</a>):</p>
+<pre class="mermaid"><code>flowchart LR
+  A[NBRCS] --&gt; B[vento DDMA]
+  C[LES] --&gt; D[vento LES]
+  B --&gt; E[MV]
+  D --&gt; E
+  E --&gt; F[estado do mar]
+  F --&gt; G[final]</code></pre>
+<table>
+<thead>
+<tr>
+<th>Etapa</th>
+<th>Tabela</th>
+<th>Escolhas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GMF</td>
+<td><code>gmf/v1</code></td>
+<td>casamento de distribuições com a distribuição real do ERA5 (empírica), média móvel de ±3 m/s</td>
+</tr>
+<tr>
+<td>MV</td>
+<td><code>mv/v1</code></td>
+<td>média provisória 80% DDMA / 20% LES, como no texto do ATBD</td>
+</tr>
+<tr>
+<td>Estado do mar</td>
+<td><code>seastate/v1</code></td>
+<td>grade de vento × altura de onda</td>
+</tr>
+<tr>
+<td>Debias</td>
+<td><code>debias/v1</code></td>
+<td>por satélite, antena e satélite GPS</td>
+</tr>
+</tbody>
+</table>
+<p>As siglas e as medidas de erro estão no <a href="../avaliacao-2022/#siglas-e-termos">Resumo das abordagens</a>.</p>
+<h2 id="resultados">Resultados<a class="headerlink" href="#resultados" title="Permanent link">&para;</a></h2>
+<h3 id="os-vereditos">Os vereditos<a class="headerlink" href="#os-vereditos" title="Permanent link">&para;</a></h3>
+<p><img alt="À esquerda, o RMSD de cada critério contra o vento oficial equivalente; à direita, o RMSD de cada etapa contra o ERA5" src="../../assets/img/eval2022_verdict_a.png" /></p>
+<p>A figura responde a <strong>duas perguntas diferentes</strong>, e por isso tem dois painéis. As barras de um painel <strong>não se comparam</strong> com as do outro, porque cada painel usa uma referência diferente.</p>
+<p><strong>À esquerda: o vento próprio reproduz o oficial?</strong> Cada barra compara uma etapa própria com a <strong>mesma etapa da NASA</strong>. É o que decide o M2 e o M3. Verde passa no critério de <strong>0,5 m/s</strong>, vermelho não passa. Uma barra curta aqui quer dizer "imita bem a NASA", e <strong>não</strong> "acerta o vento real": o 0,45 do DDMA mostra que a tabela do NBRCS própria é parecida com a da NASA, não que o DDMA sozinho seja o melhor vento.</p>
+<table>
+<thead>
+<tr>
+<th>Marco</th>
+<th>Comparação</th>
+<th>RMSD</th>
+<th>Viés</th>
+<th>Correlação</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M2</td>
+<td>DDMA × DDMA oficial</td>
+<td><strong>0,45</strong> m/s</td>
+<td>+0,31 m/s</td>
+<td>0,992</td>
+<td><span class="twemoji done"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"/></svg></span> passa</td>
+</tr>
+<tr>
+<td>M2</td>
+<td>LES × LES oficial</td>
+<td><strong>1,05</strong> m/s</td>
+<td>+0,42 m/s</td>
+<td>0,931</td>
+<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c5.53 0 10 4.47 10 10s-4.47 10-10 10S2 17.53 2 12 6.47 2 12 2m3.59 5L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"/></svg></span> não passa</td>
+</tr>
+<tr>
+<td>M3</td>
+<td>Final × final oficial</td>
+<td><strong>0,52</strong> m/s</td>
+<td>−0,29 m/s</td>
+<td>0,988</td>
+<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c5.53 0 10 4.47 10 10s-4.47 10-10 10S2 17.53 2 12 6.47 2 12 2m3.59 5L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"/></svg></span> não passa</td>
+</tr>
+</tbody>
+</table>
+<p>O vento final próprio acompanha o oficial de perto (correlação de 0,99). O que falta para o M3 é um <strong>viés pequeno e constante</strong>: o vento final fica, em média, 0,29 m/s abaixo do oficial. Sem esse viés, a diferença seria de 0,43 m/s.</p>
+<h3 id="ponto-a-ponto">Ponto a ponto<a class="headerlink" href="#ponto-a-ponto" title="Permanent link">&para;</a></h3>
+<p><img alt="Vento próprio contra o oficial, ponto a ponto, numa amostra de 2022" src="../../assets/img/eval2022_own_vs_official_a.png" /></p>
+<p>Cada painel é um dos critérios acima, com <strong>1 milhão de pontos</strong> sorteados ao acaso entre os que passam no QC oficial (3.000 por dia, nos 334 dias, com semente fixa). A cor é o número de pontos em cada hexágono, em escala logarítmica (amarelo é onde há mais pontos). A linha tracejada é onde o vento próprio seria igual ao oficial. Os RMSD da amostra (0,45, 1,07 e 0,52 m/s) são praticamente os do ano inteiro (0,45, 1,05 e 0,52 m/s), então a amostra representa bem o período.</p>
+<ul>
+<li><strong>DDMA:</strong> a nuvem é estreita e segue a diagonal até 25 m/s, um pouco acima dela (é o viés de +0,31 m/s).</li>
+<li><strong>LES:</strong> estreita até uns 12 m/s, depois se abre. O vento LES próprio para em cerca de 18 a 20 m/s, enquanto o oficial continua; 312 pontos da amostra estão fora do eixo, quase todos com o LES oficial de 68 a 70 m/s (<a href="#os-valores-de-68-a-70-ms-do-les-oficial">ver abaixo</a>).</li>
+<li><strong>Vento fraco:</strong> nos dois painéis do M2, quando o vento oficial fica abaixo de cerca de 2 m/s, o vento próprio vale <strong>zero</strong> (a faixa horizontal no canto de baixo). É a extrapolação da tabela própria abaixo do seu menor vento, que dá valores negativos, cortados em zero: num dia (01/03/2022), cerca de 5.700 pontos no DDMA e 6.300 no LES, uns 0,4% do dia. A causa e a correção são a abordagem <a href="../gmf-ponta/">E</a>.</li>
+<li><strong>Final:</strong> a nuvem é mais larga que as do M2, porque o vento final passa pela combinação e pelas correções, mas continua centrada na diagonal, um pouco abaixo dela em ventos médios (o viés de −0,29 m/s).</li>
+</ul>
+<p><strong>À direita: o vento acerta o vento?</strong> Aqui <strong>todas as etapas</strong> são medidas contra a <strong>mesma referência</strong>, o ERA5, então dá para compará-las entre si. A barra cinza é o vento final da NASA, na mesma régua.</p>
+<table>
+<thead>
+<tr>
+<th>Etapa</th>
+<th>RMSD contra ERA5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DDMA (só o NBRCS)</td>
+<td>1,94 m/s</td>
+</tr>
+<tr>
+<td>LES (só o LES)</td>
+<td>2,21 m/s</td>
+</tr>
+<tr>
+<td>MV (DDMA + LES)</td>
+<td>1,88 m/s</td>
+</tr>
+<tr>
+<td>Estado do mar</td>
+<td><strong>1,49 m/s</strong></td>
+</tr>
+<tr>
+<td>Final</td>
+<td>1,53 m/s</td>
+</tr>
+<tr>
+<td><em>Final oficial (NASA)</em></td>
+<td><em>1,58 m/s</em></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Combinar ajuda.</strong> O MV é melhor que o DDMA e o LES sozinhos, e a correção de estado do mar é o maior ganho da cadeia.</li>
+<li><strong>O debias não ajuda contra o ERA5.</strong> O RMSD sobe um pouco, de 1,49 para 1,53 m/s. O debias foi feito para tirar a tendência de cada satélite, não para reduzir o erro total.</li>
+<li><strong>O ERA5 favorece o vento próprio</strong>, porque as tabelas foram ajustadas com ele (<a href="#comparacao-com-o-era5">ver abaixo</a>).</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Uma comparação que não aparece na figura</p>
+<p>As etapas intermediárias próprias (MV e estado do mar) também podem ser comparadas com o <strong>final oficial</strong>: dão 0,96 e 0,75 m/s. Esses números saíram da figura porque confundem: o final oficial já passou por todas as correções, e o MV ainda não. É natural que fique longe, sem que isso diga se o MV é bom.</p>
+</div>
+<h3 id="erro-por-faixa-de-vento">Erro por faixa de vento<a class="headerlink" href="#erro-por-faixa-de-vento" title="Permanent link">&para;</a></h3>
+<p><img alt="RMSD, viés e número de amostras por faixa do vento oficial" src="../../assets/img/eval2022_by_wind_a.png" /></p>
+<p>Os três painéis usam as mesmas faixas de 1 m/s do vento <strong>oficial</strong>: em cima o RMSD, no meio o viés (próprio menos oficial), embaixo a fração das amostras em cada faixa, em escala logarítmica.</p>
+<ul>
+<li><strong>Entre 3 e 18 m/s</strong>, onde estão quase todas as amostras, o vento final fica perto do limite de 0,5 m/s.</li>
+<li><strong>Acima de 23 m/s</strong> o vento final subestima muito o oficial (até −11 m/s perto de 30 m/s). São menos de 0,01% das amostras: pesam pouco no RMSD total, mas mostram que as tabelas próprias saturam em vento forte. Com um ano de treino há poucas amostras nessas faixas.</li>
+<li><strong>A curva do LES some em 20 m/s</strong> porque o vento LES oficial quase não tem valores entre 20 e 68 m/s. Em seguida, aparece um grupo de cerca de 130 mil amostras (0,03%) com valores de <strong>68 m/s ou mais</strong>, fora do eixo da figura. Nessas amostras a diferença é de cerca de 51 m/s, e só elas levam o RMSD do LES de 0,58 para 1,05 m/s. Ver a seção seguinte.</li>
+</ul>
+<h3 id="os-valores-de-68-a-70-ms-do-les-oficial">Os valores de 68 a 70 m/s do LES oficial<a class="headerlink" href="#os-valores-de-68-a-70-ms-do-les-oficial" title="Permanent link">&para;</a></h3>
+<p>Olhando um dia (01/03/2022) em detalhe:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Nessas amostras</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quantas</td>
+<td>456 no dia, depois do QC oficial</td>
+</tr>
+<tr>
+<td>Vento LES <strong>oficial</strong></td>
+<td>68,5 a 69,8 m/s, quase todas perto de 69,8</td>
+</tr>
+<tr>
+<td>Vento LES <strong>próprio</strong></td>
+<td>16 a 22 m/s (média de 18 m/s)</td>
+</tr>
+<tr>
+<td>Vento <strong>final oficial</strong></td>
+<td>média de <strong>8,8 m/s</strong></td>
+</tr>
+<tr>
+<td>Ângulo de incidência</td>
+<td>de 12° a 64°, sem concentração num ângulo</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Não é vento real.</strong> O próprio produto oficial dá a essas amostras um vento final de cerca de 9 m/s. O vento LES de 70 m/s praticamente não aparece no vento final; ainda não verificamos em que etapa ele é neutralizado.</li>
+<li><strong>Pelo ATBD, esses valores são válidos.</strong> Quando o valor medido fica fora da faixa da tabela, o ATBD manda extrapolar em linha reta (seção 5.5), e o vento LES só é marcado como inválido a partir de <strong>99 m/s</strong> (flags de qualidade do produto). Então a regra do ATBD <strong>não</strong> permite descartar essas amostras da comparação.</li>
+<li><strong>O código próprio também extrapola</strong>, da mesma forma, mas chega a cerca de 18 m/s. A diferença deve estar no <strong>extremo de vento forte da tabela do LES</strong>, que difere entre a tabela própria e a oficial. A causa ainda não foi investigada.</li>
+<li><strong>Consequência para o M2.</strong> Excluir essas amostras deixaria o LES a 0,58 m/s, ainda acima do limite. Mas, como o ATBD as considera válidas, excluí-las seria ajustar o teste para passar. Por isso o resultado oficial do M2 continua sendo <strong>1,05 m/s</strong>, e o número sem essas amostras (0,58 m/s) fica registrado só como diagnóstico.</li>
+</ul>
+<h3 id="comparacao-com-o-era5">Comparação com o ERA5<a class="headerlink" href="#comparacao-com-o-era5" title="Permanent link">&para;</a></h3>
+<p><img alt="Viés e RMSD contra o ERA5" src="../../assets/img/eval2022_era5_a.png" /></p>
+<p>À esquerda, cada etapa do algoritmo próprio e o vento oficial contra o vento do ERA5 no mesmo ponto e hora. À direita, o erro do vento final contra o ERA5 por altura de onda.</p>
+<table>
+<thead>
+<tr>
+<th>Vento</th>
+<th>Viés contra ERA5</th>
+<th>RMSD contra ERA5</th>
+<th>Correlação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MV</td>
+<td>+0,56 m/s</td>
+<td>1,88 m/s</td>
+<td>0,771</td>
+</tr>
+<tr>
+<td>Depois do estado do mar</td>
+<td>+0,02 m/s</td>
+<td>1,49 m/s</td>
+<td>0,846</td>
+</tr>
+<tr>
+<td><strong>Final próprio</strong></td>
+<td><strong>+0,02 m/s</strong></td>
+<td><strong>1,53 m/s</strong></td>
+<td>0,847</td>
+</tr>
+<tr>
+<td>Oficial do CYGNSS</td>
+<td>+0,31 m/s</td>
+<td>1,58 m/s</td>
+<td>0,842</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>A correção de estado do mar é a etapa que mais ajuda</strong>: tira quase todo o viés e reduz o RMSD de 1,88 para 1,49 m/s.</li>
+<li><strong>O debias quase não muda o resultado contra o ERA5</strong>: o RMSD sobe um pouco (de 1,49 para 1,53 m/s).</li>
+<li><strong>Com ondas acima de 3 m o erro cresce</strong> e o vento final passa a superestimar o ERA5 (até +2 m/s com ondas de 8 m). Mar muito agitado é minoria, mas é onde o algoritmo é mais fraco.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">O ERA5 não é uma referência independente aqui</p>
+<p>As tabelas foram <strong>ajustadas com o ERA5 de 2021</strong>. É esperado que o vento próprio concorde com o ERA5 de 2022 melhor que o oficial, que foi feito de outra forma. Por isso o empate com o oficial <strong>não prova</strong> que o vento próprio é melhor. Isso só uma referência independente pode mostrar: o escaterômetro (<a href="#comparacao-com-o-escaterometro">seção seguinte</a>) e as <a href="../../dados/boias/">boias</a>.</p>
+</div>
+<h3 id="comparacao-com-o-escaterometro">Comparação com o escaterômetro<a class="headerlink" href="#comparacao-com-o-escaterometro" title="Permanent link">&para;</a></h3>
+<p>O escaterômetro é um radar em órbita feito para medir vento no mar (<a href="../../dados/escaterometro/">Escaterômetro</a>). <strong>Nem as tabelas próprias nem as da NASA foram ajustadas com ele</strong>, então ele é a primeira régua <strong>independente</strong> do projeto. Cada ponto do CYGNSS foi pareado com a medida do escaterômetro mais próxima, a até <strong>25 km e 30 min</strong> (três instrumentos, ASCAT do Metop-B e do Metop-C e HSCAT do HY-2B, nas duas passagens).</p>
+<div class="admonition info">
+<p class="admonition-title">Todos os ventos entram, inclusive os extremos</p>
+<p>O filtro de qualidade recusa uma célula do escaterômetro só quando ela tem uma marca de <strong>defeito</strong> (chuva, gelo, terra, falha de controle de qualidade). As duas marcas que só informam a faixa do vento (<em>até 3 m/s</em> e <em>acima de 30 m/s</em>) não a recusam. Uma primeira versão do filtro recusava também essas duas e deixava de fora os ventos de até 3 m/s; ela foi corrigida, e os números abaixo já incluem todos os ventos. Em 2022 o vento pareado vai de <strong>0,2 a 26,4 m/s</strong>: não houve nenhum par acima de 30 m/s.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pares</td>
+<td><strong>48,2 milhões</strong> em 334 dias (nenhum dia sem escaterômetro), cerca de 11% dos pontos com QC oficial</td>
+</tr>
+<tr>
+<td>Distância e tempo</td>
+<td>mediana de 11 km e 14 min (num dia típico)</td>
+</tr>
+<tr>
+<td>Faixa de vento comparada</td>
+<td>de 0,2 a 26,4 m/s, todos os ventos pareados</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Vento</th>
+<th>Viés contra o escaterômetro</th>
+<th>RMSD</th>
+<th>Correlação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Final próprio</strong></td>
+<td><strong>−0,19 m/s</strong></td>
+<td><strong>1,45 m/s</strong></td>
+<td>0,861</td>
+</tr>
+<tr>
+<td>Final oficial (NASA)</td>
+<td>+0,08 m/s</td>
+<td>1,46 m/s</td>
+<td>0,857</td>
+</tr>
+</tbody>
+</table>
+<p>Os intervalos de confiança de 95% (<em>bootstrap</em> por instrumento e dia) não se sobrepõem no viés (próprio de −0,21 a −0,18 m/s; oficial de +0,07 a +0,09 m/s) e se sobrepõem no RMSD (próprio de 1,43 a 1,47 m/s; oficial de 1,45 a 1,48 m/s).</p>
+<p><img alt="Vento final próprio e oficial contra o escaterômetro, ponto a ponto, numa amostra de 2022" src="../../assets/img/eval2022_winds_vs_scatterometer_a.png" /></p>
+<p><strong>Ponto a ponto.</strong> Os mesmos <strong>1 milhão de pares</strong> (3.000 por dia, sorteados entre os que têm escaterômetro e QC oficial, com semente fixa) nos dois painéis: à esquerda o vento final próprio, à direita o oficial, os dois contra o escaterômetro no eixo horizontal. A cor é o número de pares em cada hexágono, em escala logarítmica; a linha tracejada é onde o vento seria igual ao do escaterômetro. Os números da amostra (próprio −0,20 m/s e 1,47 m/s; oficial +0,08 m/s e 1,48 m/s) são praticamente os do ano inteiro.</p>
+<ul>
+<li><strong>As duas nuvens são quase iguais</strong>: o mesmo espalhamento, que é o erro comum aos dois (o CYGNSS e o escaterômetro não medem exatamente o mesmo lugar e a mesma hora, e cada um tem o seu ruído).</li>
+<li><strong>Acima de uns 12 m/s, as duas nuvens ficam abaixo da diagonal</strong>: os dois ventos subestimam o vento forte, como mostra a tabela por faixa abaixo.</li>
+<li><strong>Em vento fraco</strong>, o próprio fica um pouco mais perto da diagonal; o oficial fica um pouco acima dela.</li>
+</ul>
+<p><img alt="Viés, RMSD e número de pares contra o escaterômetro por faixa de vento" src="../../assets/img/eval2022_scatterometer_a.png" /></p>
+<p>As faixas são de 2 m/s do vento <strong>do escaterômetro</strong>. Em cima o viés (vento menos escaterômetro), no meio o RMSD, embaixo a fração dos pares em cada faixa, em escala logarítmica.</p>
+<table>
+<thead>
+<tr>
+<th>Faixa (m/s)</th>
+<th>Pares</th>
+<th>Viés próprio</th>
+<th>Viés oficial</th>
+<th>RMSD próprio</th>
+<th>RMSD oficial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 a 2</td>
+<td>1,3 mi</td>
+<td>+0,32</td>
+<td>+0,55</td>
+<td>0,93</td>
+<td>1,05</td>
+</tr>
+<tr>
+<td>2 a 4</td>
+<td>5,4 mi</td>
+<td>+0,04</td>
+<td>+0,23</td>
+<td>1,07</td>
+<td>1,08</td>
+</tr>
+<tr>
+<td>4 a 6</td>
+<td>11,4 mi</td>
+<td>+0,11</td>
+<td>+0,35</td>
+<td>1,17</td>
+<td>1,24</td>
+</tr>
+<tr>
+<td>6 a 8</td>
+<td>14,3 mi</td>
+<td>−0,01</td>
+<td>+0,33</td>
+<td>1,30</td>
+<td>1,37</td>
+</tr>
+<tr>
+<td>8 a 10</td>
+<td>9,7 mi</td>
+<td>−0,42</td>
+<td>−0,09</td>
+<td>1,55</td>
+<td>1,52</td>
+</tr>
+<tr>
+<td>10 a 12</td>
+<td>4,1 mi</td>
+<td>−0,96</td>
+<td>−0,74</td>
+<td>2,01</td>
+<td>1,91</td>
+</tr>
+<tr>
+<td>12 a 14</td>
+<td>1,4 mi</td>
+<td>−1,48</td>
+<td>−1,37</td>
+<td>2,55</td>
+<td>2,47</td>
+</tr>
+<tr>
+<td>14 a 16</td>
+<td>421 mil</td>
+<td>−1,77</td>
+<td>−1,75</td>
+<td>2,96</td>
+<td>2,89</td>
+</tr>
+<tr>
+<td>16 a 18</td>
+<td>107 mil</td>
+<td>−2,09</td>
+<td>−2,18</td>
+<td>3,25</td>
+<td>3,26</td>
+</tr>
+<tr>
+<td>18 a 20</td>
+<td>24 mil</td>
+<td>−2,60</td>
+<td>−2,71</td>
+<td>3,60</td>
+<td>3,65</td>
+</tr>
+<tr>
+<td>20 a 22</td>
+<td>5 mil</td>
+<td>−2,82</td>
+<td>−2,72</td>
+<td>3,88</td>
+<td>4,05</td>
+</tr>
+<tr>
+<td>22 ou mais</td>
+<td>2 mil</td>
+<td>−3,48</td>
+<td>−3,15</td>
+<td>4,11</td>
+<td>3,81</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Como ler:</strong></p>
+<ul>
+<li><strong>Na régua independente, os dois ventos empatam</strong> no total (RMSD de 1,45 contra 1,46 m/s).</li>
+<li><strong>Até 8 m/s</strong>, onde estão dois terços dos pares (67%), o vento próprio tem viés mais perto de zero e RMSD um pouco menor. <strong>Acima de 8 m/s</strong>, ele subestima um pouco mais que o oficial.</li>
+<li><strong>Em vento fraco (até 2 m/s)</strong>, os dois superestimam, o oficial mais que o próprio (+0,55 contra +0,32 m/s).</li>
+<li><strong>Os dois subestimam muito o vento forte</strong>, cada vez mais à medida que o vento cresce. É o que se espera de duas cadeias ajustadas ao ERA5, que subestima vento forte. Mostra onde está o maior espaço para melhorar, sem descartar os extremos.</li>
+<li><strong>O viés do M3 muda de leitura.</strong> Contra o ERA5, o oficial fica 0,31 m/s acima e o próprio, 0,02. Contra o escaterômetro, o oficial fica 0,08 m/s acima e o próprio, 0,19 abaixo. Nesses pontos, o escaterômetro fica cerca de 0,2 m/s acima do ERA5. Então o +0,31 do oficial contra o ERA5 parece ser, em boa parte, o <strong>ERA5 baixo</strong>, e não um defeito do oficial: aproximar o vento próprio do oficial (o que o M3 pede) deve também aproximá-lo do vento medido.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">O que o escaterômetro mede</p>
+<p>O vento do produto é o <em>vento equivalente de tensão a 10 m</em>, que difere um pouco do vento a 10 m de um anemômetro; ele é usado como o produto o entrega, sem conversão. Se o INPE prefere uma conversão é uma pergunta em aberto (<a href="../../andamento/pendencias/">Pendências</a>).</p>
+</div>
+<h2 id="comparacao-com-as-abordagens-anteriores">Comparação com as abordagens anteriores<a class="headerlink" href="#comparacao-com-as-abordagens-anteriores" title="Permanent link">&para;</a></h2>
+<p>É a primeira abordagem; a comparação é com o produto oficial da NASA. As abordagens seguintes comparam-se com esta tabela, que cresce a cada página.</p>
+<table>
+<thead>
+<tr>
+<th>Medida</th>
+<th>Oficial</th>
+<th>A</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vento DDMA × oficial, RMSD (M2)</td>
+<td>—</td>
+<td>0,45</td>
+</tr>
+<tr>
+<td>Vento LES × oficial, RMSD (M2)</td>
+<td>—</td>
+<td>1,05</td>
+</tr>
+<tr>
+<td>Combinação (MV) × ERA5, RMSD</td>
+<td>—</td>
+<td>1,88</td>
+</tr>
+<tr>
+<td>Final × final oficial, RMSD (M3)</td>
+<td>—</td>
+<td>0,518</td>
+</tr>
+<tr>
+<td>Final × ERA5, RMSD</td>
+<td>1,585</td>
+<td><strong>1,527</strong></td>
+</tr>
+<tr>
+<td><strong>Final × escaterômetro, RMSD</strong></td>
+<td>1,463</td>
+<td><strong>1,450</strong></td>
+</tr>
+<tr>
+<td>Final × escaterômetro, viés</td>
+<td>+0,08</td>
+<td>−0,19</td>
+</tr>
+<tr>
+<td>Média do RMSD nas faixas de 2 m/s, de 0 a 24 m/s (escaterômetro)</td>
+<td>2,36</td>
+<td>2,36</td>
+</tr>
+<tr>
+<td>Viés com vento de 15 m/s ou mais (escaterômetro)</td>
+<td>−2,09</td>
+<td>−2,04</td>
+</tr>
+<tr>
+<td>Viés com vento de 20 m/s ou mais (escaterômetro)</td>
+<td>−2,83</td>
+<td>−2,99</td>
+</tr>
+</tbody>
+</table>
+<h2 id="o-que-aprendemos">O que aprendemos<a class="headerlink" href="#o-que-aprendemos" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>O algoritmo do ATBD é reproduzível</strong> com tabelas próprias e um ano de dados: o vento final empata com o oficial na régua independente.</li>
+<li><strong>Imitar a NASA e acertar o vento são perguntas diferentes.</strong> O M2 e o M3 não passaram por pouco, mas o vento próprio é tão bom quanto o oficial contra o escaterômetro. O viés de −0,29 m/s do M3 parece vir, em parte, de o ERA5 ser mais baixo que o vento medido.</li>
+<li><strong>A correção de estado do mar é a etapa mais importante</strong> da cadeia.</li>
+<li><strong>O vento forte é o ponto fraco</strong> dos dois algoritmos, o nosso e o da NASA: os dois subestimam cada vez mais acima de 12 m/s.</li>
+<li><strong>Dois defeitos ficaram à vista:</strong> os ventos zerados abaixo de 2 m/s (a ponta de vento fraco da GMF, tratada na abordagem <a href="../gmf-ponta/">E</a>) e os valores de 68 a 70 m/s do LES oficial.</li>
+</ul>
+<h2 id="situacao">Situação<a class="headerlink" href="#situacao" title="Permanent link">&para;</a></h2>
+<p><strong>Adotada</strong> como base do projeto. Todas as abordagens seguintes mudam uma coisa nela. O que ficou em aberto:</p>
+<ol>
+<li><strong>Comparar o extremo de vento forte da tabela do LES</strong>, a própria e a oficial, para entender por que a extrapolação oficial chega a 70 m/s e a própria a cerca de 18 m/s nas mesmas amostras.</li>
+<li><strong>Investigar a diferença restante do LES</strong> (0,58 m/s), por faixa de ângulo e de vento.</li>
+<li><strong>Investigar o viés de −0,29 m/s do vento final</strong> contra o oficial, que sozinho decide o M3.</li>
+<li><strong>Melhorar o vento forte</strong>, onde os dois ventos mais erram contra o escaterômetro.</li>
+</ol>
+<p>Os critérios de 0,5 m/s são propostas iniciais. Como diz <a href="../../andamento/etapas/#criterios-de-aceitacao">Andamento por etapa</a>, um critério não atingido é registrado e diagnosticado, e o teste não é ajustado para passar.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
