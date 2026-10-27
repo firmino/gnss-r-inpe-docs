@@ -1199,7 +1199,7 @@
   <span class="md-ellipsis">
     
   
-    Rede de pesos (mvnet)
+    E: rede de pesos (mvnet)
   
 
     
@@ -1227,7 +1227,7 @@
   <span class="md-ellipsis">
     
   
-    E: ponta de vento fraco da GMF
+    F: ponta de vento fraco da GMF
   
 
     
@@ -1314,7 +1314,7 @@
   <span class="md-ellipsis">
     
   
-    Inversão conjunta (F e G)
+    Inversão conjunta (G e H)
   
 
     
@@ -2089,7 +2089,7 @@
 <ul>
 <li><strong>DDMA:</strong> a nuvem é estreita e segue a diagonal até 25 m/s, um pouco acima dela (é o viés de +0,31 m/s).</li>
 <li><strong>LES:</strong> estreita até uns 12 m/s, depois se abre. O vento LES próprio para em cerca de 18 a 20 m/s, enquanto o oficial continua; 312 pontos da amostra estão fora do eixo, quase todos com o LES oficial de 68 a 70 m/s (<a href="#os-valores-de-68-a-70-ms-do-les-oficial">ver abaixo</a>).</li>
-<li><strong>Vento fraco:</strong> nos dois painéis do M2, quando o vento oficial fica abaixo de cerca de 2 m/s, o vento próprio vale <strong>zero</strong> (a faixa horizontal no canto de baixo). É a extrapolação da tabela própria abaixo do seu menor vento, que dá valores negativos, cortados em zero: num dia (01/03/2022), cerca de 5.700 pontos no DDMA e 6.300 no LES, uns 0,4% do dia. A causa e a correção são a abordagem <a href="../gmf-ponta/">E</a>.</li>
+<li><strong>Vento fraco:</strong> nos dois painéis do M2, quando o vento oficial fica abaixo de cerca de 2 m/s, o vento próprio vale <strong>zero</strong> (a faixa horizontal no canto de baixo). É a extrapolação da tabela própria abaixo do seu menor vento, que dá valores negativos, cortados em zero: num dia (01/03/2022), cerca de 5.700 pontos no DDMA e 6.300 no LES, uns 0,4% do dia. A causa e a correção são a abordagem <a href="../gmf-ponta/">F</a>.</li>
 <li><strong>Final:</strong> a nuvem é mais larga que as do M2, porque o vento final passa pela combinação e pelas correções, mas continua centrada na diagonal, um pouco abaixo dela em ventos médios (o viés de −0,29 m/s).</li>
 </ul>
 <p><strong>À direita: o vento acerta o vento?</strong> Aqui <strong>todas as etapas</strong> são medidas contra a <strong>mesma referência</strong>, o ERA5, então dá para compará-las entre si. A barra cinza é o vento final da NASA, na mesma régua.</p>
@@ -2483,7 +2483,7 @@
 <li><strong>Imitar a NASA e acertar o vento são perguntas diferentes.</strong> O M2 e o M3 não passaram por pouco, mas o vento próprio é tão bom quanto o oficial contra o escaterômetro. O viés de −0,29 m/s do M3 parece vir, em parte, de o ERA5 ser mais baixo que o vento medido.</li>
 <li><strong>A correção de estado do mar é a etapa mais importante</strong> da cadeia.</li>
 <li><strong>O vento forte é o ponto fraco</strong> dos dois algoritmos, o nosso e o da NASA: os dois subestimam cada vez mais acima de 12 m/s.</li>
-<li><strong>Dois defeitos ficaram à vista:</strong> os ventos zerados abaixo de 2 m/s (a ponta de vento fraco da GMF, tratada na abordagem <a href="../gmf-ponta/">E</a>) e os valores de 68 a 70 m/s do LES oficial.</li>
+<li><strong>Dois defeitos ficaram à vista:</strong> os ventos zerados abaixo de 2 m/s (a ponta de vento fraco da GMF, tratada na abordagem <a href="../gmf-ponta/">F</a>) e os valores de 68 a 70 m/s do LES oficial.</li>
 </ul>
 <h2 id="situacao">Situação<a class="headerlink" href="#situacao" title="Permanent link">&para;</a></h2>
 <p><strong>Adotada</strong> como base do projeto. Todas as abordagens seguintes mudam uma coisa nela. O que ficou em aberto:</p>

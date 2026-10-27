@@ -25,7 +25,7 @@
     
     
       
-        <title>Rede de pesos (mvnet) - vsm-gnssr</title>
+        <title>E: rede de pesos (mvnet) - vsm-gnssr</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#rede-de-pesos-mvnet" class="md-skip">
+        <a href="#e-rede-de-pesos-mvnet" class="md-skip">
           Pular para conteúdo
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Rede de pesos (mvnet)
+              E: rede de pesos (mvnet)
             
           </span>
         </div>
@@ -1012,7 +1012,7 @@
   <span class="md-ellipsis">
     
   
-    Rede de pesos (mvnet)
+    E: rede de pesos (mvnet)
   
 
     
@@ -1030,7 +1030,7 @@
   <span class="md-ellipsis">
     
   
-    Rede de pesos (mvnet)
+    E: rede de pesos (mvnet)
   
 
     
@@ -1294,7 +1294,7 @@
   <span class="md-ellipsis">
     
   
-    E: ponta de vento fraco da GMF
+    F: ponta de vento fraco da GMF
   
 
     
@@ -1381,7 +1381,7 @@
   <span class="md-ellipsis">
     
   
-    Inversão conjunta (F e G)
+    Inversão conjunta (G e H)
   
 
     
@@ -2086,8 +2086,8 @@
 
 
 
-<h1 id="rede-de-pesos-mvnet">Rede de pesos (mvnet)<a class="headerlink" href="#rede-de-pesos-mvnet" title="Permanent link">&para;</a></h1>
-<p>Uma rede neural pequena que <strong>escolhe, amostra a amostra, quanto confiar no vento do NBRCS (DDMA) e no vento do LES</strong>. Ela substitui só uma etapa do <a href="../modelo-a/">modelo A</a>: a combinação de mínima variância (MV).</p>
+<h1 id="e-rede-de-pesos-mvnet">E: rede de pesos (mvnet)<a class="headerlink" href="#e-rede-de-pesos-mvnet" title="Permanent link">&para;</a></h1>
+<p>O modelo E é uma rede neural pequena que <strong>escolhe, amostra a amostra, quanto confiar no vento do NBRCS (DDMA) e no vento do LES</strong>. Ela substitui só uma etapa do <a href="../modelo-a/">modelo A</a>: a combinação de mínima variância (MV).</p>
 <table>
 <thead>
 <tr>
@@ -2137,7 +2137,7 @@
 <tr>
 <th>Etapa</th>
 <th>Modelo A (tabelas)</th>
-<th>Rede de pesos</th>
+<th>Modelo E (rede de pesos)</th>
 </tr>
 </thead>
 <tbody>
@@ -2303,7 +2303,7 @@
 <tr>
 <th>Comparação</th>
 <th>Modelo A</th>
-<th>Rede de pesos (5 sementes)</th>
+<th>Modelo E (5 sementes)</th>
 <th>Oficial</th>
 </tr>
 </thead>
@@ -2430,7 +2430,7 @@
 <p><img alt="Peso do DDMA nas amostras com vento LES de 19 m/s ou mais, contra as demais" src="../../assets/img/mvnet_weight_strong_les.png" /></p>
 <p>Nas 531 amostras da figura com vento LES de 19 m/s ou mais, que vêm de um LES medido muito baixo (o caso dos 68 a 70 m/s do oficial), o peso do DDMA fica perto de 1. <strong>A rede aprendeu sozinha a deixar o LES de fora nesses casos</strong>, como o produto oficial faz.</p>
 <h2 id="comparacao-com-as-abordagens-anteriores">Comparação com as abordagens anteriores<a class="headerlink" href="#comparacao-com-as-abordagens-anteriores" title="Permanent link">&para;</a></h2>
-<p>A coluna da rede é a média das cinco sementes.</p>
+<p>A coluna E é a média das cinco sementes.</p>
 <table>
 <thead>
 <tr>
@@ -2440,7 +2440,7 @@
 <th>B</th>
 <th>C</th>
 <th>D</th>
-<th>Rede</th>
+<th>E</th>
 </tr>
 </thead>
 <tbody>

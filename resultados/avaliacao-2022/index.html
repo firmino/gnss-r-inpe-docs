@@ -1094,7 +1094,7 @@
   <span class="md-ellipsis">
     
   
-    Rede de pesos (mvnet)
+    E: rede de pesos (mvnet)
   
 
     
@@ -1122,7 +1122,7 @@
   <span class="md-ellipsis">
     
   
-    E: ponta de vento fraco da GMF
+    F: ponta de vento fraco da GMF
   
 
     
@@ -1209,7 +1209,7 @@
   <span class="md-ellipsis">
     
   
-    Inversão conjunta (F e G)
+    Inversão conjunta (G e H)
   
 
     
@@ -1784,14 +1784,14 @@
 <td><strong>Descartada</strong> (80/20 mantida)</td>
 </tr>
 <tr>
-<td><a href="../rede-pesos/">Rede de pesos</a></td>
+<td><a href="../rede-pesos/">E: rede de pesos</a></td>
 <td>a combinação dos dois ventos (MV) vira uma rede neural</td>
 <td>Pesos que dependem das condições de cada amostra</td>
 <td>Melhor na combinação, pior no vento final, sobretudo no vento forte</td>
 <td><strong>Descartada</strong></td>
 </tr>
 <tr>
-<td><a href="../gmf-ponta/">E: ponta de vento fraco da GMF</a></td>
+<td><a href="../gmf-ponta/">F: ponta de vento fraco da GMF</a></td>
 <td>a média móvel da GMF, feita em escala log</td>
 <td>A GMF própria tinha uma distorção abaixo de 3 m/s</td>
 <td>Etapas intermediárias muito mais fiéis; vento final igual</td>
@@ -1800,7 +1800,7 @@
 </tbody>
 </table>
 <h2 id="todas-as-abordagens-lado-a-lado">Todas as abordagens lado a lado<a class="headerlink" href="#todas-as-abordagens-lado-a-lado" title="Permanent link">&para;</a></h2>
-<p>Os números são de todo o período de teste. O RMSD é a diferença típica e o viés é a diferença média, em m/s (<a href="../../algoritmo/avaliacao/#as-medidas-de-erro">medidas de erro</a>). A rede de pesos é a média de cinco treinos.</p>
+<p>Os números são de todo o período de teste. O RMSD é a diferença típica e o viés é a diferença média, em m/s (<a href="../../algoritmo/avaliacao/#as-medidas-de-erro">medidas de erro</a>). A coluna E (rede de pesos) é a média de cinco treinos.</p>
 <table>
 <thead>
 <tr>
@@ -1810,8 +1810,8 @@
 <th>B</th>
 <th>C</th>
 <th>D</th>
-<th>Rede</th>
 <th>E</th>
+<th>F</th>
 </tr>
 </thead>
 <tbody>
@@ -1920,14 +1920,14 @@
 <p><strong>Como ler:</strong></p>
 <ul>
 <li><strong>O escaterômetro é a régua que decide.</strong> Nem as nossas tabelas nem as da NASA foram ajustadas com ele, então é a única comparação independente. O ERA5 favorece as nossas abordagens, porque elas foram ajustadas com ele (<a href="../modelo-a/#comparacao-com-o-era5">detalhes</a>).</li>
-<li><strong>As linhas do M2 e do M3 medem se o vento imita o da NASA</strong>, e não se acerta o vento real. Uma abordagem pode imitar melhor e acertar igual, como o E.</li>
+<li><strong>As linhas do M2 e do M3 medem se o vento imita o da NASA</strong>, e não se acerta o vento real. Uma abordagem pode imitar melhor e acertar igual, como o F.</li>
 <li><strong>A média das faixas e as linhas de vento forte</strong> mostram o que o RMSD total esconde: quase todas as amostras têm vento entre 4 e 10 m/s, então uma perda no vento forte quase não aparece no total.</li>
 </ul>
 <h2 id="o-que-aprendemos-ate-agora">O que aprendemos até agora<a class="headerlink" href="#o-que-aprendemos-ate-agora" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>O vento final estacionou em cerca de 1,45 m/s contra o escaterômetro.</strong> A, B, D e E dão o mesmo número, e ele é igual ao do produto oficial.</li>
-<li><strong>Melhorar uma etapa intermediária não chega ao vento final.</strong> O E torna o vento DDMA muito mais fiel, e a rede de pesos melhora a combinação. Mas as etapas seguintes (estado do mar e debias), refeitas sobre a mudança, compensam a diferença ou a perdem.</li>
-<li><strong>Todas as abordagens subestimam o vento forte</strong>, assim como o produto oficial: cerca de −2 m/s acima de 15 m/s e −3 m/s acima de 20 m/s. As que mexem na forma da distribuição do vento final (C e a rede de pesos) pioram justamente essa faixa.</li>
+<li><strong>O vento final estacionou em cerca de 1,45 m/s contra o escaterômetro.</strong> A, B, D e F dão o mesmo número, e ele é igual ao do produto oficial.</li>
+<li><strong>Melhorar uma etapa intermediária não chega ao vento final.</strong> O F torna o vento DDMA muito mais fiel, e a rede de pesos melhora a combinação. Mas as etapas seguintes (estado do mar e debias), refeitas sobre a mudança, compensam a diferença ou a perdem.</li>
+<li><strong>Todas as abordagens subestimam o vento forte</strong>, assim como o produto oficial: cerca de −2 m/s acima de 15 m/s e −3 m/s acima de 20 m/s. As que mexem na forma da distribuição do vento final (C e E) pioram justamente essa faixa.</li>
 <li><strong>O que é aprendido contra o ERA5 tende a puxar o vento para a média.</strong> A rede de pesos aprendeu a escolher o menor dos dois ventos, o que reduz o erro médio, mas encolhe o vento forte. É o motivo da próxima abordagem, a <strong>inversão conjunta</strong> do NBRCS e do LES, em andamento: ela parte do vento e prevê o sinal, em vez de prever o vento a partir do sinal.</li>
 </ol>
 <h2 id="boias-m4">Boias (M4)<a class="headerlink" href="#boias-m4" title="Permanent link">&para;</a></h2>

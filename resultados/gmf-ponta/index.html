@@ -25,7 +25,7 @@
     
     
       
-        <title>E: ponta de vento fraco da GMF - vsm-gnssr</title>
+        <title>F: ponta de vento fraco da GMF - vsm-gnssr</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#e-ponta-de-vento-fraco-da-gmf" class="md-skip">
+        <a href="#f-ponta-de-vento-fraco-da-gmf" class="md-skip">
           Pular para conteúdo
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              E: ponta de vento fraco da GMF
+              F: ponta de vento fraco da GMF
             
           </span>
         </div>
@@ -1003,7 +1003,7 @@
   <span class="md-ellipsis">
     
   
-    Rede de pesos (mvnet)
+    E: rede de pesos (mvnet)
   
 
     
@@ -1040,7 +1040,7 @@
   <span class="md-ellipsis">
     
   
-    E: ponta de vento fraco da GMF
+    F: ponta de vento fraco da GMF
   
 
     
@@ -1058,7 +1058,7 @@
   <span class="md-ellipsis">
     
   
-    E: ponta de vento fraco da GMF
+    F: ponta de vento fraco da GMF
   
 
     
@@ -1242,7 +1242,7 @@
   <span class="md-ellipsis">
     
   
-    Inversão conjunta (F e G)
+    Inversão conjunta (G e H)
   
 
     
@@ -1808,8 +1808,8 @@
 
 
 
-<h1 id="e-ponta-de-vento-fraco-da-gmf">E: ponta de vento fraco da GMF<a class="headerlink" href="#e-ponta-de-vento-fraco-da-gmf" title="Permanent link">&para;</a></h1>
-<p>O modelo E é o <a href="../modelo-a/">modelo A</a> mudando uma única coisa: a média móvel que suaviza a GMF passa a ser feita em escala log, com a janela centrada nas pontas.</p>
+<h1 id="f-ponta-de-vento-fraco-da-gmf">F: ponta de vento fraco da GMF<a class="headerlink" href="#f-ponta-de-vento-fraco-da-gmf" title="Permanent link">&para;</a></h1>
+<p>O modelo F é o <a href="../modelo-a/">modelo A</a> mudando uma única coisa: a média móvel que suaviza a GMF passa a ser feita em escala log, com a janela centrada nas pontas.</p>
 <table>
 <thead>
 <tr>
@@ -1825,7 +1825,7 @@
 <td><code>gmf-v1_mv-v1_ss-v1_db-v1</code></td>
 </tr>
 <tr>
-<td><strong>E</strong></td>
+<td><strong>F</strong></td>
 <td>média em log, janela centrada nas pontas (<code>gmf/v5</code>)</td>
 <td><code>gmf-v5_mv-v4_ss-v4_db-v10</code></td>
 </tr>
@@ -1836,7 +1836,7 @@
 <ul>
 <li><strong>A ponta de vento fraco da GMF estava mesmo distorcida, e a correção funciona</strong>: o vento DDMA passa a reproduzir o oficial bem melhor (0,28 contra 0,45 m/s), o LES também melhora (0,98 contra 1,05 m/s) e os ventos zerados somem.</li>
 <li><strong>O vento final não muda</strong>: as etapas seguintes absorvem a diferença.</li>
-<li>A GMF do modelo E é a mais fiel e não piora nada; é a <strong>candidata a GMF padrão</strong>.</li>
+<li>A GMF do modelo F é a mais fiel e não piora nada; é a <strong>candidata a GMF padrão</strong>.</li>
 </ul>
 </div>
 <h2 id="de-onde-veio-a-ideia">De onde veio a ideia<a class="headerlink" href="#de-onde-veio-a-ideia" title="Permanent link">&para;</a></h2>
@@ -1861,14 +1861,14 @@
 <p>O resto da cadeia (MV 80/20, estado do mar e debias) é reajustado sobre a GMF nova, com 2021, como nos outros modelos. As duas opções separadas também foram ajustadas (<code>gmf/v3</code>, só o log, e <code>gmf/v4</code>, só a janela centrada), para a figura abaixo.</p>
 <h2 id="resultados">Resultados<a class="headerlink" href="#resultados" title="Permanent link">&para;</a></h2>
 <p><img alt="A ponta de vento fraco da GMF do NBRCS e do LES a 30°, em quatro versões" src="../../assets/img/eval2022_gmf_ends.png" /></p>
-<p>Na figura, em escala log: a GMF do modelo A (azul) é quase plana abaixo de 3 m/s. Só o log (laranja) a deixa mais baixa ainda; só a janela centrada (verde) sobe a ponta, mas mantém a curva alta entre 1,5 e 3 m/s. As duas juntas (vermelho, modelo E) seguem o que o casamento de distribuições sem suavização dá (cerca de 514 a 0,5 m/s, 250 a 1 m/s, 104 a 2 m/s e 60 a 3 m/s). Acima de 5 m/s as curvas praticamente coincidem.</p>
-<p><img alt="Modelos A e E lado a lado: à esquerda, o RMSD contra o vento oficial equivalente; à direita, o vento final contra o ERA5 e contra o escaterômetro" src="../../assets/img/eval2022_model_e_overview.png" /></p>
+<p>Na figura, em escala log: a GMF do modelo A (azul) é quase plana abaixo de 3 m/s. Só o log (laranja) a deixa mais baixa ainda; só a janela centrada (verde) sobe a ponta, mas mantém a curva alta entre 1,5 e 3 m/s. As duas juntas (vermelho, modelo F) seguem o que o casamento de distribuições sem suavização dá (cerca de 514 a 0,5 m/s, 250 a 1 m/s, 104 a 2 m/s e 60 a 3 m/s). Acima de 5 m/s as curvas praticamente coincidem.</p>
+<p><img alt="Modelos A e F lado a lado: à esquerda, o RMSD contra o vento oficial equivalente; à direita, o vento final contra o ERA5 e contra o escaterômetro" src="../../assets/img/eval2022_model_f_overview.png" /></p>
 <table>
 <thead>
 <tr>
 <th>Comparação</th>
 <th>A</th>
-<th>E</th>
+<th>F</th>
 </tr>
 </thead>
 <tbody>
@@ -1909,9 +1909,9 @@
 </tr>
 </tbody>
 </table>
-<p>Por faixa de vento do escaterômetro, A e E ficam iguais até 20 m/s.</p>
+<p>Por faixa de vento do escaterômetro, A e F ficam iguais até 20 m/s.</p>
 <h2 id="comparacao-com-as-abordagens-anteriores">Comparação com as abordagens anteriores<a class="headerlink" href="#comparacao-com-as-abordagens-anteriores" title="Permanent link">&para;</a></h2>
-<p>A coluna da rede é a média das cinco sementes.</p>
+<p>A coluna E (rede de pesos) é a média das cinco sementes.</p>
 <table>
 <thead>
 <tr>
@@ -1921,8 +1921,8 @@
 <th>B</th>
 <th>C</th>
 <th>D</th>
-<th>Rede</th>
 <th>E</th>
+<th>F</th>
 </tr>
 </thead>
 <tbody>
@@ -2028,11 +2028,11 @@
 </tr>
 </tbody>
 </table>
-<p>O E tem as tabelas mais fiéis ao oficial (as duas linhas do M2) e empata com os melhores no vento final.</p>
+<p>O F tem as tabelas mais fiéis ao oficial (as duas linhas do M2) e empata com os melhores no vento final.</p>
 <h2 id="o-que-aprendemos">O que aprendemos<a class="headerlink" href="#o-que-aprendemos" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>A ponta da GMF estava mesmo errada, e a correção funciona.</strong> O vento DDMA passa a reproduzir o oficial bem melhor (o RMSD cai quase 40% e o viés vai a quase zero), os ventos zerados somem, e o LES também melhora um pouco. O LES continua acima do critério de 0,5 m/s por causa dos <a href="../modelo-a/#os-valores-de-68-a-70-ms-do-les-oficial">valores de 68 a 70 m/s do oficial</a>, que não têm relação com a ponta.</li>
-<li><strong>O vento final não muda.</strong> As etapas seguintes, reajustadas sobre a GMF nova, absorvem a diferença: o debias, no fim, casa a distribuição do vento com a do ERA5 e compensa um erro sistemático da ponta. É o mesmo efeito visto no modelo B e no D.</li>
+<li><strong>O vento final não muda.</strong> As etapas seguintes, reajustadas sobre a GMF nova, absorvem a diferença: o debias, no fim, casa a distribuição do vento com a do ERA5 e compensa um erro sistemático da ponta. É o mesmo efeito visto nos modelos B e D.</li>
 <li><strong>Não é um caminho para o vento forte</strong>, já que a mudança age abaixo de ~5 m/s.</li>
 </ul>
 <h2 id="situacao">Situação<a class="headerlink" href="#situacao" title="Permanent link">&para;</a></h2>

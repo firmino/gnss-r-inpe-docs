@@ -25,7 +25,7 @@
     
     
       
-        <title>Inversão conjunta (F e G) - vsm-gnssr</title>
+        <title>Inversão conjunta (G e H) - vsm-gnssr</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#inversao-conjunta-modelos-f-e-g" class="md-skip">
+        <a href="#inversao-conjunta-modelos-g-e-h" class="md-skip">
           Pular para conteúdo
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Inversão conjunta (F e G)
+              Inversão conjunta (G e H)
             
           </span>
         </div>
@@ -1001,7 +1001,7 @@
   <span class="md-ellipsis">
     
   
-    Rede de pesos (mvnet)
+    E: rede de pesos (mvnet)
   
 
     
@@ -1029,7 +1029,7 @@
   <span class="md-ellipsis">
     
   
-    E: ponta de vento fraco da GMF
+    F: ponta de vento fraco da GMF
   
 
     
@@ -1127,7 +1127,7 @@
   <span class="md-ellipsis">
     
   
-    Inversão conjunta (F e G)
+    Inversão conjunta (G e H)
   
 
     
@@ -1145,7 +1145,7 @@
   <span class="md-ellipsis">
     
   
-    Inversão conjunta (F e G)
+    Inversão conjunta (G e H)
   
 
     
@@ -1204,10 +1204,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fase-1-modelo-f" class="md-nav__link">
+  <a href="#fase-1-modelo-g" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fase 1: modelo F
+        Fase 1: modelo G
       
     </span>
   </a>
@@ -1215,10 +1215,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fase-2-modelo-g" class="md-nav__link">
+  <a href="#fase-2-modelo-h" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fase 2: modelo G
+        Fase 2: modelo H
       
     </span>
   </a>
@@ -1737,10 +1737,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fase-1-modelo-f" class="md-nav__link">
+  <a href="#fase-1-modelo-g" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fase 1: modelo F
+        Fase 1: modelo G
       
     </span>
   </a>
@@ -1748,10 +1748,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fase-2-modelo-g" class="md-nav__link">
+  <a href="#fase-2-modelo-h" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fase 2: modelo G
+        Fase 2: modelo H
       
     </span>
   </a>
@@ -1786,15 +1786,15 @@
 
 
 
-<h1 id="inversao-conjunta-modelos-f-e-g">Inversão conjunta (modelos F e G)<a class="headerlink" href="#inversao-conjunta-modelos-f-e-g" title="Permanent link">&para;</a></h1>
+<h1 id="inversao-conjunta-modelos-g-e-h">Inversão conjunta (modelos G e H)<a class="headerlink" href="#inversao-conjunta-modelos-g-e-h" title="Permanent link">&para;</a></h1>
 <p>A próxima abordagem, <strong>em andamento</strong>. Ela muda a pergunta que o algoritmo faz: em vez de "que vento este sinal indica?", pergunta "<strong>que vento explicaria melhor os dois sinais medidos?</strong>".</p>
 <div class="admonition abstract">
 <p class="admonition-title">Resumo</p>
 <ul>
 <li><strong>O problema:</strong> tudo o que aprende a prever o vento a partir do sinal, contra o ERA5, puxa o vento para a média, como a <a href="../../resultados/rede-pesos/">rede de pesos</a> mostrou.</li>
 <li><strong>A ideia:</strong> descrever o sinal esperado para cada vento e, para cada medida, escolher o vento cujo sinal esperado mais se parece com o NBRCS e o LES medidos, os dois juntos, cada um pesado pelo seu ruído.</li>
-<li><strong>Fase 1 (modelo F):</strong> usa a GMF que já existe e uma tabela de ruído medida em 2021. Está rodando; o resultado do ano inteiro sai em 28/10/2026.</li>
-<li><strong>Fase 2 (modelo G):</strong> troca a GMF por uma rede que inclui a altura das ondas e o swell. Só será feita se a fase 1 indicar que vale a pena.</li>
+<li><strong>Fase 1 (modelo G):</strong> usa a GMF que já existe e uma tabela de ruído medida em 2021. Está rodando; o resultado do ano inteiro sai em 28/10/2026.</li>
+<li><strong>Fase 2 (modelo H):</strong> troca a GMF por uma rede que inclui a altura das ondas e o swell. Só será feita se a fase 1 indicar que vale a pena.</li>
 </ul>
 </div>
 <h2 id="de-onde-veio-a-ideia">De onde veio a ideia<a class="headerlink" href="#de-onde-veio-a-ideia" title="Permanent link">&para;</a></h2>
@@ -1837,7 +1837,7 @@
 </tbody>
 </table>
 <p>A resposta é cerca de 10 m/s. Depois vêm as mesmas etapas de <a href="../../algoritmo/estado-do-mar/">estado do mar</a> e <a href="../../algoritmo/debias/">debias</a> do algoritmo, refeitas sobre o novo vento.</p>
-<h2 id="fase-1-modelo-f">Fase 1: modelo F<a class="headerlink" href="#fase-1-modelo-f" title="Permanent link">&para;</a></h2>
+<h2 id="fase-1-modelo-g">Fase 1: modelo G<a class="headerlink" href="#fase-1-modelo-g" title="Permanent link">&para;</a></h2>
 <p>O sinal esperado é a própria GMF do <a href="../../resultados/modelo-a/">modelo A</a>, e a variação vem de uma <strong>tabela de ruído</strong> medida em 2021: a diferença entre o sinal medido e o que a GMF espera no vento do ERA5, por faixa de vento, ângulo e RCG. O vento invertido substitui só o MV; o resto da cadeia é o do modelo A, reajustado.</p>
 <p><strong>O que a tabela de ruído já mostra:</strong></p>
 <ul>
@@ -1868,7 +1868,7 @@
 </tbody>
 </table>
 <p>Com esse nível de ruído, parece não ser possível ter, ao mesmo tempo, viés zero em cada faixa do vento real e erro total pequeno. É um resultado de um dia; o ano inteiro vai dizer se ele se confirma.</p>
-<h2 id="fase-2-modelo-g">Fase 2: modelo G<a class="headerlink" href="#fase-2-modelo-g" title="Permanent link">&para;</a></h2>
+<h2 id="fase-2-modelo-h">Fase 2: modelo H<a class="headerlink" href="#fase-2-modelo-h" title="Permanent link">&para;</a></h2>
 <p>Troca a GMF e a tabela de ruído por uma <strong>rede neural</strong> que recebe o vento, o ângulo, o RCG, a altura das ondas e a fração de swell, e devolve o sinal esperado e a sua variação. Assim, o estado do mar entra direto na busca do vento, em vez de ser corrigido depois.</p>
 <ul>
 <li>A rede é consultada para muitos ventos por medida. Para reduzir o custo, a busca é feita <strong>em duas etapas</strong>: primeiro de 1 em 1 m/s, depois de 0,1 em 0,1 em volta do melhor. São cerca de 90 consultas em vez de 700. Uma busca binária seria mais barata, mas pode parar no "vale" errado quando a nota tem mais de um mínimo.</li>
@@ -1876,7 +1876,7 @@
 </ul>
 <p>Uma medida preliminar (12 dias de 2021) sugere que a altura das ondas e o swell explicam pouco do ruído do sinal no geral (cerca de 8%), mas mais nos ventos fortes (<a href="../limites-vento-forte/">Os limites no vento forte</a>). Antes da fase 2, a ideia é confirmar isso em 2022, num teste barato.</p>
 <h2 id="situacao">Situação<a class="headerlink" href="#situacao" title="Permanent link">&para;</a></h2>
-<p><strong>Fase 1 em andamento:</strong> o modelo F roda no servidor desde 27/10/2026 e deve terminar na madrugada de 28/10. O resultado entra como uma página em <a href="../../resultados/avaliacao-2022/">Resultados</a>, comparado com todas as abordagens anteriores. <strong>A fase 2 depende</strong> do resultado da fase 1: se o modelo F não ganhar no vento forte sem piorar o geral, a abordagem é encerrada.</p>
+<p><strong>Fase 1 em andamento:</strong> o modelo G roda no servidor desde 27/10/2026 e deve terminar na madrugada de 28/10. O resultado entra como uma página em <a href="../../resultados/avaliacao-2022/">Resultados</a>, comparado com todas as abordagens anteriores. <strong>A fase 2 depende</strong> do resultado da fase 1: se o modelo G não ganhar no vento forte sem piorar o geral, a abordagem é encerrada.</p>
 
 
 
