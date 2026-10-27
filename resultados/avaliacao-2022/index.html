@@ -960,6 +960,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#modelo-e-a-ponta-de-vento-fraco-da-gmf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modelo E: a ponta de vento fraco da GMF
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#boias-m4" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1437,6 +1448,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#modelo-e-a-ponta-de-vento-fraco-da-gmf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modelo E: a ponta de vento fraco da GMF
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#boias-m4" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1507,6 +1529,7 @@
 <li><strong>Contra o ERA5, o vento próprio empata com o oficial</strong>: RMSD de 1,53 m/s contra 1,58 m/s, e viés quase zero (+0,02 m/s contra +0,31 m/s).</li>
 <li><strong>Contra o escaterômetro (referência independente), o vento próprio também empata com o oficial</strong>: RMSD de 1,45 m/s contra 1,46 m/s, com 48 milhões de pares e todos os ventos incluídos. Os dois <strong>subestimam o vento forte</strong> (−1,5 m/s a 12 m/s e até −3,5 m/s acima de 22 m/s) (<a href="#comparacao-com-o-escaterometro">detalhes</a>).</li>
 <li><strong>A distribuição de Weibull não melhora o vento.</strong> Usada na GMF (modelo B), dá o mesmo resultado que o modelo sem ela; usada no debias (modelo C), piora o vento forte, até −5,9 m/s acima de 22 m/s contra o escaterômetro. O modelo A, sem Weibull, continua o padrão (<a href="#os-tres-modelos-com-e-sem-weibull">detalhes</a>).</li>
+<li><strong>Corrigir a ponta de vento fraco da GMF</strong> (média em escala log, modelo E) faz o vento DDMA reproduzir bem melhor o oficial (0,28 contra 0,45 m/s) e acaba com os ventos zerados, mas não muda o vento final (<a href="#modelo-e-a-ponta-de-vento-fraco-da-gmf">detalhes</a>).</li>
 <li><strong>Combinar os dados ajuda</strong>: na mesma régua (o ERA5), cada etapa da cadeia melhora o vento, e a correção de estado do mar é a que mais ajuda.</li>
 <li>Boa parte da falha do LES vem de <strong>0,03% das amostras</strong> em que o vento LES oficial é de 68 m/s ou mais, mas o vento final oficial delas é de cerca de 9 m/s. Sem elas, o RMSD do LES cairia para 0,58 m/s, mas o ATBD as considera válidas, então continuam na conta (<a href="#os-valores-de-68-a-70-ms-do-les-oficial">detalhes</a>).</li>
 </ul>
@@ -2232,6 +2255,96 @@
 </div>
 </div>
 </div>
+<h2 id="modelo-e-a-ponta-de-vento-fraco-da-gmf">Modelo E: a ponta de vento fraco da GMF<a class="headerlink" href="#modelo-e-a-ponta-de-vento-fraco-da-gmf" title="Permanent link">&para;</a></h2>
+<p>A GMF passa por uma média móvel de ±3 m/s ao longo do vento, como manda o ATBD. No vento fraco, entre 0 e 3 m/s, a curva da GMF despenca (o NBRCS cai de ~500 para ~60 a 30°), e essa média a deforma: <strong>abaixo de ~1 m/s a tabela fica baixa demais</strong>, e os sinais mais altos são extrapolados até virar vento zero (~0,4% das amostras do dia), e <strong>entre 1,5 e 3 m/s ela fica alta demais</strong>, o que faz o vento DDMA sair ~0,7 m/s acima do oficial nessa faixa.</p>
+<p>O modelo E muda só essa média, com duas opções combinadas (história 06, decisão D7):</p>
+<ul>
+<li><strong>Média em escala log</strong> (<code>log1p</code> do sinal): na ponta de vento fraco a curva é quase reta em log, e a média não a entorta. O ATBD não diz se a média é tirada sobre a tabela ou sobre o log dela, então essa é uma leitura possível do ATBD.</li>
+<li><strong>Janela centrada nas pontas do eixo:</strong> perto de 0 m/s a janela encolhe dos dois lados, e não só de um. Só o log não basta: com a janela de um lado só, a média de logaritmos puxa a ponta ainda mais para baixo.</li>
+</ul>
+<p>O resto da cadeia (MV 80/20, estado do mar e debias) é reajustado sobre a GMF nova, com 2021, como nos outros modelos.</p>
+<table>
+<thead>
+<tr>
+<th>Modelo</th>
+<th>GMF</th>
+<th>Versão do vento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong></td>
+<td>média linear, janela cortada nas pontas (<code>gmf/v1</code>)</td>
+<td><code>gmf-v1_mv-v1_ss-v1_db-v1</code></td>
+</tr>
+<tr>
+<td><strong>E</strong></td>
+<td>média em log, janela centrada nas pontas (<code>gmf/v5</code>)</td>
+<td><code>gmf-v5_mv-v4_ss-v4_db-v10</code></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="A ponta de vento fraco da GMF do NBRCS e do LES a 30°, em quatro versões" src="../../assets/img/eval2022_gmf_ends.png" /></p>
+<p>Na figura, em escala log: a GMF do modelo A (azul) é quase plana abaixo de 3 m/s. Só o log (laranja) a deixa mais baixa ainda; só a janela centrada (verde) sobe a ponta, mas mantém a curva alta entre 1,5 e 3 m/s. As duas juntas (vermelho, modelo E) seguem o que o casamento de distribuições sem suavização dá (cerca de 514 a 0,5 m/s, 250 a 1 m/s, 104 a 2 m/s e 60 a 3 m/s). Acima de 5 m/s as curvas praticamente coincidem.</p>
+<p><img alt="Modelos A e E lado a lado: à esquerda, o RMSD contra o vento oficial equivalente; à direita, o vento final contra o ERA5 e contra o escaterômetro" src="../../assets/img/eval2022_model_e_overview.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Comparação</th>
+<th>A</th>
+<th>E</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vento DDMA × oficial (M2), RMSD</strong></td>
+<td>0,453</td>
+<td><strong>0,281</strong></td>
+</tr>
+<tr>
+<td>Vento DDMA × oficial, viés</td>
+<td>+0,31</td>
+<td>+0,06</td>
+</tr>
+<tr>
+<td>Vento LES × oficial (M2), RMSD</td>
+<td>1,055</td>
+<td>0,975</td>
+</tr>
+<tr>
+<td>Ventos zerados no DDMA e no LES</td>
+<td>~0,4%</td>
+<td>nenhum</td>
+</tr>
+<tr>
+<td>MV × ERA5, RMSD</td>
+<td>1,879</td>
+<td>1,813</td>
+</tr>
+<tr>
+<td>Final × final oficial (M3), RMSD</td>
+<td>0,518</td>
+<td>0,522</td>
+</tr>
+<tr>
+<td>Final × ERA5, RMSD</td>
+<td>1,527</td>
+<td>1,526</td>
+</tr>
+<tr>
+<td>Final × escaterômetro, RMSD</td>
+<td>1,450</td>
+<td>1,450</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Como ler:</strong></p>
+<ul>
+<li><strong>A ponta da GMF estava mesmo errada, e a correção funciona.</strong> O vento DDMA passa a reproduzir o oficial bem melhor (o RMSD cai quase 40% e o viés vai a quase zero), os ventos zerados somem, e o LES também melhora um pouco. O LES continua acima do critério de 0,5 m/s por causa dos <a href="#os-valores-de-68-a-70-ms-do-les-oficial">valores de 68 a 70 m/s do oficial</a>, que não têm relação com a ponta.</li>
+<li><strong>O vento final não muda.</strong> As etapas seguintes, reajustadas sobre a GMF nova, absorvem a diferença: o debias, no fim, casa a distribuição do vento com a do ERA5 e compensa um erro sistemático da ponta. Por faixa de vento, A e E ficam iguais até 20 m/s.</li>
+<li><strong>Não é um caminho para o vento forte</strong>, já que a mudança age abaixo de ~5 m/s.</li>
+<li><strong>A GMF do modelo E é a mais fiel</strong> e não piora nada; por isso é a candidata a GMF padrão das próximas rodadas.</li>
+</ul>
 <h2 id="boias-m4">Boias (M4)<a class="headerlink" href="#boias-m4" title="Permanent link">&para;</a></h2>
 <p>O relatório do M4 foi gerado, mas ficou <strong>insuficiente</strong>: não há nenhum pareamento com boia em oceano aberto em 2022, e o mínimo é de 1.000. O SiMCosta tem só 61 dias baixados, todos de 2021, e o PIRATA e o PNBOIA ainda não têm fonte (<a href="../../dados/downloads/">Estado dos downloads</a>).</p>
 <h2 id="o-que-vem-a-seguir">O que vem a seguir<a class="headerlink" href="#o-que-vem-a-seguir" title="Permanent link">&para;</a></h2>
@@ -2244,7 +2357,7 @@
 <p>Os critérios de 0,5 m/s são propostas iniciais. Como diz <a href="../../andamento/etapas/#criterios-de-aceitacao">Andamento por etapa</a>, um critério não atingido é registrado e diagnosticado, e o teste não é ajustado para passar.</p>
 <div class="admonition note">
 <p class="admonition-title">De onde vêm os números</p>
-<p>Dos relatórios <code>m2.json</code>, <code>m3.json</code> e <code>m4.json</code> do job <code>evaluate</code>, em <code>reports/&lt;versão&gt;/</code> de cada modelo (A: <code>gmf-v1_mv-v1_ss-v1_db-v1</code>, B: <code>gmf-v2_mv-v2_ss-v2_db-v2</code>, C: <code>gmf-v1_mv-v1_ss-v1_db-v3</code>). Os valores de <em>k</em> e <em>c</em> estão no <code>meta.json</code> de <code>models/gmf/v2/</code> e <code>models/debias/v3/</code>. As figuras são feitas por <code>uv run task docs-figures</code>.</p>
+<p>Dos relatórios <code>m2.json</code>, <code>m3.json</code> e <code>m4.json</code> do job <code>evaluate</code>, em <code>reports/&lt;versão&gt;/</code> de cada modelo (A: <code>gmf-v1_mv-v1_ss-v1_db-v1</code>, B: <code>gmf-v2_mv-v2_ss-v2_db-v2</code>, C: <code>gmf-v1_mv-v1_ss-v1_db-v3</code>, E: <code>gmf-v5_mv-v4_ss-v4_db-v10</code>). Os valores de <em>k</em> e <em>c</em> estão no <code>meta.json</code> de <code>models/gmf/v2/</code> e <code>models/debias/v3/</code>. As figuras são feitas por <code>uv run task docs-figures</code>.</p>
 </div>
 
 
