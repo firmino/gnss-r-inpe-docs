@@ -1071,6 +1071,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resultados/escaterometro-ajuste/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    I: tabelas ajustadas ao escaterômetro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1803,7 +1831,7 @@
 </ul>
 </div>
 <h2 id="de-onde-veio-a-ideia">De onde veio a ideia<a class="headerlink" href="#de-onde-veio-a-ideia" title="Permanent link">&para;</a></h2>
-<p>Todas as abordagens com o NBRCS e o LES chegaram ao mesmo vento final (<a href="../../resultados/avaliacao-2022/#o-que-aprendemos-ate-agora">Resumo das abordagens</a>). Uma explicação: os dois números <strong>erram juntos</strong>. Numa medida preliminar, a correlação entre os erros dos dois foi de 0,5 a 0,9, conforme o vento (<a href="../limites-vento-forte/">Os limites no vento forte</a>). Combinar duas medidas quase iguais rende pouco, por mais esperta que seja a combinação.</p>
+<p>Todas as abordagens com o NBRCS e o LES chegaram ao mesmo vento final (<a href="../../resultados/avaliacao-2022/#o-que-aprendemos-ate-agora">Resumo das abordagens</a>). Uma explicação: os dois números <strong>erram juntos</strong>. Numa medida preliminar, a correlação entre os erros dos dois foi de 0,5 a 0,9, conforme o vento (<a href="../limites-vento-forte/">Os limites no vento forte</a>). Combinar duas medidas quase iguais rende pouco, por mais esperta que seja a combinação. E a régua não é o limite: o ERA5 e o escaterômetro discordam só em cerca de 0,87 m/s, bem abaixo dos 1,45 m/s do nosso vento (<a href="../../resultados/escaterometro-ajuste/">modelo I</a>). A rede continua treinada contra o ERA5, que se mostrou uma boa referência.</p>
 <p>A imagem inteira guarda informação que esses dois números descartam: o quanto a energia se espalha no atraso e no Doppler, o formato da borda e da cauda do sinal, e as medidas vizinhas da mesma trilha.</p>
 <h2 id="a-hipotese">A hipótese<a class="headerlink" href="#a-hipotese" title="Permanent link">&para;</a></h2>
 <p>Uma rede que lê a DDM inteira tira do sinal informação que o NBRCS e o LES perdem, e erra menos que o algoritmo de tabelas, medido contra o escaterômetro e as boias. Trabalhos publicados com redes desse tipo relatam erros em torno de 1,4 a 1,5 m/s contra o ERA5 (<a href="../../referencias/">Artigos de referência</a>), mas com dados e testes diferentes dos nossos; e o ponto fraco relatado continua sendo o vento forte.</p>

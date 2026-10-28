@@ -1164,6 +1164,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../escaterometro-ajuste/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    I: tabelas ajustadas ao escaterômetro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1832,10 +1860,17 @@
 <td>Empata com A no vento final; não melhora o vento forte</td>
 <td><strong>Não adotada</strong></td>
 </tr>
+<tr>
+<td><a href="../escaterometro-ajuste/">I: tabelas ajustadas ao escaterômetro</a></td>
+<td>a referência do ajuste: o escaterômetro (ASCAT) em vez do ERA5</td>
+<td>Ver se a subestimação do vento forte vem do ERA5</td>
+<td>Não: piora o total contra o HSCAT; mostrou que o piso da régua é 0,87 m/s</td>
+<td><strong>Não adotado</strong></td>
+</tr>
 </tbody>
 </table>
 <h2 id="todas-as-abordagens-lado-a-lado">Todas as abordagens lado a lado<a class="headerlink" href="#todas-as-abordagens-lado-a-lado" title="Permanent link">&para;</a></h2>
-<p>Os números são de todo o período de teste. O RMSD é a diferença típica e o viés é a diferença média, em m/s (<a href="../../algoritmo/avaliacao/#as-medidas-de-erro">medidas de erro</a>). A coluna E (rede de pesos) é a média de cinco treinos.</p>
+<p>Os números são de todo o período de teste. O RMSD é a diferença típica e o viés é a diferença média, em m/s (<a href="../../algoritmo/avaliacao/#as-medidas-de-erro">medidas de erro</a>). A coluna E (rede de pesos) é a média de cinco treinos. O I foi ajustado contra os dois ASCAT, que são parte desses pares; o veredito independente dele está na <a href="../escaterometro-ajuste/">sua página</a>, contra o HSCAT.</p>
 <table>
 <thead>
 <tr>
@@ -1848,6 +1883,7 @@
 <th>E</th>
 <th>F</th>
 <th>G</th>
+<th>I</th>
 </tr>
 </thead>
 <tbody>
@@ -1861,6 +1897,7 @@
 <td>0,45</td>
 <td><strong>0,28</strong></td>
 <td>0,45</td>
+<td>0,69</td>
 </tr>
 <tr>
 <td>Vento LES × oficial, RMSD (M2)</td>
@@ -1872,6 +1909,7 @@
 <td>1,05</td>
 <td><strong>0,98</strong></td>
 <td>1,05</td>
+<td>1,23</td>
 </tr>
 <tr>
 <td>Combinação (MV) × ERA5, RMSD</td>
@@ -1883,17 +1921,19 @@
 <td><strong>1,56</strong></td>
 <td>1,81</td>
 <td>3,13</td>
+<td>2,00</td>
 </tr>
 <tr>
 <td>Final × final oficial, RMSD (M3)</td>
 <td>—</td>
-<td><strong>0,518</strong></td>
-<td><strong>0,517</strong></td>
+<td>0,518</td>
+<td>0,517</td>
 <td>0,546</td>
 <td>0,521</td>
 <td>0,804</td>
 <td>0,522</td>
 <td>0,678</td>
+<td><strong>0,400</strong></td>
 </tr>
 <tr>
 <td>Final × ERA5, RMSD</td>
@@ -1905,6 +1945,7 @@
 <td>1,591</td>
 <td>1,526</td>
 <td><strong>1,515</strong></td>
+<td>1,584</td>
 </tr>
 <tr>
 <td><strong>Final × escaterômetro, RMSD</strong></td>
@@ -1916,6 +1957,7 @@
 <td>1,509</td>
 <td>1,450</td>
 <td><strong>1,440</strong></td>
+<td>1,463</td>
 </tr>
 <tr>
 <td>Final × escaterômetro, viés</td>
@@ -1927,6 +1969,7 @@
 <td>−0,22</td>
 <td>−0,19</td>
 <td>−0,20</td>
+<td>+0,06</td>
 </tr>
 <tr>
 <td>Média do RMSD nas faixas de 2 m/s, de 0 a 24 m/s (escaterômetro)</td>
@@ -1938,6 +1981,7 @@
 <td>3,05</td>
 <td>2,35</td>
 <td>2,37</td>
+<td>2,58</td>
 </tr>
 <tr>
 <td>Viés com vento de 15 m/s ou mais (escaterômetro, 283 mil pares)</td>
@@ -1949,6 +1993,7 @@
 <td>−2,91</td>
 <td>−2,04</td>
 <td>−2,07</td>
+<td><strong>−1,88</strong></td>
 </tr>
 <tr>
 <td>Viés com vento de 20 m/s ou mais (escaterômetro, 7 mil pares)</td>
@@ -1960,6 +2005,7 @@
 <td>−5,44</td>
 <td>−2,94</td>
 <td>−3,21</td>
+<td>−4,62</td>
 </tr>
 </tbody>
 </table>
@@ -1974,6 +2020,7 @@
 <li><strong>O vento final estacionou em cerca de 1,45 m/s contra o escaterômetro.</strong> A, B, D, F e G dão praticamente o mesmo número (o G, 1,44, dentro da incerteza), igual ao do produto oficial.</li>
 <li><strong>Melhorar uma etapa intermediária não chega ao vento final.</strong> O F torna o vento DDMA muito mais fiel, e a rede de pesos melhora a combinação. Mas as etapas seguintes (estado do mar e debias), refeitas sobre a mudança, compensam a diferença ou a perdem.</li>
 <li><strong>Todas as abordagens subestimam o vento forte</strong>, assim como o produto oficial: cerca de −2 m/s acima de 15 m/s e −3 m/s acima de 20 m/s. As que mexem na forma da distribuição do vento final (C e E) pioram justamente essa faixa.</li>
+<li><strong>A régua não é o limite, nem a referência.</strong> O ERA5 e o escaterômetro discordam só em cerca de 0,87 m/s, e o ERA5 quase não subestima o vento forte contra ele (−0,6 m/s). Ajustar as tabelas contra o escaterômetro (I) não resolveu a subestimação. O limite está no sinal do CYGNSS e em como ele é usado (<a href="../escaterometro-ajuste/">I</a>).</li>
 <li><strong>O que é aprendido contra o ERA5 tende a puxar o vento para a média.</strong> A rede de pesos aprendeu a escolher o menor dos dois ventos, o que reduz o erro médio, mas encolhe o vento forte. A <a href="../inversao-conjunta/">inversão conjunta (G)</a> tentou evitar isso, mas a correção de estado do mar, ajustada como a média do ERA5 em cada faixa do nosso vento, devolve o mesmo puxão.</li>
 </ol>
 <h2 id="boias-m4">Boias (M4)<a class="headerlink" href="#boias-m4" title="Permanent link">&para;</a></h2>

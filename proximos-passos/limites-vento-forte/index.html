@@ -1071,6 +1071,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resultados/escaterometro-ajuste/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    I: tabelas ajustadas ao escaterômetro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1810,6 +1838,16 @@
 <td>−2,07 m/s</td>
 <td>−3,21 m/s</td>
 </tr>
+<tr>
+<td>Modelo I (ajustado ao escaterômetro)</td>
+<td>−1,88 m/s</td>
+<td>−4,62 m/s</td>
+</tr>
+<tr>
+<td><strong>ERA5</strong> (a referência do ajuste)</td>
+<td>cerca de −0,6 m/s</td>
+<td>cerca de −0,7 m/s</td>
+</tr>
 </tbody>
 </table>
 <p>Contra o escaterômetro, em 2022 (<a href="../../resultados/avaliacao-2022/#todas-as-abordagens-lado-a-lado">Resumo das abordagens</a>). As abordagens que mexem na forma da distribuição do vento final (a Weibull no debias e a rede de pesos) pioram justamente essa faixa.</p>
@@ -1835,8 +1873,8 @@
 </tr>
 <tr>
 <td><strong>A referência também erra</strong></td>
-<td>O ERA5, usado no treino, subestima o vento forte, e essa tendência passa para as tabelas</td>
-<td>ERA5, escaterômetro e boias comparados entre si</td>
+<td>O ERA5, usado no treino, poderia subestimar o vento forte e passar isso às tabelas. <strong>Medido: contribui pouco.</strong> Contra o escaterômetro, o ERA5 subestima só cerca de −0,6 m/s entre 14 e 20 m/s, e ajustar as tabelas ao escaterômetro não resolve (<a href="../../resultados/escaterometro-ajuste/">modelo I</a>)</td>
+<td>ERA5 e escaterômetro comparados entre si (feito)</td>
 </tr>
 <tr>
 <td><strong>Poucos exemplos</strong></td>
@@ -1923,11 +1961,11 @@
 </table>
 <p>Na prática, são quase a mesma medida vista de dois jeitos. Isso ajuda a explicar por que a combinação, seja pelo MV, pela rede de pesos ou pela inversão conjunta, não reduz muito o erro.</p>
 <p><strong>A altura das ondas e o swell explicam pouco do ruído no geral:</strong> cerca de 8% da variação do NBRCS e 6% da do LES. A fração de swell quase não acrescenta nada além da altura das ondas. Por faixa de vento, a parte explicada no NBRCS é de 12% até 4 m/s, de 2 a 4% entre 4 e 12 m/s, de 15% entre 12 e 16 m/s e de 48% acima de 16 m/s. Este último número tem só 1,5 mil medidas, divididas em muitas classes, e deve estar inflado; mesmo assim, a tendência faz sentido físico, porque com vento forte o estado do mar muda bastante a rugosidade.</p>
-<p><strong>Parte do erro nem é do satélite:</strong> o próprio ERA5 erra, em torno de 1 m/s contra o escaterômetro, e nenhuma variável do satélite explica isso.</p>
+<p><strong>O piso da régua é baixo.</strong> Nos mesmos pares de 2022, o ERA5 e o escaterômetro discordam em cerca de 0,87 m/s (RMSD), já contando a distância de até 25 km e 30 minutos entre eles e o erro de cada um. O nosso vento está a 1,45 m/s: a maior parte do erro vem do CYGNSS, e não da régua (<a href="../../resultados/escaterometro-ajuste/">modelo I</a>).</p>
 <h2 id="o-que-falta-medir">O que falta medir<a class="headerlink" href="#o-que-falta-medir" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Confirmar em 2022, fora do treino, quanto a altura das ondas reduz o ruído acima de 12 m/s.</li>
-<li>Separar o erro do ERA5 do erro do satélite no vento forte, comparando o ERA5, o escaterômetro e as boias entre si.</li>
+<li>~~Separar o erro do ERA5 do erro do satélite no vento forte~~ Feito com o escaterômetro: o ERA5 contribui pouco (<a href="../../resultados/escaterometro-ajuste/">modelo I</a>). Falta confirmar com as boias.</li>
 <li>Ver se a <a href="../rede-ddm/">DDM inteira</a> carrega informação sobre o vento forte que o NBRCS e o LES perdem. Se não carregar, o limite é do próprio sinal; se carregar, é dos dois números.</li>
 </ol>
 <p>O CYGNSS tem um produto à parte para furacões, que mede ventos bem mais fortes com uma tabela treinada só com tempestades e uma referência própria para elas. Mesmo ele é muito sensível ao ruído nos ventos mais fortes, pelo mesmo motivo: o sinal muda pouco ali.</p>
