@@ -11,7 +11,7 @@
       
       
       
-        <link rel="prev" href="../../resultados/gmf-ponta/">
+        <link rel="prev" href="../../resultados/inversao-conjunta/">
       
       
         <link rel="next" href="../rede-ddm/">
@@ -1043,6 +1043,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resultados/inversao-conjunta/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    G: inversão conjunta
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1793,8 +1821,8 @@
 <ul>
 <li><strong>O problema:</strong> tudo o que aprende a prever o vento a partir do sinal, contra o ERA5, puxa o vento para a média, como a <a href="../../resultados/rede-pesos/">rede de pesos</a> mostrou.</li>
 <li><strong>A ideia:</strong> descrever o sinal esperado para cada vento e, para cada medida, escolher o vento cujo sinal esperado mais se parece com o NBRCS e o LES medidos, os dois juntos, cada um pesado pelo seu ruído.</li>
-<li><strong>Fase 1 (modelo G):</strong> usa a GMF que já existe e uma tabela de ruído medida em 2021. Está rodando; o resultado do ano inteiro sai em 28/10/2026.</li>
-<li><strong>Fase 2 (modelo H):</strong> troca a GMF por uma rede que inclui a altura das ondas e o swell. Só será feita se a fase 1 indicar que vale a pena.</li>
+<li><strong>Fase 1 (modelo G): feita.</strong> Usou a GMF que já existe e uma tabela de ruído medida em 2021. No vento final, empatou com o modelo A e não melhorou o vento forte (<a href="../../resultados/inversao-conjunta/">resultado</a>).</li>
+<li><strong>Fase 2 (modelo H):</strong> trocaria a GMF por uma rede que inclui a altura das ondas e o swell. Depende de decisão, porque a fase 1 não indicou ganho.</li>
 </ul>
 </div>
 <h2 id="de-onde-veio-a-ideia">De onde veio a ideia<a class="headerlink" href="#de-onde-veio-a-ideia" title="Permanent link">&para;</a></h2>
@@ -1876,7 +1904,8 @@
 </ul>
 <p>Uma medida preliminar (12 dias de 2021) sugere que a altura das ondas e o swell explicam pouco do ruído do sinal no geral (cerca de 8%), mas mais nos ventos fortes (<a href="../limites-vento-forte/">Os limites no vento forte</a>). Antes da fase 2, a ideia é confirmar isso em 2022, num teste barato.</p>
 <h2 id="situacao">Situação<a class="headerlink" href="#situacao" title="Permanent link">&para;</a></h2>
-<p><strong>Fase 1 em andamento:</strong> o modelo G roda no servidor desde 27/10/2026 e deve terminar na madrugada de 28/10. O resultado entra como uma página em <a href="../../resultados/avaliacao-2022/">Resultados</a>, comparado com todas as abordagens anteriores. <strong>A fase 2 depende</strong> do resultado da fase 1: se o modelo G não ganhar no vento forte sem piorar o geral, a abordagem é encerrada.</p>
+<p><strong>Fase 1 concluída em 27/10/2026.</strong> O modelo G empatou com o modelo A no vento final (1,44 contra 1,45 m/s contra o escaterômetro, dentro da incerteza) e não reduziu a subestimação do vento forte. O vento invertido, sozinho, espalha muito; a correção de estado do mar o traz de volta, mas, por ser ajustada como a média do ERA5 em cada faixa do nosso vento, devolve também o puxão para a média (<a href="../../resultados/inversao-conjunta/">resultado completo</a>).</p>
+<p><strong>Fase 2 em suspenso.</strong> Ela foi pensada para manter a mesma cadeia depois da inversão, e o mesmo efeito tende a voltar. Seguir ou não é decisão do responsável do projeto.</p>
 
 
 

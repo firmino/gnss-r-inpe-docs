@@ -1136,6 +1136,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inversao-conjunta/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    G: inversão conjunta
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1797,6 +1825,13 @@
 <td>Etapas intermediárias muito mais fiéis; vento final igual</td>
 <td><strong>Candidata</strong> a GMF padrão</td>
 </tr>
+<tr>
+<td><a href="../inversao-conjunta/">G: inversão conjunta</a></td>
+<td>a combinação dos dois ventos vira uma busca do vento que explica os dois sinais, pesados pelo ruído</td>
+<td>Evitar o puxão para a média da rede de pesos</td>
+<td>Empata com A no vento final; não melhora o vento forte</td>
+<td><strong>Não adotada</strong></td>
+</tr>
 </tbody>
 </table>
 <h2 id="todas-as-abordagens-lado-a-lado">Todas as abordagens lado a lado<a class="headerlink" href="#todas-as-abordagens-lado-a-lado" title="Permanent link">&para;</a></h2>
@@ -1812,6 +1847,7 @@
 <th>D</th>
 <th>E</th>
 <th>F</th>
+<th>G</th>
 </tr>
 </thead>
 <tbody>
@@ -1824,6 +1860,7 @@
 <td>0,45</td>
 <td>0,45</td>
 <td><strong>0,28</strong></td>
+<td>0,45</td>
 </tr>
 <tr>
 <td>Vento LES × oficial, RMSD (M2)</td>
@@ -1834,6 +1871,7 @@
 <td>1,05</td>
 <td>1,05</td>
 <td><strong>0,98</strong></td>
+<td>1,05</td>
 </tr>
 <tr>
 <td>Combinação (MV) × ERA5, RMSD</td>
@@ -1844,6 +1882,7 @@
 <td>1,89</td>
 <td><strong>1,56</strong></td>
 <td>1,81</td>
+<td>3,13</td>
 </tr>
 <tr>
 <td>Final × final oficial, RMSD (M3)</td>
@@ -1854,26 +1893,29 @@
 <td>0,521</td>
 <td>0,804</td>
 <td>0,522</td>
+<td>0,678</td>
 </tr>
 <tr>
 <td>Final × ERA5, RMSD</td>
 <td>1,585</td>
-<td><strong>1,527</strong></td>
+<td>1,527</td>
 <td>1,528</td>
 <td>1,537</td>
-<td><strong>1,526</strong></td>
+<td>1,526</td>
 <td>1,591</td>
-<td><strong>1,526</strong></td>
+<td>1,526</td>
+<td><strong>1,515</strong></td>
 </tr>
 <tr>
 <td><strong>Final × escaterômetro, RMSD</strong></td>
 <td>1,463</td>
-<td><strong>1,450</strong></td>
+<td>1,450</td>
 <td>1,451</td>
 <td>1,463</td>
-<td><strong>1,450</strong></td>
+<td>1,450</td>
 <td>1,509</td>
-<td><strong>1,450</strong></td>
+<td>1,450</td>
+<td><strong>1,440</strong></td>
 </tr>
 <tr>
 <td>Final × escaterômetro, viés</td>
@@ -1884,6 +1926,7 @@
 <td>−0,19</td>
 <td>−0,22</td>
 <td>−0,19</td>
+<td>−0,20</td>
 </tr>
 <tr>
 <td>Média do RMSD nas faixas de 2 m/s, de 0 a 24 m/s (escaterômetro)</td>
@@ -1894,6 +1937,7 @@
 <td>2,35</td>
 <td>3,05</td>
 <td>2,35</td>
+<td>2,37</td>
 </tr>
 <tr>
 <td>Viés com vento de 15 m/s ou mais (escaterômetro, 283 mil pares)</td>
@@ -1904,6 +1948,7 @@
 <td>−2,04</td>
 <td>−2,91</td>
 <td>−2,04</td>
+<td>−2,07</td>
 </tr>
 <tr>
 <td>Viés com vento de 20 m/s ou mais (escaterômetro, 7 mil pares)</td>
@@ -1914,6 +1959,7 @@
 <td>−2,93</td>
 <td>−5,44</td>
 <td>−2,94</td>
+<td>−3,21</td>
 </tr>
 </tbody>
 </table>
@@ -1925,10 +1971,10 @@
 </ul>
 <h2 id="o-que-aprendemos-ate-agora">O que aprendemos até agora<a class="headerlink" href="#o-que-aprendemos-ate-agora" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>O vento final estacionou em cerca de 1,45 m/s contra o escaterômetro.</strong> A, B, D e F dão o mesmo número, e ele é igual ao do produto oficial.</li>
+<li><strong>O vento final estacionou em cerca de 1,45 m/s contra o escaterômetro.</strong> A, B, D, F e G dão praticamente o mesmo número (o G, 1,44, dentro da incerteza), igual ao do produto oficial.</li>
 <li><strong>Melhorar uma etapa intermediária não chega ao vento final.</strong> O F torna o vento DDMA muito mais fiel, e a rede de pesos melhora a combinação. Mas as etapas seguintes (estado do mar e debias), refeitas sobre a mudança, compensam a diferença ou a perdem.</li>
 <li><strong>Todas as abordagens subestimam o vento forte</strong>, assim como o produto oficial: cerca de −2 m/s acima de 15 m/s e −3 m/s acima de 20 m/s. As que mexem na forma da distribuição do vento final (C e E) pioram justamente essa faixa.</li>
-<li><strong>O que é aprendido contra o ERA5 tende a puxar o vento para a média.</strong> A rede de pesos aprendeu a escolher o menor dos dois ventos, o que reduz o erro médio, mas encolhe o vento forte. É o motivo da próxima abordagem, a <strong>inversão conjunta</strong> do NBRCS e do LES, em andamento: ela parte do vento e prevê o sinal, em vez de prever o vento a partir do sinal.</li>
+<li><strong>O que é aprendido contra o ERA5 tende a puxar o vento para a média.</strong> A rede de pesos aprendeu a escolher o menor dos dois ventos, o que reduz o erro médio, mas encolhe o vento forte. A <a href="../inversao-conjunta/">inversão conjunta (G)</a> tentou evitar isso, mas a correção de estado do mar, ajustada como a média do ERA5 em cada faixa do nosso vento, devolve o mesmo puxão.</li>
 </ol>
 <h2 id="boias-m4">Boias (M4)<a class="headerlink" href="#boias-m4" title="Permanent link">&para;</a></h2>
 <p>O relatório do M4 foi gerado, mas ficou <strong>insuficiente</strong> para as boias: não há nenhum pareamento com boia em oceano aberto em 2022, e o mínimo é de 1.000. O SiMCosta tem só 61 dias baixados, todos de 2021, e o PIRATA e o PNBOIA ainda não têm fonte (<a href="../../situacao/dados-baixados/">Dados baixados</a>). Por isso, a referência independente de todas as páginas é o escaterômetro.</p>
