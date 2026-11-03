@@ -963,6 +963,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Todas as abordagens lado a lado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#as-abordagens-com-o-nbrcs-e-o-les-a-a-h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        As abordagens com o NBRCS e o LES (A a H)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#as-redes-na-imagem-da-ddm-i-a-l" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        As redes na imagem da DDM (I a L)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1178,7 +1206,35 @@
   <span class="md-ellipsis">
     
   
-    I: tabelas ajustadas ao escaterômetro
+    H: tabelas ajustadas ao escaterômetro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rede-ddm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    I a L: rede na imagem da DDM
   
 
     
@@ -1265,35 +1321,7 @@
   <span class="md-ellipsis">
     
   
-    Inversão conjunta (G e H)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../proximos-passos/rede-ddm/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Rede com a DDM inteira
+    Inversão conjunta, fase 2
   
 
     
@@ -1757,6 +1785,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Todas as abordagens lado a lado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#as-abordagens-com-o-nbrcs-e-o-les-a-a-h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        As abordagens com o NBRCS e o LES (A a H)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#as-redes-na-imagem-da-ddm-i-a-l" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        As redes na imagem da DDM (I a L)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1799,10 +1855,10 @@
 
 
 <h1 id="resumo-das-abordagens">Resumo das abordagens<a class="headerlink" href="#resumo-das-abordagens" title="Permanent link">&para;</a></h1>
-<p>Esta seção reúne as abordagens testadas para estimar o vento, <strong>uma por página</strong>, na ordem em que foram testadas. Todas seguem as mesmas regras, para que possam ser comparadas:</p>
+<p>Esta seção reúne as abordagens testadas para estimar o vento, <strong>uma letra por abordagem</strong>, na ordem em que foram testadas (as quatro redes na imagem da DDM, I a L, dividem uma página). Todas seguem as mesmas regras, para que possam ser comparadas:</p>
 <ul>
 <li><strong>Treino só com 2021</strong> e <strong>teste em fevereiro a dezembro de 2022</strong>, um período que nenhuma tabela ou rede viu. Janeiro de 2022 fica de fora, como intervalo entre os dois.</li>
-<li><strong>Cada abordagem muda uma única coisa</strong> em relação ao <a href="../modelo-a/">modelo A</a>, a reprodução do algoritmo da NASA com tabelas próprias. Assim, qualquer diferença no resultado vem dessa mudança.</li>
+<li><strong>Cada abordagem muda uma única coisa</strong> em relação ao <a href="../modelo-a/">modelo A</a>, a reprodução do algoritmo da NASA com tabelas próprias. Assim, qualquer diferença no resultado vem dessa mudança. A exceção são as redes na imagem da DDM (I a L), que trocam a cadeia inteira e são comparadas com o A e o oficial.</li>
 <li><strong>As mesmas amostras e as mesmas referências:</strong> 437 milhões de amostras de 2022 que passam no controle de qualidade oficial, comparadas com o vento oficial da NASA, com o ERA5 e com o escaterômetro (48 milhões de pares).</li>
 </ul>
 <p>As comparações e as medidas de erro estão explicadas em <a href="../../algoritmo/avaliacao/">Como avaliamos</a>, e as etapas do vento (DDMA, LES, MV, estado do mar, final) em <a href="../../algoritmo/visao-geral/">Visão geral da cadeia</a>. Cada página tem a mesma estrutura: <strong>de onde veio a ideia, a hipótese, o que foi testado, os resultados comparados com todas as abordagens anteriores, o que aprendemos e a situação</strong> (adotada, descartada ou em andamento).</p>
@@ -1861,16 +1917,45 @@
 <td><strong>Não adotada</strong></td>
 </tr>
 <tr>
-<td><a href="../escaterometro-ajuste/">I: tabelas ajustadas ao escaterômetro</a></td>
+<td><a href="../escaterometro-ajuste/">H: tabelas ajustadas ao escaterômetro</a></td>
 <td>a referência do ajuste: o escaterômetro (ASCAT) em vez do ERA5</td>
 <td>Ver se a subestimação do vento forte vem do ERA5</td>
 <td>Não: piora o total contra o HSCAT; mostrou que o piso da régua é 0,87 m/s</td>
 <td><strong>Não adotado</strong></td>
 </tr>
+<tr>
+<td><a href="../rede-ddm/">I: rede no recorte de 25 km</a></td>
+<td>a cadeia inteira vira uma rede que lê a DDM, só o recorte de 25 km do produto oficial</td>
+<td>A imagem tem mais informação que o NBRCS e o LES</td>
+<td>Empata com o oficial e com o A</td>
+<td><strong>Não adotado</strong></td>
+</tr>
+<tr>
+<td><a href="../rede-ddm/">J: rede na imagem inteira, 1 medida</a></td>
+<td>a rede lê a imagem inteira da DDM, de uma medida da trilha</td>
+<td>Ver se o ganho vem de fora do recorte</td>
+<td>Pouco melhor que o oficial</td>
+<td><strong>Não adotado</strong></td>
+</tr>
+<tr>
+<td><a href="../rede-ddm/">K: rede na imagem inteira, 5 medidas</a></td>
+<td>a rede lê a imagem inteira de 5 medidas seguidas da trilha</td>
+<td>Juntar a trilha, como a média no tempo do produto</td>
+<td><strong>6% menos erro que o oficial</strong> contra o escaterômetro, sobretudo de 10 a 18 m/s</td>
+<td><strong>Melhor até agora</strong>; falta medir a resolução</td>
+</tr>
+<tr>
+<td><a href="../rede-ddm/">L: rede na imagem inteira, 9 medidas</a></td>
+<td>a rede lê a imagem inteira de 9 medidas seguidas</td>
+<td>Ver se mais trilha ajuda</td>
+<td>Melhor que o oficial, pior que o K</td>
+<td><strong>Em aberto</strong></td>
+</tr>
 </tbody>
 </table>
 <h2 id="todas-as-abordagens-lado-a-lado">Todas as abordagens lado a lado<a class="headerlink" href="#todas-as-abordagens-lado-a-lado" title="Permanent link">&para;</a></h2>
-<p>Os números são de todo o período de teste. O RMSD é a diferença típica e o viés é a diferença média, em m/s (<a href="../../algoritmo/avaliacao/#as-medidas-de-erro">medidas de erro</a>). A coluna E (rede de pesos) é a média de cinco treinos. O I foi ajustado contra os dois ASCAT, que são parte desses pares; o veredito independente dele está na <a href="../escaterometro-ajuste/">sua página</a>, contra o HSCAT.</p>
+<h3 id="as-abordagens-com-o-nbrcs-e-o-les-a-a-h">As abordagens com o NBRCS e o LES (A a H)<a class="headerlink" href="#as-abordagens-com-o-nbrcs-e-o-les-a-a-h" title="Permanent link">&para;</a></h3>
+<p>Os números são de todo o período de teste. O RMSD é a diferença típica e o viés é a diferença média, em m/s (<a href="../../algoritmo/avaliacao/#as-medidas-de-erro">medidas de erro</a>). A coluna E (rede de pesos) é a média de cinco treinos. O H foi ajustado contra os dois ASCAT, que são parte desses pares; o veredito independente dele está na <a href="../escaterometro-ajuste/">sua página</a>, contra o HSCAT.</p>
 <table>
 <thead>
 <tr>
@@ -1883,7 +1968,7 @@
 <th>E</th>
 <th>F</th>
 <th>G</th>
-<th>I</th>
+<th>H</th>
 </tr>
 </thead>
 <tbody>
@@ -2009,6 +2094,78 @@
 </tr>
 </tbody>
 </table>
+<h3 id="as-redes-na-imagem-da-ddm-i-a-l">As redes na imagem da DDM (I a L)<a class="headerlink" href="#as-redes-na-imagem-da-ddm-i-a-l" title="Permanent link">&para;</a></h3>
+<p>As redes precisam das DDMs do arquivo L1, que a NASA não tem completas em 43 dias de 2022 (o maior trecho, de 27/11 a 31/12, é quando o satélite 6 parou). Por isso elas são comparadas nos <strong>291 dias com DDM</strong>, com o oficial e o A medidos nas mesmas amostras; os números do oficial e do A mudam um pouco em relação à tabela de cima. Detalhes por faixa e por instrumento na <a href="../rede-ddm/">página das redes</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Medida</th>
+<th>Oficial</th>
+<th>A</th>
+<th>I</th>
+<th>J</th>
+<th>K</th>
+<th>L</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Final × ERA5, RMSD</td>
+<td>1,576</td>
+<td>1,519</td>
+<td>1,519</td>
+<td>1,510</td>
+<td><strong>1,455</strong></td>
+<td>1,477</td>
+</tr>
+<tr>
+<td><strong>Final × escaterômetro, RMSD</strong></td>
+<td>1,449</td>
+<td>1,439</td>
+<td>1,451</td>
+<td>1,438</td>
+<td><strong>1,377</strong></td>
+<td>1,402</td>
+</tr>
+<tr>
+<td>Final × escaterômetro, viés</td>
+<td>+0,08</td>
+<td>−0,19</td>
+<td>−0,17</td>
+<td>−0,15</td>
+<td>−0,13</td>
+<td>−0,15</td>
+</tr>
+<tr>
+<td>Média do RMSD nas faixas de 2 m/s, de 0 a 24 m/s (escaterômetro)</td>
+<td>2,32</td>
+<td>2,32</td>
+<td>2,44</td>
+<td>2,39</td>
+<td><strong>2,16</strong></td>
+<td>2,36</td>
+</tr>
+<tr>
+<td>Viés com vento de 15 m/s ou mais (escaterômetro, 238 mil pares)</td>
+<td>−2,10</td>
+<td>−2,05</td>
+<td>−1,69</td>
+<td><strong>−1,21</strong></td>
+<td>−1,89</td>
+<td>−1,41</td>
+</tr>
+<tr>
+<td>Viés com vento de 20 m/s ou mais (escaterômetro, 6,5 mil pares)</td>
+<td>−2,78</td>
+<td>−2,93</td>
+<td>−0,01</td>
+<td>+0,57</td>
+<td>−1,98</td>
+<td>+0,12</td>
+</tr>
+</tbody>
+</table>
+<p>No vento muito forte, o I, o J e o L quase não têm viés médio, mas erram muito para os dois lados (RMSD de 4,6 a 4,7 m/s acima de 20 m/s, contra 3,9 do oficial e do K).</p>
 <p><strong>Como ler:</strong></p>
 <ul>
 <li><strong>O escaterômetro é a régua que decide.</strong> Nem as nossas tabelas nem as da NASA foram ajustadas com ele, então é a única comparação independente. O ERA5 favorece as nossas abordagens, porque elas foram ajustadas com ele (<a href="../modelo-a/#comparacao-com-o-era5">detalhes</a>).</li>
@@ -2017,10 +2174,10 @@
 </ul>
 <h2 id="o-que-aprendemos-ate-agora">O que aprendemos até agora<a class="headerlink" href="#o-que-aprendemos-ate-agora" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>O vento final estacionou em cerca de 1,45 m/s contra o escaterômetro.</strong> A, B, D, F e G dão praticamente o mesmo número (o G, 1,44, dentro da incerteza), igual ao do produto oficial.</li>
+<li><strong>Com o NBRCS e o LES, o vento final estacionou em cerca de 1,45 m/s contra o escaterômetro.</strong> A, B, D, F e G dão praticamente o mesmo número (o G, 1,44, dentro da incerteza), igual ao do produto oficial. <strong>A imagem da DDM rompeu esse limite:</strong> o K chega a 1,38 (1,36 sem a correção final), com o maior ganho de 10 a 18 m/s.</li>
 <li><strong>Melhorar uma etapa intermediária não chega ao vento final.</strong> O F torna o vento DDMA muito mais fiel, e a rede de pesos melhora a combinação. Mas as etapas seguintes (estado do mar e debias), refeitas sobre a mudança, compensam a diferença ou a perdem.</li>
-<li><strong>Todas as abordagens subestimam o vento forte</strong>, assim como o produto oficial: cerca de −2 m/s acima de 15 m/s e −3 m/s acima de 20 m/s. As que mexem na forma da distribuição do vento final (C e E) pioram justamente essa faixa.</li>
-<li><strong>A régua não é o limite, nem a referência.</strong> O ERA5 e o escaterômetro discordam só em cerca de 0,87 m/s, e o ERA5 quase não subestima o vento forte contra ele (−0,6 m/s). Ajustar as tabelas contra o escaterômetro (I) não resolveu a subestimação. O limite está no sinal do CYGNSS e em como ele é usado (<a href="../escaterometro-ajuste/">I</a>).</li>
+<li><strong>Todas as abordagens subestimam o vento forte</strong>, assim como o produto oficial: cerca de −2 m/s acima de 15 m/s e −3 m/s acima de 20 m/s. As que mexem na forma da distribuição do vento final (C e E) pioram justamente essa faixa. O K reduz um pouco a subestimação (−1,9 e −2,0 m/s) e erra menos nessa faixa.</li>
+<li><strong>A régua não é o limite, nem a referência.</strong> O ERA5 e o escaterômetro discordam só em cerca de 0,87 m/s, e o ERA5 quase não subestima o vento forte contra ele (−0,6 m/s). Ajustar as tabelas contra o escaterômetro (H) não resolveu a subestimação. O limite estava em como o sinal do CYGNSS é usado: lendo a imagem inteira, o K erra menos (<a href="../escaterometro-ajuste/">H</a>, <a href="../rede-ddm/">I a L</a>).</li>
 <li><strong>O que é aprendido contra o ERA5 tende a puxar o vento para a média.</strong> A rede de pesos aprendeu a escolher o menor dos dois ventos, o que reduz o erro médio, mas encolhe o vento forte. A <a href="../inversao-conjunta/">inversão conjunta (G)</a> tentou evitar isso, mas a correção de estado do mar, ajustada como a média do ERA5 em cada faixa do nosso vento, devolve o mesmo puxão.</li>
 </ol>
 <h2 id="boias-m4">Boias (M4)<a class="headerlink" href="#boias-m4" title="Permanent link">&para;</a></h2>

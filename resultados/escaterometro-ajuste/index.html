@@ -14,7 +14,7 @@
         <link rel="prev" href="../inversao-conjunta/">
       
       
-        <link rel="next" href="../../proximos-passos/inversao-conjunta/">
+        <link rel="next" href="../rede-ddm/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>I: tabelas ajustadas ao escaterômetro - vsm-gnssr</title>
+        <title>H: tabelas ajustadas ao escaterômetro - vsm-gnssr</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#i-tabelas-ajustadas-ao-escaterometro" class="md-skip">
+        <a href="#h-tabelas-ajustadas-ao-escaterometro" class="md-skip">
           Pular para conteúdo
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              I: tabelas ajustadas ao escaterômetro
+              H: tabelas ajustadas ao escaterômetro
             
           </span>
         </div>
@@ -1096,7 +1096,7 @@
   <span class="md-ellipsis">
     
   
-    I: tabelas ajustadas ao escaterômetro
+    H: tabelas ajustadas ao escaterômetro
   
 
     
@@ -1114,7 +1114,7 @@
   <span class="md-ellipsis">
     
   
-    I: tabelas ajustadas ao escaterômetro
+    H: tabelas ajustadas ao escaterômetro
   
 
     
@@ -1253,6 +1253,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rede-ddm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    I a L: rede na imagem da DDM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1326,35 +1354,7 @@
   <span class="md-ellipsis">
     
   
-    Inversão conjunta (G e H)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../proximos-passos/rede-ddm/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Rede com a DDM inteira
+    Inversão conjunta, fase 2
   
 
     
@@ -1920,8 +1920,8 @@
 
 
 
-<h1 id="i-tabelas-ajustadas-ao-escaterometro">I: tabelas ajustadas ao escaterômetro<a class="headerlink" href="#i-tabelas-ajustadas-ao-escaterometro" title="Permanent link">&para;</a></h1>
-<p>O modelo I é o <a href="../modelo-a/">modelo A</a> mudando uma única coisa: a <strong>referência do ajuste</strong>. Em vez do vento do ERA5, as quatro tabelas (GMF, MV, estado do mar e debias) são ajustadas contra o vento do <strong>escaterômetro</strong> de 2021. Para que o teste continue independente, o ajuste usa só os dois ASCAT (Metop-B e Metop-C), e o veredito é dado pelo <strong>HSCAT</strong> (HY-2B), que ficou de fora.</p>
+<h1 id="h-tabelas-ajustadas-ao-escaterometro">H: tabelas ajustadas ao escaterômetro<a class="headerlink" href="#h-tabelas-ajustadas-ao-escaterometro" title="Permanent link">&para;</a></h1>
+<p>O modelo H é o <a href="../modelo-a/">modelo A</a> mudando uma única coisa: a <strong>referência do ajuste</strong>. Em vez do vento do ERA5, as quatro tabelas (GMF, MV, estado do mar e debias) são ajustadas contra o vento do <strong>escaterômetro</strong> de 2021. Para que o teste continue independente, o ajuste usa só os dois ASCAT (Metop-B e Metop-C), e o veredito é dado pelo <strong>HSCAT</strong> (HY-2B), que ficou de fora.</p>
 <table>
 <thead>
 <tr>
@@ -1953,7 +1953,7 @@
 <ul>
 <li><strong>O piso da régua é baixo:</strong> o ERA5 erra só <strong>0,89 m/s</strong> contra o HSCAT e quase não subestima o vento forte (cerca de −0,6 m/s entre 14 e 20 m/s). Os 1,45 m/s do nosso vento estão bem acima disso: <strong>há espaço para melhorar</strong>, e a subestimação do vento forte <strong>não vem do ERA5</strong>.</li>
 <li><strong>Ajustar contra o escaterômetro não resolve:</strong> contra o HSCAT, o erro total piora (1,463 contra 1,433 m/s). O vento forte melhora entre 10 e 18 m/s, mas piora acima de 20 m/s, onde quase não há pares de treino.</li>
-<li><strong>O vento do modelo I fica mais perto do oficial da NASA:</strong> 0,40 m/s, o primeiro abaixo do critério do M3.</li>
+<li><strong>O vento do modelo H fica mais perto do oficial da NASA:</strong> 0,40 m/s, o primeiro abaixo do critério do M3.</li>
 <li><strong>Não adotado.</strong> O limite está no sinal do CYGNSS e em como o algoritmo o usa, e não na referência.</li>
 </ul>
 </div>
@@ -1967,7 +1967,7 @@
 <tr>
 <th>Etapa</th>
 <th>Modelo A</th>
-<th>Modelo I</th>
+<th>Modelo H</th>
 </tr>
 </thead>
 <tbody>
@@ -1987,10 +1987,10 @@
 <li>O pareamento de 2021 é o mesmo de 2022: para cada ponto do CYGNSS, a célula de escaterômetro mais próxima, de qualquer instrumento. Os pares cuja célula mais próxima é do HSCAT ficam fora do ajuste.</li>
 <li>O vento do escaterômetro é o <em>equivalente de tensão</em> a 10 m, sem conversão.</li>
 <li>O HSCAT é um radar diferente dos ASCAT (banda Ku contra banda C), de outra agência e calibrado à parte. Não é uma referência totalmente independente, porque mede a mesma grandeza, mas não foi visto no ajuste.</li>
-<li>Para cada instrumento, comparam-se nas <strong>mesmas linhas</strong> o vento do A, o do I, o oficial e o do ERA5. A linha do ERA5 é o "piso": quanto duas referências de vento discordam entre si.</li>
+<li>Para cada instrumento, comparam-se nas <strong>mesmas linhas</strong> o vento do A, o do H, o oficial e o do ERA5. A linha do ERA5 é o "piso": quanto duas referências de vento discordam entre si.</li>
 </ul>
 <h2 id="resultados">Resultados<a class="headerlink" href="#resultados" title="Permanent link">&para;</a></h2>
-<p><img alt="Modelo A e modelo I: à esquerda, o RMSD contra o vento oficial equivalente; à direita, o vento final contra o ERA5 e contra o escaterômetro (todos os instrumentos)" src="../../assets/img/eval2022_model_i_overview.png" /></p>
+<p><img alt="Modelo A e modelo H: à esquerda, o RMSD contra o vento oficial equivalente; à direita, o vento final contra o ERA5 e contra o escaterômetro (todos os instrumentos)" src="../../assets/img/eval2022_model_h_overview.png" /></p>
 <h3 id="contra-cada-instrumento">Contra cada instrumento<a class="headerlink" href="#contra-cada-instrumento" title="Permanent link">&para;</a></h3>
 <p>RMSD e viés, em m/s, nas mesmas linhas (QC oficial, todos os ventos presentes):</p>
 <table>
@@ -1999,7 +1999,7 @@
 <th>Instrumento</th>
 <th>Pares</th>
 <th>A</th>
-<th>I</th>
+<th>H</th>
 <th>Oficial</th>
 <th>ERA5 (piso)</th>
 </tr>
@@ -2014,7 +2014,7 @@
 <td>0,887 / −0,17</td>
 </tr>
 <tr>
-<td>ASCAT Metop-B (no ajuste do I)</td>
+<td>ASCAT Metop-B (no ajuste do H)</td>
 <td>14,0 mi</td>
 <td><strong>1,466</strong> / −0,22</td>
 <td>1,467 / +0,03</td>
@@ -2022,7 +2022,7 @@
 <td>0,857 / −0,27</td>
 </tr>
 <tr>
-<td>ASCAT Metop-C (no ajuste do I)</td>
+<td>ASCAT Metop-C (no ajuste do H)</td>
 <td>14,1 mi</td>
 <td><strong>1,458</strong> / −0,22</td>
 <td>1,462 / +0,03</td>
@@ -2039,7 +2039,7 @@
 <th>Faixa (m/s)</th>
 <th>Pares</th>
 <th>A</th>
-<th>I</th>
+<th>H</th>
 <th>Oficial</th>
 <th>ERA5 (piso)</th>
 </tr>
@@ -2144,13 +2144,13 @@
 </tbody>
 </table>
 <ul>
-<li><strong>Até 8 m/s</strong>, o I fica um pouco acima do A, com viés positivo: o vento do escaterômetro é, em média, um pouco mais alto que o do ERA5.</li>
-<li><strong>Entre 8 e 18 m/s</strong>, o I subestima menos (por exemplo, −1,21 contra −1,55 m/s entre 14 e 16 m/s) e erra um pouco menos.</li>
-<li><strong>Acima de 20 m/s</strong>, o I piora muito: há poucos pares de treino nessa faixa, e as tabelas ficam mal estimadas.</li>
+<li><strong>Até 8 m/s</strong>, o H fica um pouco acima do A, com viés positivo: o vento do escaterômetro é, em média, um pouco mais alto que o do ERA5.</li>
+<li><strong>Entre 8 e 18 m/s</strong>, o H subestima menos (por exemplo, −1,21 contra −1,55 m/s entre 14 e 16 m/s) e erra um pouco menos.</li>
+<li><strong>Acima de 20 m/s</strong>, o H piora muito: há poucos pares de treino nessa faixa, e as tabelas ficam mal estimadas.</li>
 <li><strong>O ERA5 erra pouco em todas as faixas</strong>, e subestima o vento forte bem menos que qualquer abordagem nossa.</li>
 </ul>
 <h2 id="comparacao-com-as-abordagens-anteriores">Comparação com as abordagens anteriores<a class="headerlink" href="#comparacao-com-as-abordagens-anteriores" title="Permanent link">&para;</a></h2>
-<p>Contra todos os escaterômetros juntos, como nas outras páginas. A coluna E (rede de pesos) é a média das cinco sementes. O ajuste do I viu os dois ASCAT, que são cerca de 58% desses pares; o veredito independente é a tabela do HSCAT acima.</p>
+<p>Contra todos os escaterômetros juntos, como nas outras páginas. A coluna E (rede de pesos) é a média das cinco sementes. O ajuste do H viu os dois ASCAT, que são cerca de 58% desses pares; o veredito independente é a tabela do HSCAT acima.</p>
 <table>
 <thead>
 <tr>
@@ -2163,7 +2163,7 @@
 <th>E</th>
 <th>F</th>
 <th>G</th>
-<th>I</th>
+<th>H</th>
 </tr>
 </thead>
 <tbody>
@@ -2293,11 +2293,11 @@
 <ul>
 <li><strong>A régua não é o limite.</strong> O ERA5 e o escaterômetro discordam só em cerca de 0,87 m/s, e isso já inclui a distância de até 25 km e 30 minutos entre os pares e o erro dos dois. O nosso vento está a 1,45 m/s: a maior parte desse erro vem do CYGNSS, e há espaço para um método melhor.</li>
 <li><strong>A subestimação do vento forte não vem da referência.</strong> O ERA5 subestima o vento forte em cerca de −0,6 m/s contra o escaterômetro; as nossas abordagens, em −2 a −3 m/s. Mesmo ajustando contra o escaterômetro, a subestimação continua. O limite está no sinal do CYGNSS (que muda pouco com vento forte) e na forma como as tabelas o usam.</li>
-<li><strong>Menos dados de treino custam caro nos extremos.</strong> Com só os pares do ASCAT, há poucos exemplos acima de 20 m/s, e é justamente aí que o I piora.</li>
-<li><strong>O produto da NASA parece mais próximo de um ajuste ao escaterômetro.</strong> O vento do I fica a 0,40 m/s do oficial (o A, a 0,52), e o viés contra o oficial praticamente some. É uma pista, não uma prova, de como as tabelas oficiais foram construídas.</li>
+<li><strong>Menos dados de treino custam caro nos extremos.</strong> Com só os pares do ASCAT, há poucos exemplos acima de 20 m/s, e é justamente aí que o H piora.</li>
+<li><strong>O produto da NASA parece mais próximo de um ajuste ao escaterômetro.</strong> O vento do H fica a 0,40 m/s do oficial (o A, a 0,52), e o viés contra o oficial praticamente some. É uma pista, não uma prova, de como as tabelas oficiais foram construídas.</li>
 </ul>
 <h2 id="situacao">Situação<a class="headerlink" href="#situacao" title="Permanent link">&para;</a></h2>
-<p><strong>Não adotado.</strong> Pela regra de ganho, o I não substitui o A: a média das faixas piora (2,58 contra 2,36) e, contra o HSCAT, o erro total também. A decisão de treinar a <a href="../../proximos-passos/rede-ddm/">rede com a DDM inteira</a> contra o ERA5 se mantém: o ERA5 é uma boa referência, e a escolha da referência não é o que limita o vento forte.</p>
+<p><strong>Não adotado.</strong> Pela regra de ganho, o H não substitui o A: a média das faixas piora (2,58 contra 2,36) e, contra o HSCAT, o erro total também. A decisão de treinar a <a href="../rede-ddm/">rede na imagem da DDM</a> contra o ERA5 se manteve: o ERA5 é uma boa referência, e a escolha da referência não é o que limita o vento forte.</p>
 
 
 

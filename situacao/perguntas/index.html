@@ -1085,7 +1085,35 @@
   <span class="md-ellipsis">
     
   
-    I: tabelas ajustadas ao escaterômetro
+    H: tabelas ajustadas ao escaterômetro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resultados/rede-ddm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    I a L: rede na imagem da DDM
   
 
     
@@ -1172,35 +1200,7 @@
   <span class="md-ellipsis">
     
   
-    Inversão conjunta (G e H)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../proximos-passos/rede-ddm/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Rede com a DDM inteira
+    Inversão conjunta, fase 2
   
 
     
@@ -1791,7 +1791,7 @@
 <li><strong>LUTs do INPE:</strong> o INPE não tem as LUTs da NASA, só as que gerou seguindo o ATBD. Elas podem ser compartilhadas? O INPE enviou os dados de 2021 que usou para gerá-las (por ângulo de incidência, DDM-L2 e ERA5); falta conferir o formato.</li>
 <li><strong>Weibull ou distribuição empírica:</strong> o documento do INPE menciona a distribuição de Weibull para a distribuição acumulada usada na GMF, enquanto o ATBD do CYGNSS usa a distribuição empírica. O projeto testou as duas: na GMF a Weibull não muda o vento final, e no debias ela piora o vento forte (<a href="../../resultados/weibull/">B e C: distribuição de Weibull</a>). A Weibull é intencional no método do INPE? Se for, em qual etapa?</li>
 <li><strong>Média do MV:</strong> qual média (80/20 ou 50/50) foi usada nas LUTs que o INPE gerou? No algoritmo próprio as duas dão o mesmo vento (<a href="../../resultados/mv-5050/">D: média 50/50 no MV</a>).</li>
-<li><strong>Resolução do Amazonia-1B:</strong> o vento precisa manter os 25 × 25 km do CYGNSS, com a mesma definição, ou uma rede pode usar uma área maior da DDM? Ver <a href="../../proximos-passos/rede-ddm/#a-questao-dos-25-km">Rede com a DDM inteira</a>.</li>
+<li><strong>Resolução do Amazonia-1B:</strong> o vento precisa manter os 25 × 25 km do CYGNSS, com a mesma definição, ou uma rede pode usar uma área maior da DDM? Ver <a href="../../resultados/rede-ddm/#a-questao-dos-25-km">I a L: rede na imagem da DDM</a>: mantendo a definição dos 25 km (modelo I), a rede empata com o oficial; com a imagem inteira (modelo K), erra 6% menos.</li>
 </ol>
 <h2 id="duvida-para-a-equipe-do-cygnss">Dúvida para a equipe do CYGNSS<a class="headerlink" href="#duvida-para-a-equipe-do-cygnss" title="Permanent link">&para;</a></h2>
 <p>O texto da seção 5.6.1 do ATBD diz que a média que define o intervalo do MV usa pesos 0,8 (DDMA) e 0,2 (LES), e a legenda da Figura B4 diz 0,5 e 0,5. Implementamos o peso como parâmetro (0,8 por padrão) e registramos a divergência. Os dados do produto oficial parecem compatíveis com 0,5 e 0,5, mas no algoritmo próprio as duas médias dão o mesmo vento final (<a href="../../resultados/mv-5050/">D: média 50/50 no MV</a>).</p>

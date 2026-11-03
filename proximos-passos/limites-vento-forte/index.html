@@ -11,7 +11,7 @@
       
       
       
-        <link rel="prev" href="../rede-ddm/">
+        <link rel="prev" href="../inversao-conjunta/">
       
       
         <link rel="next" href="../../situacao/marcos/">
@@ -1085,7 +1085,35 @@
   <span class="md-ellipsis">
     
   
-    I: tabelas ajustadas ao escaterômetro
+    H: tabelas ajustadas ao escaterômetro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resultados/rede-ddm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    I a L: rede na imagem da DDM
   
 
     
@@ -1174,35 +1202,7 @@
   <span class="md-ellipsis">
     
   
-    Inversão conjunta (G e H)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../rede-ddm/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Rede com a DDM inteira
+    Inversão conjunta, fase 2
   
 
     
@@ -1799,7 +1799,7 @@
 
 
 <h1 id="os-limites-no-vento-forte">Os limites no vento forte<a class="headerlink" href="#os-limites-no-vento-forte" title="Permanent link">&para;</a></h1>
-<p>Todas as abordagens testadas subestimam o vento forte, e o produto oficial também. Esta página reúne o que já se sabe sobre <strong>por quê</strong>, e o que falta medir. É uma linha de investigação em andamento, e os números aqui são <strong>preliminares</strong>.</p>
+<p>Todas as abordagens testadas subestimam o vento forte, e o produto oficial também. Esta página reúne o que já se sabe sobre <strong>por quê</strong>, e o que falta medir. É uma linha de investigação em andamento, e parte dos números aqui é <strong>preliminar</strong>.</p>
 <div class="admonition abstract">
 <p class="admonition-title">Resumo</p>
 <ul>
@@ -1839,9 +1839,14 @@
 <td>−3,21 m/s</td>
 </tr>
 <tr>
-<td>Modelo I (ajustado ao escaterômetro)</td>
+<td>Modelo H (ajustado ao escaterômetro)</td>
 <td>−1,88 m/s</td>
 <td>−4,62 m/s</td>
+</tr>
+<tr>
+<td>Modelo K (rede na imagem da DDM)*</td>
+<td>−1,89 m/s</td>
+<td>−1,98 m/s</td>
 </tr>
 <tr>
 <td><strong>ERA5</strong> (a referência do ajuste)</td>
@@ -1850,7 +1855,7 @@
 </tr>
 </tbody>
 </table>
-<p>Contra o escaterômetro, em 2022 (<a href="../../resultados/avaliacao-2022/#todas-as-abordagens-lado-a-lado">Resumo das abordagens</a>). As abordagens que mexem na forma da distribuição do vento final (a Weibull no debias e a rede de pesos) pioram justamente essa faixa.</p>
+<p>Contra o escaterômetro, em 2022 (<a href="../../resultados/avaliacao-2022/#todas-as-abordagens-lado-a-lado">Resumo das abordagens</a>). As abordagens que mexem na forma da distribuição do vento final (a Weibull no debias e a rede de pesos) pioram justamente essa faixa. *O K é medido nos 291 dias com DDM; nesses dias o oficial fica em −2,10 e −2,78 m/s. Lendo a imagem inteira, ele subestima menos acima de 20 m/s e erra menos de 10 a 18 m/s (<a href="../../resultados/rede-ddm/">I a L</a>), mas ainda subestima o vento forte.</p>
 <h2 id="as-quatro-causas">As quatro causas<a class="headerlink" href="#as-quatro-causas" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1873,7 +1878,7 @@
 </tr>
 <tr>
 <td><strong>A referência também erra</strong></td>
-<td>O ERA5, usado no treino, poderia subestimar o vento forte e passar isso às tabelas. <strong>Medido: contribui pouco.</strong> Contra o escaterômetro, o ERA5 subestima só cerca de −0,6 m/s entre 14 e 20 m/s, e ajustar as tabelas ao escaterômetro não resolve (<a href="../../resultados/escaterometro-ajuste/">modelo I</a>)</td>
+<td>O ERA5, usado no treino, poderia subestimar o vento forte e passar isso às tabelas. <strong>Medido: contribui pouco.</strong> Contra o escaterômetro, o ERA5 subestima só cerca de −0,6 m/s entre 14 e 20 m/s, e ajustar as tabelas ao escaterômetro não resolve (<a href="../../resultados/escaterometro-ajuste/">modelo H</a>)</td>
 <td>ERA5 e escaterômetro comparados entre si (feito)</td>
 </tr>
 <tr>
@@ -1961,12 +1966,12 @@
 </table>
 <p>Na prática, são quase a mesma medida vista de dois jeitos. Isso ajuda a explicar por que a combinação, seja pelo MV, pela rede de pesos ou pela inversão conjunta, não reduz muito o erro.</p>
 <p><strong>A altura das ondas e o swell explicam pouco do ruído no geral:</strong> cerca de 8% da variação do NBRCS e 6% da do LES. A fração de swell quase não acrescenta nada além da altura das ondas. Por faixa de vento, a parte explicada no NBRCS é de 12% até 4 m/s, de 2 a 4% entre 4 e 12 m/s, de 15% entre 12 e 16 m/s e de 48% acima de 16 m/s. Este último número tem só 1,5 mil medidas, divididas em muitas classes, e deve estar inflado; mesmo assim, a tendência faz sentido físico, porque com vento forte o estado do mar muda bastante a rugosidade.</p>
-<p><strong>O piso da régua é baixo.</strong> Nos mesmos pares de 2022, o ERA5 e o escaterômetro discordam em cerca de 0,87 m/s (RMSD), já contando a distância de até 25 km e 30 minutos entre eles e o erro de cada um. O nosso vento está a 1,45 m/s: a maior parte do erro vem do CYGNSS, e não da régua (<a href="../../resultados/escaterometro-ajuste/">modelo I</a>).</p>
+<p><strong>O piso da régua é baixo.</strong> Nos mesmos pares de 2022, o ERA5 e o escaterômetro discordam em cerca de 0,87 m/s (RMSD), já contando a distância de até 25 km e 30 minutos entre eles e o erro de cada um. O nosso vento está a 1,45 m/s: a maior parte do erro vem do CYGNSS, e não da régua (<a href="../../resultados/escaterometro-ajuste/">modelo H</a>).</p>
 <h2 id="o-que-falta-medir">O que falta medir<a class="headerlink" href="#o-que-falta-medir" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Confirmar em 2022, fora do treino, quanto a altura das ondas reduz o ruído acima de 12 m/s.</li>
-<li>~~Separar o erro do ERA5 do erro do satélite no vento forte~~ Feito com o escaterômetro: o ERA5 contribui pouco (<a href="../../resultados/escaterometro-ajuste/">modelo I</a>). Falta confirmar com as boias.</li>
-<li>Ver se a <a href="../rede-ddm/">DDM inteira</a> carrega informação sobre o vento forte que o NBRCS e o LES perdem. Se não carregar, o limite é do próprio sinal; se carregar, é dos dois números.</li>
+<li>Confirmar com as boias que o ERA5 contribui pouco para a subestimação (o escaterômetro já indicou isso, <a href="../../resultados/escaterometro-ajuste/">modelo H</a>).</li>
+<li>Ver por que a rede na imagem da DDM (<a href="../../resultados/rede-ddm/">modelo K</a>), que já reduz o erro de 10 a 18 m/s, ainda subestima acima de 15 m/s: se faltam exemplos de treino ou se a correção final, ajustada ao ERA5, devolve o puxão para a média.</li>
 </ol>
 <p>O CYGNSS tem um produto à parte para furacões, que mede ventos bem mais fortes com uma tabela treinada só com tempestades e uma referência própria para elas. Mesmo ele é muito sensível ao ruído nos ventos mais fortes, pelo mesmo motivo: o sinal muda pouco ali.</p>
 
