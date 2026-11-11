@@ -1,0 +1,2900 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Vento na superfície do mar por GNSS-R (CYGNSS), base para o produto do Amazonia-1B">
+      
+      
+      
+      
+        <link rel="prev" href="../rede-ddm/">
+      
+      
+        <link rel="next" href="../../proximos-passos/inversao-conjunta/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>M: rede com recorte geométrico de 25 km - vsm-gnssr</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#m-rede-com-recorte-geometrico-de-25-km" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../.." title="vsm-gnssr" class="md-header__button md-logo" aria-label="vsm-gnssr" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            vsm-gnssr
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              M: rede com recorte geométrico de 25 km
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Tema escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Tema claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="vsm-gnssr" class="md-nav__button md-logo" aria-label="vsm-gnssr" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    vsm-gnssr
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conceitos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Conceitos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conceitos/gnss-r-e-ddm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GNSS-R e a DDM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conceitos/nbrcs-e-les/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NBRCS e LES
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conceitos/vento-e-ondas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vento, ondas e referências
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conceitos/glossario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossário
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    O algoritmo
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    O algoritmo
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algoritmo/visao-geral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visão geral da cadeia
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algoritmo/qc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controle de qualidade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algoritmo/gmf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GMF: do sinal ao vento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algoritmo/mv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MV: combinar os dois ventos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algoritmo/estado-do-mar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estado do mar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algoritmo/debias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algoritmo/avaliacao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Como avaliamos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dados
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Dados
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dados/fontes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fontes e cobertura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dados/boias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boias e pareamento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dados/escaterometro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escaterômetro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resultados
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Resultados
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../avaliacao-2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resumo das abordagens
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modelo-a/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A: reprodução do algoritmo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../weibull/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B e C: distribuição de Weibull
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mv-5050/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    D: média 50/50 no MV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rede-pesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    E: rede de pesos (mvnet)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gmf-ponta/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    F: ponta de vento fraco da GMF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inversao-conjunta/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    G: inversão conjunta
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../escaterometro-ajuste/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    H: tabelas ajustadas ao escaterômetro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rede-ddm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    I a L: rede na imagem da DDM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    M: rede com recorte geométrico de 25 km
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    M: rede com recorte geométrico de 25 km
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#de-onde-veio-a-ideia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        De onde veio a ideia
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-hipotese" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A hipótese
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-o-recorte-e-calculado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como o recorte é calculado
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Como o recorte é calculado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-onde-cada-pixel-esta-no-mar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Onde cada pixel está no mar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-o-peso-de-cada-pixel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. O peso de cada pixel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-o-plano-de-pesos-de-cada-medida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. O plano de pesos de cada medida
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-o-que-a-rede-le" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. O que a rede lê
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-regiao-que-cada-leitura-enxerga" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A região que cada leitura enxerga
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-foi-testado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que foi testado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resultados-em-2022" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultados em 2022
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resultados em 2022">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contra-o-escaterometro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contra o escaterômetro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contra-o-era5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contra o ERA5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-ler-as-tabelas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como ler as tabelas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-aprendemos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que aprendemos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-falta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que falta
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#situacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Situação
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Próximos passos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Próximos passos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proximos-passos/inversao-conjunta/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inversão conjunta, fase 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proximos-passos/limites-vento-forte/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Os limites no vento forte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Situação do projeto
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Situação do projeto
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../situacao/marcos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Marcos e andamento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../situacao/dados-baixados/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dados baixados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../situacao/decisoes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisões e alternativas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../situacao/perguntas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Perguntas ao INPE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../referencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artigos de referência
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apêndice técnico
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Apêndice técnico
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tecnico/arquitetura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tecnico/pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pipeline e jobs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tecnico/interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interface e servidor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tecnico/checagens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checagens do fluxo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#de-onde-veio-a-ideia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        De onde veio a ideia
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-hipotese" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A hipótese
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-o-recorte-e-calculado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como o recorte é calculado
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Como o recorte é calculado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-onde-cada-pixel-esta-no-mar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Onde cada pixel está no mar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-o-peso-de-cada-pixel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. O peso de cada pixel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-o-plano-de-pesos-de-cada-medida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. O plano de pesos de cada medida
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-o-que-a-rede-le" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. O que a rede lê
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-regiao-que-cada-leitura-enxerga" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A região que cada leitura enxerga
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-foi-testado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que foi testado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resultados-em-2022" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultados em 2022
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resultados em 2022">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contra-o-escaterometro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contra o escaterômetro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contra-o-era5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contra o ERA5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-ler-as-tabelas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como ler as tabelas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-aprendemos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que aprendemos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o-que-falta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O que falta
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#situacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Situação
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="m-rede-com-recorte-geometrico-de-25-km">M: rede com recorte geométrico de 25 km<a class="headerlink" href="#m-rede-com-recorte-geometrico-de-25-km" title="Permanent link">&para;</a></h1>
+<p>O modelo <strong>M</strong> é o modelo <a href="../rede-ddm/">K</a> (a rede que lê a imagem inteira da DDM, de 5 medidas da trilha) com uma mudança: <strong>antes de a rede ler cada imagem, os pixels cujo pedaço de mar fica fora de um quadrado de 25 km em volta do ponto de medida são apagados.</strong> O objetivo não é errar menos que o K. É manter o ganho do K sobre o produto oficial <strong>com a resolução fixa em 25 km, como o produto da NASA</strong>, coisa que o K não garante.</p>
+<div class="admonition abstract">
+<p class="admonition-title">Resumo</p>
+<ul>
+<li><strong>O problema:</strong> o K vê uma área de mar de 50 a 90 km de lado, que ainda muda com o ângulo de incidência. Um vento cuja resolução varia de medida para medida é difícil de usar e de comparar; o produto oficial representa sempre cerca de 25 × 25 km.</li>
+<li><strong>A ideia:</strong> calcular, pela geometria de cada medida (posições e velocidades do satélite, do GPS e do ponto de reflexão), <strong>onde cada pixel da DDM está no mar</strong>, e dar a cada pixel um <strong>peso de 0 a 1</strong>: a fração do seu pedaço de mar que cai dentro do quadrado de 25 km. A rede lê a imagem multiplicada por esses pesos, e os próprios pesos como um canal a mais.</li>
+<li><strong>O que isso garante:</strong> a área de onde vem o vento do M é a do produto oficial, em todos os ângulos, e o M continua lendo 5 medidas da trilha onde o produto oficial lê só 1 ou 2.</li>
+<li><strong>Resultado em 2022:</strong> o M fica entre o oficial e o K. Contra o escaterômetro, o M erra 0,03 a 0,1 m/s mais que o K em cada faixa de vento, e menos que o oficial em todas as faixas acima de 8 m/s.</li>
+<li><strong>Situação:</strong> candidato a produto de 25 km. Falta a verificação da resolução com a rede treinada (a resposta da rede a uma borda no mar) e a comparação com boias.</li>
+</ul>
+</div>
+<h2 id="de-onde-veio-a-ideia">De onde veio a ideia<a class="headerlink" href="#de-onde-veio-a-ideia" title="Permanent link">&para;</a></h2>
+<p>O <a href="../rede-ddm/">modelo K</a> é a melhor abordagem até agora: 6% menos erro que o produto oficial contra o escaterômetro, e o ganho maior é no vento forte, de 10 a 18 m/s. Mas o K lê a imagem inteira da DDM, 17 × 11 pixels, e os pixels longe do centro correspondem a pedaços de mar longe do ponto de reflexão. Na geometria nominal, a imagem inteira de 5 medidas cobre de 48 a 91 km de lado, conforme o ângulo (<a href="https://github.com/firmino/gnss-r-inpe">história 19</a>). O <a href="../rede-ddm/">modelo I</a>, a mesma rede lendo só o recorte de 3 × 5 pixels do produto oficial, empata com o oficial: o ganho do K vem, ao menos em parte, de ver mais mar.</p>
+<p>Isso cria dois problemas para um produto:</p>
+<ol>
+<li><strong>A resolução não é 25 km.</strong> O vento do K representa uma área maior que a do produto oficial, e não se sabe exatamente qual.</li>
+<li><strong>A resolução varia.</strong> A área que a imagem inteira cobre cresce com o ângulo de incidência. Dois ventos vizinhos do K, medidos em ângulos diferentes, representam áreas diferentes. Para quem usa o produto (assimilação em modelos, estudos de frentes e de costa, comparação com boias), um vento de resolução variável é um problema, e foi assim que o INPE o descreveu.</li>
+</ol>
+<p>O produto oficial resolve isso de um jeito que custa sinal: usa só a janela de 3 × 5 pixels e, quando ela cobre menos que 25 km, faz a média de medidas seguidas da trilha, de 5 medidas em ângulos pequenos até <strong>1 medida acima de uns 48°</strong> (<a href="../../conceitos/gnss-r-e-ddm/#3-a-area-que-cada-vento-representa-cerca-de-25-km">a área que cada vento representa</a>). Nos ângulos altos, onde o sinal é mais fraco, o produto joga fora 4 das 5 medidas.</p>
+<p>A ideia do M: em vez de escolher pixels pela posição na imagem (a janela de 3 × 5) e medidas por uma tabela de ângulo, <strong>calcular onde cada pixel de cada medida está no mar</strong> e manter o que cai dentro de um quadrado de 25 km, em todas as 5 medidas, em todos os ângulos.</p>
+<h2 id="a-hipotese">A hipótese<a class="headerlink" href="#a-hipotese" title="Permanent link">&para;</a></h2>
+<p>Uma rede que lê só o que está dentro dos 25 km, mas lê isso em 5 medidas da trilha e com a imagem inteira dentro do quadrado (não só 3 × 5 pixels), erra menos que o produto oficial e fica perto do K. O que ela ganha sobre o oficial vem de ler melhor o sinal dentro da mesma área, e não de ver uma área maior. Antes de rodar, escrevemos que o M ficaria <strong>entre o oficial e o K</strong>: se o M ficasse igual ao K, o K não estaria usando a área fora dos 25 km; se ficasse igual ao oficial, o ganho do K seria todo da área extra.</p>
+<h2 id="como-o-recorte-e-calculado">Como o recorte é calculado<a class="headerlink" href="#como-o-recorte-e-calculado" title="Permanent link">&para;</a></h2>
+<h3 id="1-onde-cada-pixel-esta-no-mar">1. Onde cada pixel está no mar<a class="headerlink" href="#1-onde-cada-pixel-esta-no-mar" title="Permanent link">&para;</a></h3>
+<p>Um pixel da DDM é definido por um <strong>atraso</strong> (o quanto o caminho GPS → mar → satélite é mais longo que o caminho até o ponto especular) e um <strong>desvio Doppler</strong> (a diferença de frequência causada pelo movimento do satélite e do GPS). Os pontos do mar com o mesmo atraso formam um anel em volta do ponto especular; os pontos com o mesmo Doppler formam uma faixa. Um pixel é o cruzamento de um anel com uma faixa (<a href="../../conceitos/gnss-r-e-ddm/#2-a-ddm">GNSS-R e a DDM</a>).</p>
+<p>O arquivo L1 do CYGNSS traz, para cada DDM, as posições e velocidades do satélite, do transmissor GPS e do ponto especular, e em que pixel (linha e coluna) o ponto especular caiu. Com isso, para qualquer ponto <code>P</code> do mar, calcula-se:</p>
+<ul>
+<li>o <strong>atraso</strong> de <code>P</code>: o comprimento do caminho GPS → <code>P</code> → satélite menos o do caminho GPS → especular → satélite, dividido pelo tamanho de um pixel de atraso (0,255 chip, ou 74,8 m de caminho);</li>
+<li>o <strong>Doppler</strong> de <code>P</code>: a projeção das velocidades do GPS e do satélite nas direções até <code>P</code>, menos a mesma projeção para o especular, dividida por 500 Hz.</li>
+</ul>
+<p>O resultado é a <strong>posição fracionária (linha, coluna)</strong> de <code>P</code> na DDM. A figura abaixo mostra isso para uma malha de pontos do mar em volta do ponto de medida, em dois ângulos de incidência. As linhas brancas contínuas são os limites entre pixels de atraso (os anéis); as pontilhadas, entre pixels de Doppler (as faixas). A estrela é o ponto especular e o quadrado tracejado é a região de 25 km.</p>
+<p><img alt="Os pixels da DDM no mar, em 20° e 52°" src="../../assets/img/geo_footprint.png" /></p>
+<p>Dois pontos a notar. Em 20° os anéis são quase círculos de poucos km, e a imagem inteira cobre uns 55 km. Em 52° os anéis viram elipses alongadas, e a imagem inteira passa de 80 km. <strong>É por isso que a área que o K vê cresce com o ângulo.</strong> O quadrado de 25 km, em compensação, é sempre o mesmo.</p>
+<p>O mar é tratado como uma esfera com o raio de curvatura local da Terra, tangente ao elipsoide no ponto de medida, e as contas são feitas num sistema de eixos com origem no ponto de medida (um eixo ao longo da trilha, outro através, outro na vertical). Um teste garante que a altura dessa esfera difere do elipsoide por menos de 5 m a 30 km do centro, o que é 7% de um pixel de atraso. O ponto de medida é a média dos pontos especulares das duas medidas centrais da janela de 5 (que é como o produto oficial centra a média no tempo).</p>
+<h3 id="2-o-peso-de-cada-pixel">2. O peso de cada pixel<a class="headerlink" href="#2-o-peso-de-cada-pixel" title="Permanent link">&para;</a></h3>
+<p>O valor de um pixel é a soma da energia que vem de todo o seu pedaço de mar. Se metade desse pedaço está dentro do quadrado e metade fora, metade do sinal do pixel vem de fora. O <strong>peso</strong> de um pixel é definido como essa fração:</p>
+<p>$$
+w_{ij} = \frac{\text{área do pedaço de mar do pixel } (i,j) \text{ dentro do quadrado}}{\text{área total do pedaço de mar do pixel } (i,j)}
+$$</p>
+<p>Para calcular isso, uma malha de pontos do mar com 0,75 km de passo, até 45 km do centro (14.400 pontos), é projetada na DDM pelo passo 1. Cada ponto cai num pixel; somam-se as áreas dos pontos de cada pixel, com e sem a condição de estar dentro do quadrado, e divide-se. As duas somas saem de um único produto de matrizes, para todos os 187 pixels de uma vez. Pixels cujo pedaço de mar está todo dentro do quadrado têm peso 1; todo fora, peso 0; na borda, um valor entre os dois.</p>
+<p>A figura abaixo mostra três pixels de uma mesma DDM a 35°, com o pedaço de mar de cada um pintado: a parte dentro do quadrado em azul escuro, fora em azul claro.</p>
+<p><img alt="Três pixels de uma DDM a 35°: dentro, na borda e fora da região" src="../../assets/img/geo_pixels.png" /></p>
+<ul>
+<li><strong>Pixel dentro</strong> (linha 6, coluna 4): uma mancha de poucos km ao lado do ponto especular, toda dentro do quadrado. Peso 1.</li>
+<li><strong>Pixel na borda</strong> (linha 8, coluna 5): duas manchas, uma de cada lado da trilha, cortadas pela borda do quadrado. Peso 0,59.</li>
+<li><strong>Pixel fora</strong> (linha 14, coluna 3): um arco de anel a 25 a 30 km do centro. Peso 0.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Por que o pedaço de mar e não a função de ambiguidade</p>
+<p>Um pixel não recebe energia só do cruzamento exato do anel com a faixa: o sinal de GPS é "borrado" por uma função de ambiguidade de ±1 chip em atraso e cerca de ±1 kHz em Doppler. Testamos as duas definições de pedaço de mar. A área <code>eff_scatter</code> que o próprio L1 informa para cada pixel bate com o cruzamento simples (razão de 0,76 a 0,86 em todos os ângulos), e não com a área borrada, que é 5 a 6 vezes maior. Além disso, pesos calculados com a área borrada ficam espalhados perto de 0,5 nos pixels da borda e deixam vazar mais sinal de fora (6% a 11% em 43° a 52°). Por isso os pesos usam o cruzamento simples. O borrão existe, e é levado em conta na medida da resolução (adiante), que é feita com a física completa.</p>
+</div>
+<h3 id="3-o-plano-de-pesos-de-cada-medida">3. O plano de pesos de cada medida<a class="headerlink" href="#3-o-plano-de-pesos-de-cada-medida" title="Permanent link">&para;</a></h3>
+<p>Fazendo isso para todos os pixels, cada DDM ganha um <strong>plano de pesos</strong> de 17 × 11. A figura abaixo mostra esse plano para a medida central em cinco ângulos de incidência. A estrela é o ponto especular; o retângulo vermelho é a janela de 3 × 5 pixels do produto oficial, com o número de medidas da trilha que o oficial usa naquele ângulo.</p>
+<p><img alt="O plano de pesos em 5°, 20°, 35°, 43° e 52°" src="../../assets/img/geo_weights.png" /></p>
+<p>O que se vê:</p>
+<ul>
+<li>Em <strong>5°</strong> o quadrado de 25 km é maior que a janela de 3 × 5: cabem nele quase 5 linhas de atraso inteiras e as bordas. O oficial compensa a janela pequena com a média de 5 medidas; o M lê mais pixels de cada medida e também as 5 medidas.</li>
+<li>Em <strong>35°</strong> o quadrado coincide quase exatamente com a janela de 3 × 5 (a linha 8 fica na borda, com pesos de 0,6).</li>
+<li>Em <strong>52°</strong> a janela de 3 × 5 do oficial já é <strong>maior</strong> que 25 km: dois dos seus pixels na linha 7 ficam com peso 0,55, e a linha 8 quase some. É nesse ângulo que o oficial usa 1 medida só. O M lê os mesmos 25 km, mas de 5 medidas.</li>
+</ul>
+<p>Como a região fica parada no ponto de medida e o ponto especular anda 6 km por medida, <strong>cada uma das 5 medidas tem um plano de pesos diferente</strong>: nas medidas das pontas, o quadrado cai deslocado na DDM, sobre pixels de atraso maior de um lado só da trilha. A figura abaixo mostra as 5 medidas de uma janela a 35°.</p>
+<p><img alt="Os planos de pesos das 5 medidas de uma janela a 35°" src="../../assets/img/geo_slots.png" /></p>
+<h3 id="4-o-que-a-rede-le">4. O que a rede lê<a class="headerlink" href="#4-o-que-a-rede-le" title="Permanent link">&para;</a></h3>
+<p>A rede do M é a mesma rede do K, com a mesma arquitetura e os mesmos 219 mil parâmetros, treinada do zero. A diferença está na entrada:</p>
+<ol>
+<li>a <strong>imagem da DDM é multiplicada pelo plano de pesos</strong>, pixel a pixel: o que está fora dos 25 km vira zero, a borda fica atenuada;</li>
+<li>o <strong>plano de pesos entra como um canal a mais</strong> da imagem, para que a rede saiba quanto de cada pixel foi cortado (um pixel com peso 0,5 e metade do sinal não é a mesma coisa que um pixel inteiro com sinal fraco).</li>
+</ol>
+<p>A figura abaixo mostra isso numa DDM real de 25/06/2022 (satélite 1, 35° de incidência, vento oficial de 8,3 m/s): a imagem como o K a lê, o plano de pesos, e o produto dos dois, que é o que o M lê.</p>
+<p><img alt="Imagem, pesos e a entrada da rede M, numa DDM real a 35°" src="../../assets/img/geo_input.png" /></p>
+<p>O K vê a cauda inteira do sinal, que se estende até a linha 16: são pedaços de mar a 30, 40 km do ponto. O M vê o pico e as duas primeiras linhas depois dele.</p>
+<p>Os pesos são calculados dentro da própria rede, na hora, a partir de 17 números por DDM (posições, velocidades, ponto especular e o seu pixel), sem gradiente. Guardá-los seria 187 números por DDM para 36 milhões de DDMs. O cálculo roda em lotes de 64 DDMs na GPU. A configuração da rede guarda tudo de que os pesos dependem (a função de peso, o sinal do eixo Doppler, o tamanho dos pixels, a malha, o formato do arquivo), para que uma mudança futura nunca altere uma rede já treinada.</p>
+<div class="admonition note">
+<p class="admonition-title">O sinal do eixo Doppler</p>
+<p>As contas dizem onde cada ponto do mar cai na DDM, mas a geometria sozinha não distingue se uma coluna a mais é uma frequência maior ou menor: as áreas são simétricas. O L1 usa a convenção de que uma coluna maior é uma frequência maior. Confirmamos num dia real com um observável assimétrico: o centro de massa do sinal em Doppler deve cair do lado para onde o satélite se move, e caiu em 82% de 600 DDMs.</p>
+</div>
+<h2 id="a-regiao-que-cada-leitura-enxerga">A região que cada leitura enxerga<a class="headerlink" href="#a-regiao-que-cada-leitura-enxerga" title="Permanent link">&para;</a></h2>
+<p>Os pesos dizem que fração de cada pixel está dentro do quadrado. Mas isso, sozinho, não prova que o vento do M vem dos 25 km: um pixel da borda, com peso 0,5, ainda recebe metade do seu sinal de fora, e o borrão da função de ambiguidade espalha a energia de um ponto do mar por vários pixels. Por isso a resolução foi medida <strong>com um modelo direto independente dos pesos</strong>: uma fonte unitária é colocada em cada ponto do mar, a energia dela é espalhada pelos pixels pela função de ambiguidade completa, os pixels são pesados e somados, e a soma é a <strong>sensibilidade</strong> da leitura àquele ponto. Isso foi feito para três leituras:</p>
+<table>
+<thead>
+<tr>
+<th>Leitura</th>
+<th>O que pesa</th>
+<th>Medidas da trilha</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NASA</strong> (o plano do produto oficial)</td>
+<td>1 nos 3 × 5 pixels da janela, 0 fora</td>
+<td>1 a 5, pela tabela de ângulo</td>
+</tr>
+<tr>
+<td><strong>K</strong> (imagem inteira)</td>
+<td>1 em todos os pixels</td>
+<td>5</td>
+</tr>
+<tr>
+<td><strong>M</strong> (recorte geométrico)</td>
+<td>os pesos do passo 2</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>A figura abaixo é o mapa da sensibilidade das três leituras a 43° (média sobre três orientações do plano de incidência em relação à trilha). A linha ciano é onde a sensibilidade cai à metade da do centro; o quadrado branco é a região de 25 km.</p>
+<p><img alt="De onde vem o vento de cada leitura, a 43°" src="../../assets/img/geo_response_43.png" /></p>
+<p>O K pega sinal de uma área de uns 80 km de lado a 43°; a meia altura está a 26 km da borda do quadrado. A NASA e o M ficam dentro do quadrado, com a meia altura a 2 km da borda. O mesmo corte, ao longo da trilha, em quatro ângulos:</p>
+<p><img alt="A sensibilidade ao longo da trilha, em 5°, 20°, 43° e 52°" src="../../assets/img/geo_edges.png" /></p>
+<p>E os três números que resumem a resolução, por ângulo: onde a sensibilidade cai a 50% (em km além da borda dos 25 km), que fração da sensibilidade vem de mais de 10 km além da borda (o <strong>vazamento</strong>), e que fração vem de dentro do quadrado:</p>
+<p><img alt="Os três números da resolução, por ângulo" src="../../assets/img/geo_resolution.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Ângulo</th>
+<th>Leitura</th>
+<th>Medidas</th>
+<th>Dentro do quadrado</th>
+<th>Vazamento além de 10 km</th>
+<th>Borda a 50% (km)</th>
+<th>Largura da borda, 10% a 90% (km)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5°</td>
+<td>K</td>
+<td>5</td>
+<td>0,22</td>
+<td>0,34</td>
+<td>17,5</td>
+<td>21,0</td>
+</tr>
+<tr>
+<td>5°</td>
+<td>NASA</td>
+<td>5</td>
+<td>0,77</td>
+<td>0,01</td>
+<td>1,4</td>
+<td>9,7</td>
+</tr>
+<tr>
+<td>5°</td>
+<td><strong>M</strong></td>
+<td>5</td>
+<td>0,74</td>
+<td>0,01</td>
+<td>1,8</td>
+<td>6,2</td>
+</tr>
+<tr>
+<td>20°</td>
+<td>K</td>
+<td>5</td>
+<td>0,20</td>
+<td>0,39</td>
+<td>18,8</td>
+<td>20,7</td>
+</tr>
+<tr>
+<td>20°</td>
+<td>NASA</td>
+<td>4</td>
+<td>0,81</td>
+<td>0,00</td>
+<td>0,1</td>
+<td>7,8</td>
+</tr>
+<tr>
+<td>20°</td>
+<td><strong>M</strong></td>
+<td>5</td>
+<td>0,74</td>
+<td>0,01</td>
+<td>1,4</td>
+<td>6,2</td>
+</tr>
+<tr>
+<td>43°</td>
+<td>K</td>
+<td>5</td>
+<td>0,13</td>
+<td>0,59</td>
+<td>25,8</td>
+<td>20,0</td>
+</tr>
+<tr>
+<td>43°</td>
+<td>NASA</td>
+<td>2</td>
+<td>0,75</td>
+<td>0,00</td>
+<td>1,7</td>
+<td>7,2</td>
+</tr>
+<tr>
+<td>43°</td>
+<td><strong>M</strong></td>
+<td>5</td>
+<td>0,64</td>
+<td>0,02</td>
+<td>2,0</td>
+<td>8,4</td>
+</tr>
+<tr>
+<td>52°</td>
+<td>K</td>
+<td>5</td>
+<td>0,10</td>
+<td>0,69</td>
+<td>31,5</td>
+<td>20,0</td>
+</tr>
+<tr>
+<td>52°</td>
+<td>NASA</td>
+<td>1</td>
+<td>0,63</td>
+<td>0,02</td>
+<td>3,6</td>
+<td>8,8</td>
+</tr>
+<tr>
+<td>52°</td>
+<td><strong>M</strong></td>
+<td>5</td>
+<td>0,55</td>
+<td>0,06</td>
+<td>3,5</td>
+<td>10,8</td>
+</tr>
+</tbody>
+</table>
+<p>O que isso diz:</p>
+<ul>
+<li><strong>O K não tem resolução de 25 km, e a dele varia com o ângulo.</strong> De um terço (5°) a dois terços (52°) do sinal que o K usa vem de mais de 10 km além da borda do quadrado, e a sua meia altura vai de 17 a 31 km além da borda. Um vento do K a 52° representa uma área quase duas vezes maior que um a 5°.</li>
+<li><strong>O M tem a resolução da NASA.</strong> Até 43° o vazamento do M é de 1% a 2%, como o da NASA, e a borda é tão nítida ou mais (6 a 8 km de largura). Em 52° o M vaza 6% contra 2% da NASA e a borda tem 11 km contra 9: ali os pixels da DDM têm 10 km de comprimento, e um pixel cortado ao meio ainda deixa passar metade do seu sinal.</li>
+<li><strong>O M mantém as 5 medidas</strong> onde a NASA fica com 1 ou 2. É daí que o M pode tirar algum ganho sobre a NASA sem alargar a região.</li>
+</ul>
+<p>Antes de ver os números, o critério escrito era: em cada ângulo, o vazamento do M não pode ser maior que o da NASA, a borda não pode ser mais que 3 km mais larga e ao menos metade da sensibilidade deve vir de dentro. O critério vale em 5°, 20° e 43° (em 43° com 2% de vazamento contra 0%) e falha em 52° por 4 pontos percentuais de vazamento. Uma região menor que 25 km não ajuda (o vazamento cresce quando o quadrado encolhe, porque os pixels da borda ficam proporcionalmente maiores).</p>
+<div class="admonition warning">
+<p class="admonition-title">O que ainda não foi medido</p>
+<p>Essa é a região da <strong>entrada</strong> da rede. Falta a verificação com a rede treinada: aplicar o M a DDMs sintéticas com uma borda de vento (fraco de um lado, forte do outro) e ver como o vento estimado muda quando a borda cruza o quadrado. É o único jeito de garantir que a rede não aprendeu a tirar informação dos pixels da borda além do que os pesos permitem.</p>
+</div>
+<h2 id="o-que-foi-testado">O que foi testado<a class="headerlink" href="#o-que-foi-testado" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Treino</td>
+<td>2021, o mesmo conjunto do K: 7,3 milhões de medidas de 302 dias</td>
+</tr>
+<tr>
+<td>Validação</td>
+<td>os mesmos 31 dias de 2021 do K, fora do treino</td>
+</tr>
+<tr>
+<td>Teste</td>
+<td>2022, nos dias e nas medidas que o M, o K e o oficial têm</td>
+</tr>
+<tr>
+<td>Referência do treino</td>
+<td>ERA5</td>
+</tr>
+<tr>
+<td>A rede</td>
+<td>a do K (219 mil parâmetros), com a entrada multiplicada pelos pesos e os pesos como quarto canal</td>
+</tr>
+<tr>
+<td>Sementes</td>
+<td>3 treinos com sementes diferentes; o M das tabelas é a média dos três</td>
+</tr>
+<tr>
+<td>Ajuste final</td>
+<td>a mesma correção de distribuição do K, ajustada nos dias de validação de 2021</td>
+</tr>
+<tr>
+<td>Região</td>
+<td>quadrado de 25 km de lado, centrado no ponto de medida, com os lados ao longo e através da trilha</td>
+</tr>
+</tbody>
+</table>
+<p>Na validação de 2021 o M ficou em 1,43 a 1,46 m/s de RMSD contra o ERA5 nas três sementes, o mesmo intervalo do K e das redes de controle.</p>
+<h2 id="resultados-em-2022">Resultados em 2022<a class="headerlink" href="#resultados-em-2022" title="Permanent link">&para;</a></h2>
+<p>As tabelas comparam <strong>NASA</strong> (o produto oficial), <strong>K</strong> e <strong>M</strong>, nas mesmas medidas, por faixa de 2 m/s do vento da referência. <code>n</code> é o número de medidas da faixa. O M é a média das três sementes. O RMSD e o viés estão em tabelas separadas.</p>
+<div class="admonition info">
+<p class="admonition-title">Período</p>
+<p>Os números abaixo são de <strong>12 dias de 2022</strong> (fevereiro a abril), os primeiros avaliados. Os 94 lotes de 3 dias do ano todo já foram calculados e estão sendo importados; as tabelas serão trocadas pelas do ano inteiro quando a importação terminar.</p>
+</div>
+<h3 id="contra-o-escaterometro">Contra o escaterômetro<a class="headerlink" href="#contra-o-escaterometro" title="Permanent link">&para;</a></h3>
+<p><strong>RMSD (m/s):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Faixa (m/s)</th>
+<th>n</th>
+<th>NASA</th>
+<th>K</th>
+<th>M</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>todos</td>
+<td>1.698.002</td>
+<td>1,41</td>
+<td><strong>1,31</strong></td>
+<td>1,35</td>
+</tr>
+<tr>
+<td>0–2</td>
+<td>58.986</td>
+<td>1,01</td>
+<td><strong>0,82</strong></td>
+<td>0,83</td>
+</tr>
+<tr>
+<td>2–4</td>
+<td>220.329</td>
+<td>0,98</td>
+<td><strong>0,94</strong></td>
+<td>0,97</td>
+</tr>
+<tr>
+<td>4–6</td>
+<td>406.786</td>
+<td>1,15</td>
+<td><strong>1,11</strong></td>
+<td>1,15</td>
+</tr>
+<tr>
+<td>6–8</td>
+<td>469.995</td>
+<td>1,32</td>
+<td><strong>1,28</strong></td>
+<td>1,31</td>
+</tr>
+<tr>
+<td>8–10</td>
+<td>332.093</td>
+<td>1,50</td>
+<td><strong>1,41</strong></td>
+<td>1,44</td>
+</tr>
+<tr>
+<td>10–12</td>
+<td>141.898</td>
+<td>1,93</td>
+<td><strong>1,68</strong></td>
+<td>1,73</td>
+</tr>
+<tr>
+<td>12–14</td>
+<td>46.874</td>
+<td>2,54</td>
+<td><strong>2,14</strong></td>
+<td>2,23</td>
+</tr>
+<tr>
+<td>14–16</td>
+<td>16.004</td>
+<td>2,79</td>
+<td><strong>2,45</strong></td>
+<td>2,57</td>
+</tr>
+<tr>
+<td>16–18</td>
+<td>4.129</td>
+<td>2,84</td>
+<td><strong>2,64</strong></td>
+<td>2,77</td>
+</tr>
+<tr>
+<td>18–20</td>
+<td>810</td>
+<td><strong>3,35</strong></td>
+<td>3,47</td>
+<td>3,57</td>
+</tr>
+<tr>
+<td>20 ou mais</td>
+<td>98</td>
+<td><strong>3,91</strong></td>
+<td>4,31</td>
+<td>4,21</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Viés (m/s, estimativa menos referência):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Faixa (m/s)</th>
+<th>n</th>
+<th>NASA</th>
+<th>K</th>
+<th>M</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>todos</td>
+<td>1.698.002</td>
+<td>−0,01</td>
+<td>−0,23</td>
+<td>−0,25</td>
+</tr>
+<tr>
+<td>0–2</td>
+<td>58.986</td>
+<td>+0,52</td>
+<td>+0,23</td>
+<td>+0,24</td>
+</tr>
+<tr>
+<td>2–4</td>
+<td>220.329</td>
+<td>+0,14</td>
+<td>−0,15</td>
+<td>−0,15</td>
+</tr>
+<tr>
+<td>4–6</td>
+<td>406.786</td>
+<td>+0,24</td>
+<td>−0,12</td>
+<td>−0,15</td>
+</tr>
+<tr>
+<td>6–8</td>
+<td>469.995</td>
+<td>+0,25</td>
+<td>−0,07</td>
+<td>−0,09</td>
+</tr>
+<tr>
+<td>8–10</td>
+<td>332.093</td>
+<td>−0,16</td>
+<td>−0,25</td>
+<td>−0,27</td>
+</tr>
+<tr>
+<td>10–12</td>
+<td>141.898</td>
+<td>−0,94</td>
+<td>−0,80</td>
+<td>−0,84</td>
+</tr>
+<tr>
+<td>12–14</td>
+<td>46.874</td>
+<td>−1,38</td>
+<td>−1,15</td>
+<td>−1,24</td>
+</tr>
+<tr>
+<td>14–16</td>
+<td>16.004</td>
+<td>−1,55</td>
+<td>−1,37</td>
+<td>−1,42</td>
+</tr>
+<tr>
+<td>16–18</td>
+<td>4.129</td>
+<td>−1,89</td>
+<td>−1,87</td>
+<td>−1,83</td>
+</tr>
+<tr>
+<td>18–20</td>
+<td>810</td>
+<td>−2,96</td>
+<td>−3,13</td>
+<td>−3,15</td>
+</tr>
+<tr>
+<td>20 ou mais</td>
+<td>98</td>
+<td>−3,83</td>
+<td>−4,22</td>
+<td>−4,00</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="RMSD por faixa contra o escaterômetro" src="../../assets/img/geo_rmsd_scatterometer.png" /></p>
+<p><img alt="Viés por faixa contra o escaterômetro" src="../../assets/img/geo_bias_scatterometer.png" /></p>
+<h3 id="contra-o-era5">Contra o ERA5<a class="headerlink" href="#contra-o-era5" title="Permanent link">&para;</a></h3>
+<p><strong>RMSD (m/s):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Faixa (m/s)</th>
+<th>n</th>
+<th>NASA</th>
+<th>K</th>
+<th>M</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>todos</td>
+<td>1.698.002</td>
+<td>1,51</td>
+<td><strong>1,34</strong></td>
+<td>1,37</td>
+</tr>
+<tr>
+<td>0–2</td>
+<td>82.087</td>
+<td>1,66</td>
+<td><strong>1,45</strong></td>
+<td>1,46</td>
+</tr>
+<tr>
+<td>2–4</td>
+<td>258.278</td>
+<td>1,36</td>
+<td><strong>1,23</strong></td>
+<td>1,25</td>
+</tr>
+<tr>
+<td>4–6</td>
+<td>398.373</td>
+<td>1,36</td>
+<td><strong>1,23</strong></td>
+<td>1,26</td>
+</tr>
+<tr>
+<td>6–8</td>
+<td>457.582</td>
+<td>1,39</td>
+<td><strong>1,28</strong></td>
+<td>1,30</td>
+</tr>
+<tr>
+<td>8–10</td>
+<td>314.480</td>
+<td>1,49</td>
+<td><strong>1,34</strong></td>
+<td>1,36</td>
+</tr>
+<tr>
+<td>10–12</td>
+<td>127.863</td>
+<td>1,89</td>
+<td><strong>1,54</strong></td>
+<td>1,58</td>
+</tr>
+<tr>
+<td>12–14</td>
+<td>41.729</td>
+<td>2,50</td>
+<td><strong>2,00</strong></td>
+<td>2,11</td>
+</tr>
+<tr>
+<td>14–16</td>
+<td>13.847</td>
+<td>2,55</td>
+<td><strong>2,13</strong></td>
+<td>2,24</td>
+</tr>
+<tr>
+<td>16–18</td>
+<td>3.051</td>
+<td>2,70</td>
+<td><strong>2,46</strong></td>
+<td>2,57</td>
+</tr>
+<tr>
+<td>18–20</td>
+<td>594</td>
+<td>4,13</td>
+<td>3,81</td>
+<td><strong>3,80</strong></td>
+</tr>
+<tr>
+<td>20 ou mais</td>
+<td>118</td>
+<td><strong>3,60</strong></td>
+<td>4,11</td>
+<td>3,95</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Viés (m/s):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Faixa (m/s)</th>
+<th>n</th>
+<th>NASA</th>
+<th>K</th>
+<th>M</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>todos</td>
+<td>1.698.002</td>
+<td>+0,24</td>
+<td>+0,02</td>
+<td>−0,00</td>
+</tr>
+<tr>
+<td>0–2</td>
+<td>82.087</td>
+<td>+1,04</td>
+<td>+0,74</td>
+<td>+0,76</td>
+</tr>
+<tr>
+<td>2–4</td>
+<td>258.278</td>
+<td>+0,54</td>
+<td>+0,23</td>
+<td>+0,22</td>
+</tr>
+<tr>
+<td>4–6</td>
+<td>398.373</td>
+<td>+0,51</td>
+<td>+0,12</td>
+<td>+0,09</td>
+</tr>
+<tr>
+<td>6–8</td>
+<td>457.582</td>
+<td>+0,39</td>
+<td>+0,08</td>
+<td>+0,06</td>
+</tr>
+<tr>
+<td>8–10</td>
+<td>314.480</td>
+<td>−0,09</td>
+<td>−0,13</td>
+<td>−0,16</td>
+</tr>
+<tr>
+<td>10–12</td>
+<td>127.863</td>
+<td>−0,75</td>
+<td>−0,52</td>
+<td>−0,57</td>
+</tr>
+<tr>
+<td>12–14</td>
+<td>41.729</td>
+<td>−1,17</td>
+<td>−0,89</td>
+<td>−0,98</td>
+</tr>
+<tr>
+<td>14–16</td>
+<td>13.847</td>
+<td>−1,35</td>
+<td>−1,14</td>
+<td>−1,18</td>
+</tr>
+<tr>
+<td>16–18</td>
+<td>3.051</td>
+<td>−1,61</td>
+<td>−1,56</td>
+<td>−1,48</td>
+</tr>
+<tr>
+<td>18–20</td>
+<td>594</td>
+<td>−3,76</td>
+<td>−3,56</td>
+<td>−3,41</td>
+</tr>
+<tr>
+<td>20 ou mais</td>
+<td>118</td>
+<td>−3,53</td>
+<td>−4,06</td>
+<td>−3,74</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="RMSD por faixa contra o ERA5" src="../../assets/img/geo_rmsd_era5.png" /></p>
+<p><img alt="Viés por faixa contra o ERA5" src="../../assets/img/geo_bias_era5.png" /></p>
+<h3 id="como-ler-as-tabelas">Como ler as tabelas<a class="headerlink" href="#como-ler-as-tabelas" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>A faixa é do vento da referência</strong> (escaterômetro ou ERA5), e não da estimativa. Por isso o número de medidas de cada faixa muda de uma referência para a outra.</li>
+<li><strong>A ordem é a mesma em quase todas as faixas: K &lt; M &lt; NASA.</strong> O M fica 0,01 a 0,13 m/s acima do K e 0,03 a 0,4 m/s abaixo da NASA. A diferença entre o M e o K é maior no vento forte (0,09 a 0,13 m/s de 12 a 18 m/s), que é onde o K mais ganha da NASA e onde a área extra que o K vê mais ajuda.</li>
+<li><strong>O viés de todos os modelos cresce com o vento</strong>, de −1 m/s em 12 m/s a −3 m/s em 18 m/s, e a NASA tem o mesmo problema. É uma limitação do GNSS-R e da referência de treino (<a href="../../proximos-passos/limites-vento-forte/">Os limites no vento forte</a>), e não do recorte: o M e o K têm quase o mesmo viés em todas as faixas.</li>
+<li><strong>Acima de 18 m/s há poucas medidas</strong> (menos de 1.000 nos 12 dias) e as diferenças não são conclusivas.</li>
+</ul>
+<h2 id="o-que-aprendemos">O que aprendemos<a class="headerlink" href="#o-que-aprendemos" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>O recorte custa pouco.</strong> Fixar a resolução em 25 km custa 0,03 a 0,04 m/s de RMSD geral em relação ao K (3%), e o M continua à frente da NASA em todas as faixas de 8 a 18 m/s. Como a hipótese previa, o M fica entre os dois.</li>
+<li><strong>Parte do ganho do K vem da área extra, parte não.</strong> Contra o escaterômetro, a NASA erra 1,41, o K 1,31 e o M 1,35: dos 0,10 m/s que o K ganha da NASA, 0,06 vêm de ler melhor o sinal dentro dos 25 km (o M também os ganha) e 0,04 de ver mais mar. No vento forte a proporção da área extra é maior.</li>
+<li><strong>O oficial não tem 25 km nos ângulos altos, e o M tem.</strong> Em 52° a janela de 3 × 5 do oficial já passa de 25 km; a média no tempo de 1 medida não corrige isso. O recorte geométrico corrige, ao custo de um vazamento de 6% pela borda dos pixels, que ali têm 10 km.</li>
+<li><strong>Os pesos não bastam como prova da resolução</strong>, e a medida com o modelo direto foi feita por isso. Mas ela mede a entrada da rede; a resposta da rede treinada a uma borda ainda precisa ser medida.</li>
+</ul>
+<h2 id="o-que-falta">O que falta<a class="headerlink" href="#o-que-falta" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>A resposta da rede a uma borda de vento</strong> (acima), para fechar a prova da resolução com a rede treinada.</li>
+<li><strong>As tabelas do ano inteiro de 2022</strong>, no lugar das de 12 dias, com intervalos de confiança (bootstrap por blocos de dias, pareado com o K e a NASA).</li>
+<li><strong>Os três lotes que faltam</strong> (26 a 27 de junho, 8 a 10 de julho e 6 a 8 de agosto), cujos arquivos de DDM precisam ser refeitos.</li>
+<li><strong>Comparar com boias</strong> em oceano aberto.</li>
+<li><strong>O ponto de medida.</strong> O centro do quadrado é a média dos pontos especulares das duas medidas centrais; a latitude e a longitude do produto oficial podem diferir disso em até meia medida (3 km). Resta conferir em alguns dias.</li>
+</ul>
+<h2 id="situacao">Situação<a class="headerlink" href="#situacao" title="Permanent link">&para;</a></h2>
+<p><strong>Candidato a produto de 25 km.</strong> O M é o modelo a adotar se o Amazonia-1B precisar da resolução do CYGNSS; o K, se puder usar uma área maior. A decisão depende da resposta do INPE (<a href="../../situacao/perguntas/">Perguntas ao INPE</a>) e da prova com a borda de vento.</p>
+<div class="admonition note">
+<p class="admonition-title">De onde vêm os números</p>
+<p>O M são as versões <code>nn/v15</code>, <code>nn/v20</code> e <code>nn/v25</code> (as três sementes) com as correções <code>debias/v22</code>, <code>v27</code> e <code>v32</code>; o K é <code>nn/v7</code> com <code>debias/v14</code>. A geometria está em <code>models/nn/geometry.py</code>, a medida da região em <code>evaluation/region.py</code>, as tabelas em <code>scripts/geo_bands.py</code>, as figuras em <code>viz/geo_figures.py</code>. Detalhes na história 22 do repositório.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
