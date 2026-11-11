@@ -1335,6 +1335,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#intervalos-de-confianca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intervalos de confiança
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#como-ler-as-tabelas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2049,6 +2060,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#intervalos-de-confianca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intervalos de confiança
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#como-ler-as-tabelas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2122,7 +2144,7 @@
 <li><strong>O problema:</strong> o K vê uma área de mar de 50 a 90 km de lado, que ainda muda com o ângulo de incidência. Um vento cuja resolução varia de medida para medida é difícil de usar e de comparar; o produto oficial representa sempre cerca de 25 × 25 km.</li>
 <li><strong>A ideia:</strong> calcular, pela geometria de cada medida (posições e velocidades do satélite, do GPS e do ponto de reflexão), <strong>onde cada pixel da DDM está no mar</strong>, e dar a cada pixel um <strong>peso de 0 a 1</strong>: a fração do seu pedaço de mar que cai dentro do quadrado de 25 km. A rede lê a imagem multiplicada por esses pesos, e os próprios pesos como um canal a mais.</li>
 <li><strong>O que isso garante:</strong> a área de onde vem o vento do M é a do produto oficial, em todos os ângulos, e o M continua lendo 5 medidas da trilha onde o produto oficial lê só 1 ou 2.</li>
-<li><strong>Resultado em 2022:</strong> o M fica entre o oficial e o K. Contra o escaterômetro, o M erra 0,03 a 0,1 m/s mais que o K em cada faixa de vento, e menos que o oficial em todas as faixas acima de 8 m/s.</li>
+<li><strong>Resultado em 2022</strong> (282 dias, 38,9 milhões de medidas): o M fica entre o oficial e o K. Contra o escaterômetro, o RMSD geral é 1,46 m/s do oficial, 1,38 do K e 1,41 do M. Por faixa, o M erra 0,02 a 0,04 m/s mais que o K até 12 m/s e 0,07 a 0,18 m/s mais de 12 a 20 m/s; erra menos que o oficial no vento fraco e de 8 a 18 m/s, e empata com ele de 2 a 8 m/s.</li>
 <li><strong>Situação:</strong> candidato a produto de 25 km. Falta a verificação da resolução com a rede treinada (a resposta da rede a uma borda no mar) e a comparação com boias.</li>
 </ul>
 </div>
@@ -2151,9 +2173,9 @@
 <p>O mar é tratado como uma esfera com o raio de curvatura local da Terra, tangente ao elipsoide no ponto de medida, e as contas são feitas num sistema de eixos com origem no ponto de medida (um eixo ao longo da trilha, outro através, outro na vertical). Um teste garante que a altura dessa esfera difere do elipsoide por menos de 5 m a 30 km do centro, o que é 7% de um pixel de atraso. O ponto de medida é a média dos pontos especulares das duas medidas centrais da janela de 5 (que é como o produto oficial centra a média no tempo).</p>
 <h3 id="2-o-peso-de-cada-pixel">2. O peso de cada pixel<a class="headerlink" href="#2-o-peso-de-cada-pixel" title="Permanent link">&para;</a></h3>
 <p>O valor de um pixel é a soma da energia que vem de todo o seu pedaço de mar. Se metade desse pedaço está dentro do quadrado e metade fora, metade do sinal do pixel vem de fora. O <strong>peso</strong> de um pixel é definido como essa fração:</p>
-<p>$$
-w_{ij} = \frac{\text{área do pedaço de mar do pixel } (i,j) \text{ dentro do quadrado}}{\text{área total do pedaço de mar do pixel } (i,j)}
-$$</p>
+<blockquote>
+<p><strong>peso do pixel</strong> = área do pedaço de mar do pixel que está <strong>dentro do quadrado</strong> ÷ área <strong>total</strong> do pedaço de mar do pixel</p>
+</blockquote>
 <p>Para calcular isso, uma malha de pontos do mar com 0,75 km de passo, até 45 km do centro (14.400 pontos), é projetada na DDM pelo passo 1. Cada ponto cai num pixel; somam-se as áreas dos pontos de cada pixel, com e sem a condição de estar dentro do quadrado, e divide-se. As duas somas saem de um único produto de matrizes, para todos os 187 pixels de uma vez. Pixels cujo pedaço de mar está todo dentro do quadrado têm peso 1; todo fora, peso 0; na borda, um valor entre os dois.</p>
 <p>A figura abaixo mostra três pixels de uma mesma DDM a 35°, com o pedaço de mar de cada um pintado: a parte dentro do quadrado em azul escuro, fora em azul claro.</p>
 <p><img alt="Três pixels de uma DDM a 35°: dentro, na borda e fora da região" src="../../assets/img/geo_pixels.png" /></p>
@@ -2407,7 +2429,7 @@ $$</p>
 <p>As tabelas comparam <strong>NASA</strong> (o produto oficial), <strong>K</strong> e <strong>M</strong>, nas mesmas medidas, por faixa de 2 m/s do vento da referência. <code>n</code> é o número de medidas da faixa. O M é a média das três sementes. O RMSD e o viés estão em tabelas separadas.</p>
 <div class="admonition info">
 <p class="admonition-title">Período</p>
-<p>Os números abaixo são de <strong>12 dias de 2022</strong> (fevereiro a abril), os primeiros avaliados. Os 94 lotes de 3 dias do ano todo já foram calculados e estão sendo importados; as tabelas serão trocadas pelas do ano inteiro quando a importação terminar.</p>
+<p>Os números abaixo são de <strong>282 dias de 2022</strong>, de 1º de fevereiro a 26 de novembro: 94 lotes de 3 dias, com <strong>38,9 milhões de medidas</strong> que o M, o K e o oficial têm em comum e que o escaterômetro cobre. Faltam 3 lotes (9 dias) cujos arquivos de DDM precisam ser refeitos.</p>
 </div>
 <h3 id="contra-o-escaterometro">Contra o escaterômetro<a class="headerlink" href="#contra-o-escaterometro" title="Permanent link">&para;</a></h3>
 <p><strong>RMSD (m/s):</strong></p>
@@ -2424,87 +2446,87 @@ $$</p>
 <tbody>
 <tr>
 <td>todos</td>
-<td>1.698.002</td>
+<td>38.870.733</td>
+<td>1,46</td>
+<td><strong>1,38</strong></td>
 <td>1,41</td>
-<td><strong>1,31</strong></td>
-<td>1,35</td>
 </tr>
 <tr>
 <td>0–2</td>
-<td>58.986</td>
-<td>1,01</td>
-<td><strong>0,82</strong></td>
-<td>0,83</td>
+<td>1.045.916</td>
+<td>1,06</td>
+<td><strong>0,86</strong></td>
+<td>0,88</td>
 </tr>
 <tr>
 <td>2–4</td>
-<td>220.329</td>
-<td>0,98</td>
-<td><strong>0,94</strong></td>
-<td>0,97</td>
+<td>4.341.981</td>
+<td>1,08</td>
+<td><strong>1,02</strong></td>
+<td>1,06</td>
 </tr>
 <tr>
 <td>4–6</td>
-<td>406.786</td>
-<td>1,15</td>
-<td><strong>1,11</strong></td>
-<td>1,15</td>
+<td>9.103.636</td>
+<td>1,24</td>
+<td><strong>1,23</strong></td>
+<td>1,26</td>
 </tr>
 <tr>
 <td>6–8</td>
-<td>469.995</td>
-<td>1,32</td>
-<td><strong>1,28</strong></td>
-<td>1,31</td>
+<td>11.537.835</td>
+<td>1,36</td>
+<td><strong>1,35</strong></td>
+<td>1,37</td>
 </tr>
 <tr>
 <td>8–10</td>
-<td>332.093</td>
+<td>7.918.147</td>
 <td>1,50</td>
-<td><strong>1,41</strong></td>
-<td>1,44</td>
+<td><strong>1,45</strong></td>
+<td>1,47</td>
 </tr>
 <tr>
 <td>10–12</td>
-<td>141.898</td>
-<td>1,93</td>
-<td><strong>1,68</strong></td>
-<td>1,73</td>
+<td>3.357.295</td>
+<td>1,90</td>
+<td><strong>1,67</strong></td>
+<td>1,71</td>
 </tr>
 <tr>
 <td>12–14</td>
-<td>46.874</td>
-<td>2,54</td>
-<td><strong>2,14</strong></td>
-<td>2,23</td>
+<td>1.125.611</td>
+<td>2,45</td>
+<td><strong>2,06</strong></td>
+<td>2,13</td>
 </tr>
 <tr>
 <td>14–16</td>
-<td>16.004</td>
-<td>2,79</td>
-<td><strong>2,45</strong></td>
-<td>2,57</td>
+<td>332.355</td>
+<td>2,85</td>
+<td><strong>2,51</strong></td>
+<td>2,62</td>
 </tr>
 <tr>
 <td>16–18</td>
-<td>4.129</td>
-<td>2,84</td>
-<td><strong>2,64</strong></td>
-<td>2,77</td>
+<td>83.655</td>
+<td>3,22</td>
+<td><strong>3,01</strong></td>
+<td>3,16</td>
 </tr>
 <tr>
 <td>18–20</td>
-<td>810</td>
-<td><strong>3,35</strong></td>
-<td>3,47</td>
-<td>3,57</td>
+<td>18.678</td>
+<td>3,51</td>
+<td><strong>3,40</strong></td>
+<td>3,58</td>
 </tr>
 <tr>
 <td>20 ou mais</td>
-<td>98</td>
-<td><strong>3,91</strong></td>
-<td>4,31</td>
-<td>4,21</td>
+<td>5.624</td>
+<td>3,78</td>
+<td><strong>3,76</strong></td>
+<td>4,28</td>
 </tr>
 </tbody>
 </table>
@@ -2522,87 +2544,87 @@ $$</p>
 <tbody>
 <tr>
 <td>todos</td>
-<td>1.698.002</td>
-<td>−0,01</td>
-<td>−0,23</td>
-<td>−0,25</td>
+<td>38.870.733</td>
+<td>+0,08</td>
+<td>−0,13</td>
+<td>−0,15</td>
 </tr>
 <tr>
 <td>0–2</td>
-<td>58.986</td>
-<td>+0,52</td>
-<td>+0,23</td>
-<td>+0,24</td>
+<td>1.045.916</td>
+<td>+0,55</td>
+<td>+0,27</td>
+<td>+0,28</td>
 </tr>
 <tr>
 <td>2–4</td>
-<td>220.329</td>
-<td>+0,14</td>
-<td>−0,15</td>
-<td>−0,15</td>
+<td>4.341.981</td>
+<td>+0,24</td>
+<td>−0,05</td>
+<td>−0,05</td>
 </tr>
 <tr>
 <td>4–6</td>
-<td>406.786</td>
-<td>+0,24</td>
-<td>−0,12</td>
-<td>−0,15</td>
+<td>9.103.636</td>
+<td>+0,35</td>
+<td>+0,00</td>
+<td>−0,02</td>
 </tr>
 <tr>
 <td>6–8</td>
-<td>469.995</td>
-<td>+0,25</td>
-<td>−0,07</td>
-<td>−0,09</td>
+<td>11.537.835</td>
+<td>+0,34</td>
+<td>+0,02</td>
+<td>+0,00</td>
 </tr>
 <tr>
 <td>8–10</td>
-<td>332.093</td>
-<td>−0,16</td>
-<td>−0,25</td>
-<td>−0,27</td>
+<td>7.918.147</td>
+<td>−0,09</td>
+<td>−0,17</td>
+<td>−0,20</td>
 </tr>
 <tr>
 <td>10–12</td>
-<td>141.898</td>
-<td>−0,94</td>
-<td>−0,80</td>
-<td>−0,84</td>
+<td>3.357.295</td>
+<td>−0,74</td>
+<td>−0,58</td>
+<td>−0,61</td>
 </tr>
 <tr>
 <td>12–14</td>
-<td>46.874</td>
+<td>1.125.611</td>
 <td>−1,38</td>
+<td>−1,10</td>
 <td>−1,15</td>
-<td>−1,24</td>
 </tr>
 <tr>
 <td>14–16</td>
-<td>16.004</td>
-<td>−1,55</td>
-<td>−1,37</td>
-<td>−1,42</td>
+<td>332.355</td>
+<td>−1,74</td>
+<td>−1,52</td>
+<td>−1,53</td>
 </tr>
 <tr>
 <td>16–18</td>
-<td>4.129</td>
-<td>−1,89</td>
-<td>−1,87</td>
-<td>−1,83</td>
+<td>83.655</td>
+<td>−2,21</td>
+<td>−2,03</td>
+<td>−1,96</td>
 </tr>
 <tr>
 <td>18–20</td>
-<td>810</td>
-<td>−2,96</td>
-<td>−3,13</td>
-<td>−3,15</td>
+<td>18.678</td>
+<td>−2,60</td>
+<td>−2,37</td>
+<td>−2,11</td>
 </tr>
 <tr>
 <td>20 ou mais</td>
-<td>98</td>
-<td>−3,83</td>
-<td>−4,22</td>
-<td>−4,00</td>
+<td>5.624</td>
+<td>−2,57</td>
+<td>−1,78</td>
+<td>−1,21</td>
 </tr>
 </tbody>
 </table>
@@ -2623,87 +2645,87 @@ $$</p>
 <tbody>
 <tr>
 <td>todos</td>
-<td>1.698.002</td>
-<td>1,51</td>
-<td><strong>1,34</strong></td>
-<td>1,37</td>
+<td>38.870.733</td>
+<td>1,57</td>
+<td><strong>1,44</strong></td>
+<td>1,47</td>
 </tr>
 <tr>
 <td>0–2</td>
-<td>82.087</td>
-<td>1,66</td>
-<td><strong>1,45</strong></td>
-<td>1,46</td>
+<td>1.500.862</td>
+<td>1,79</td>
+<td><strong>1,57</strong></td>
+<td>1,59</td>
 </tr>
 <tr>
 <td>2–4</td>
-<td>258.278</td>
-<td>1,36</td>
-<td><strong>1,23</strong></td>
-<td>1,25</td>
+<td>5.125.633</td>
+<td>1,51</td>
+<td><strong>1,38</strong></td>
+<td>1,40</td>
 </tr>
 <tr>
 <td>4–6</td>
-<td>398.373</td>
-<td>1,36</td>
-<td><strong>1,23</strong></td>
-<td>1,26</td>
+<td>9.036.648</td>
+<td>1,47</td>
+<td><strong>1,39</strong></td>
+<td>1,41</td>
 </tr>
 <tr>
 <td>6–8</td>
-<td>457.582</td>
-<td>1,39</td>
-<td><strong>1,28</strong></td>
-<td>1,30</td>
+<td>11.225.618</td>
+<td>1,45</td>
+<td><strong>1,38</strong></td>
+<td>1,40</td>
 </tr>
 <tr>
 <td>8–10</td>
-<td>314.480</td>
-<td>1,49</td>
-<td><strong>1,34</strong></td>
-<td>1,36</td>
+<td>7.609.137</td>
+<td>1,52</td>
+<td><strong>1,42</strong></td>
+<td>1,44</td>
 </tr>
 <tr>
 <td>10–12</td>
-<td>127.863</td>
-<td>1,89</td>
-<td><strong>1,54</strong></td>
-<td>1,58</td>
+<td>3.062.209</td>
+<td>1,86</td>
+<td><strong>1,57</strong></td>
+<td>1,60</td>
 </tr>
 <tr>
 <td>12–14</td>
-<td>41.729</td>
-<td>2,50</td>
-<td><strong>2,00</strong></td>
-<td>2,11</td>
+<td>943.871</td>
+<td>2,34</td>
+<td><strong>1,87</strong></td>
+<td>1,95</td>
 </tr>
 <tr>
 <td>14–16</td>
-<td>13.847</td>
-<td>2,55</td>
-<td><strong>2,13</strong></td>
-<td>2,24</td>
+<td>274.351</td>
+<td>2,63</td>
+<td><strong>2,26</strong></td>
+<td>2,39</td>
 </tr>
 <tr>
 <td>16–18</td>
-<td>3.051</td>
-<td>2,70</td>
-<td><strong>2,46</strong></td>
-<td>2,57</td>
+<td>70.387</td>
+<td>2,93</td>
+<td><strong>2,69</strong></td>
+<td>2,84</td>
 </tr>
 <tr>
 <td>18–20</td>
-<td>594</td>
-<td>4,13</td>
-<td>3,81</td>
-<td><strong>3,80</strong></td>
+<td>17.097</td>
+<td>3,25</td>
+<td><strong>3,15</strong></td>
+<td>3,49</td>
 </tr>
 <tr>
 <td>20 ou mais</td>
-<td>118</td>
-<td><strong>3,60</strong></td>
-<td>4,11</td>
-<td>3,95</td>
+<td>4.920</td>
+<td><strong>3,54</strong></td>
+<td>3,63</td>
+<td>4,06</td>
 </tr>
 </tbody>
 </table>
@@ -2721,110 +2743,185 @@ $$</p>
 <tbody>
 <tr>
 <td>todos</td>
-<td>1.698.002</td>
-<td>+0,24</td>
-<td>+0,02</td>
-<td>−0,00</td>
-</tr>
-<tr>
-<td>0–2</td>
-<td>82.087</td>
-<td>+1,04</td>
-<td>+0,74</td>
-<td>+0,76</td>
-</tr>
-<tr>
-<td>2–4</td>
-<td>258.278</td>
-<td>+0,54</td>
-<td>+0,23</td>
-<td>+0,22</td>
-</tr>
-<tr>
-<td>4–6</td>
-<td>398.373</td>
-<td>+0,51</td>
-<td>+0,12</td>
+<td>38.870.733</td>
+<td>+0,31</td>
+<td>+0,11</td>
 <td>+0,09</td>
 </tr>
 <tr>
+<td>0–2</td>
+<td>1.500.862</td>
+<td>+1,15</td>
+<td>+0,84</td>
+<td>+0,86</td>
+</tr>
+<tr>
+<td>2–4</td>
+<td>5.125.633</td>
+<td>+0,67</td>
+<td>+0,37</td>
+<td>+0,36</td>
+</tr>
+<tr>
+<td>4–6</td>
+<td>9.036.648</td>
+<td>+0,60</td>
+<td>+0,24</td>
+<td>+0,21</td>
+</tr>
+<tr>
 <td>6–8</td>
-<td>457.582</td>
-<td>+0,39</td>
-<td>+0,08</td>
-<td>+0,06</td>
+<td>11.225.618</td>
+<td>+0,45</td>
+<td>+0,15</td>
+<td>+0,13</td>
 </tr>
 <tr>
 <td>8–10</td>
-<td>314.480</td>
-<td>−0,09</td>
-<td>−0,13</td>
-<td>−0,16</td>
+<td>7.609.137</td>
+<td>−0,00</td>
+<td>−0,05</td>
+<td>−0,07</td>
 </tr>
 <tr>
 <td>10–12</td>
-<td>127.863</td>
-<td>−0,75</td>
-<td>−0,52</td>
-<td>−0,57</td>
+<td>3.062.209</td>
+<td>−0,60</td>
+<td>−0,39</td>
+<td>−0,43</td>
 </tr>
 <tr>
 <td>12–14</td>
-<td>41.729</td>
-<td>−1,17</td>
-<td>−0,89</td>
-<td>−0,98</td>
+<td>943.871</td>
+<td>−1,14</td>
+<td>−0,82</td>
+<td>−0,86</td>
 </tr>
 <tr>
 <td>14–16</td>
-<td>13.847</td>
-<td>−1,35</td>
-<td>−1,14</td>
-<td>−1,18</td>
+<td>274.351</td>
+<td>−1,46</td>
+<td>−1,21</td>
+<td>−1,22</td>
 </tr>
 <tr>
 <td>16–18</td>
-<td>3.051</td>
-<td>−1,61</td>
-<td>−1,56</td>
-<td>−1,48</td>
+<td>70.387</td>
+<td>−1,96</td>
+<td>−1,76</td>
+<td>−1,68</td>
 </tr>
 <tr>
 <td>18–20</td>
-<td>594</td>
-<td>−3,76</td>
-<td>−3,56</td>
-<td>−3,41</td>
+<td>17.097</td>
+<td>−2,13</td>
+<td>−1,84</td>
+<td>−1,48</td>
 </tr>
 <tr>
 <td>20 ou mais</td>
-<td>118</td>
-<td>−3,53</td>
-<td>−4,06</td>
-<td>−3,74</td>
+<td>4.920</td>
+<td>−2,49</td>
+<td>−1,67</td>
+<td>−1,10</td>
 </tr>
 </tbody>
 </table>
 <p><img alt="RMSD por faixa contra o ERA5" src="../../assets/img/geo_rmsd_era5.png" /></p>
 <p><img alt="Viés por faixa contra o ERA5" src="../../assets/img/geo_bias_era5.png" /></p>
+<h3 id="intervalos-de-confianca">Intervalos de confiança<a class="headerlink" href="#intervalos-de-confianca" title="Permanent link">&para;</a></h3>
+<p>A diferença relativa de RMSD entre o M e cada um dos outros dois, com o intervalo de 95% de um bootstrap pareado por dia (500 reamostragens dos 282 dias; os três modelos são avaliados nas mesmas medidas, por isso o intervalo é estreito mesmo quando a diferença é pequena). Positivo é o M errando mais.</p>
+<table>
+<thead>
+<tr>
+<th>Comparação</th>
+<th>Contra o escaterômetro</th>
+<th>Contra o ERA5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M em relação ao K</td>
+<td>+2,3% [+2,1; +2,4]</td>
+<td>+1,8% [+1,6; +2,0]</td>
+</tr>
+<tr>
+<td>M em relação à NASA</td>
+<td>−3,0% [−3,6; −2,5]</td>
+<td>−6,5% [−7,1; −5,9]</td>
+</tr>
+</tbody>
+</table>
+<p>Os dois intervalos excluem o zero: o M erra mais que o K e menos que a NASA, e as duas diferenças são reais. Mas as duas são menores que a <em>diferença material</em> da história 19, o dobro da maior distância entre duas sementes do mesmo treino (9,2% contra o escaterômetro, 7,7% contra o ERA5): pelo critério do projeto, <strong>o M é equivalente ao K</strong>. As três sementes do M, uma a uma, dão 1,44, 1,41 e 1,38 m/s contra o escaterômetro; a terceira empata com o K (1,38). A dispersão entre sementes é maior que a diferença entre o M e o K, e é o que limita a conclusão.</p>
+<p><strong>Por ângulo de incidência</strong>, contra o escaterômetro (a faixa de ângulo é a da medida central):</p>
+<table>
+<thead>
+<tr>
+<th>Ângulo</th>
+<th>n</th>
+<th>M em relação ao K</th>
+<th>M em relação à NASA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0–17°</td>
+<td>5.066.842</td>
+<td>+1,5% [+1,1; +1,8]</td>
+<td>+3,7% [+2,6; +4,8]</td>
+</tr>
+<tr>
+<td>17–31°</td>
+<td>12.290.917</td>
+<td>+1,0% [+0,7; +1,3]</td>
+<td>−4,9% [−5,7; −4,2]</td>
+</tr>
+<tr>
+<td>31–41°</td>
+<td>7.916.640</td>
+<td>+2,9% [+2,7; +3,1]</td>
+<td>−2,5% [−3,1; −1,8]</td>
+</tr>
+<tr>
+<td>41–48°</td>
+<td>4.661.567</td>
+<td>+3,2% [+2,9; +3,4]</td>
+<td>−4,4% [−5,2; −3,6]</td>
+</tr>
+<tr>
+<td>48–55°</td>
+<td>4.309.104</td>
+<td>+3,7% [+3,5; +4,0]</td>
+<td>−5,4% [−6,1; −4,5]</td>
+</tr>
+<tr>
+<td>55–65°</td>
+<td>4.625.663</td>
+<td>+5,3% [+5,0; +5,7]</td>
+<td>−1,9% [−2,7; −1,0]</td>
+</tr>
+</tbody>
+</table>
+<p>O custo do recorte em relação ao K cresce com o ângulo, de 1% abaixo de 31° a 5% acima de 55°: nos ângulos altos os pixels são maiores (até 10 km) e o recorte de 25 km apaga mais da imagem que o K lê. Abaixo de 17° o M erra 4% mais que a NASA, a única faixa de ângulo em que isso acontece; é onde a janela do produto oficial é menor que 25 km e os pixels são pequenos. O motivo ainda não foi investigado.</p>
 <h3 id="como-ler-as-tabelas">Como ler as tabelas<a class="headerlink" href="#como-ler-as-tabelas" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>A faixa é do vento da referência</strong> (escaterômetro ou ERA5), e não da estimativa. Por isso o número de medidas de cada faixa muda de uma referência para a outra.</li>
-<li><strong>A ordem é a mesma em quase todas as faixas: K &lt; M &lt; NASA.</strong> O M fica 0,01 a 0,13 m/s acima do K e 0,03 a 0,4 m/s abaixo da NASA. A diferença entre o M e o K é maior no vento forte (0,09 a 0,13 m/s de 12 a 18 m/s), que é onde o K mais ganha da NASA e onde a área extra que o K vê mais ajuda.</li>
-<li><strong>O viés de todos os modelos cresce com o vento</strong>, de −1 m/s em 12 m/s a −3 m/s em 18 m/s, e a NASA tem o mesmo problema. É uma limitação do GNSS-R e da referência de treino (<a href="../../proximos-passos/limites-vento-forte/">Os limites no vento forte</a>), e não do recorte: o M e o K têm quase o mesmo viés em todas as faixas.</li>
-<li><strong>Acima de 18 m/s há poucas medidas</strong> (menos de 1.000 nos 12 dias) e as diferenças não são conclusivas.</li>
+<li><strong>A ordem é K &lt; M &lt; NASA de 8 a 18 m/s</strong>, contra as duas referências. Contra o escaterômetro, o M fica 0,02 a 0,04 m/s acima do K até 12 m/s e 0,07 a 0,18 m/s acima de 12 a 20 m/s. A diferença entre o M e o K cresce com o vento, que é onde o K mais ganha da NASA e onde a área extra que o K vê mais ajuda.</li>
+<li><strong>De 2 a 8 m/s o M empata com a NASA</strong> contra o escaterômetro (0,02 m/s para menos em 2–4, 0,01 a 0,02 para mais em 4–8), e fica 0,05 a 0,11 m/s abaixo dela contra o ERA5. O ganho do M sobre o oficial está no vento fraco (0–2 m/s) e no vento de 8 a 18 m/s.</li>
+<li><strong>O viés de todos os modelos cresce com o vento</strong>, de −0,6 m/s em 10 m/s a −2 m/s em 16 m/s, e a NASA tem o mesmo problema. É uma limitação do GNSS-R e da referência de treino (<a href="../../proximos-passos/limites-vento-forte/">Os limites no vento forte</a>), e não do recorte: até 16 m/s o M e o K têm o mesmo viés, com diferença de até 0,05 m/s.</li>
+<li><strong>Acima de 18 m/s</strong> (24 mil medidas, 0,06% do total) o M tem o maior RMSD dos três, de 0,2 a 0,5 m/s acima do K, e o menor viés, de 0,3 a 0,6 m/s a menos que o K. Com a área recortada o M segue menos a referência no vento forte, para os dois lados: erra mais, mas subestima menos.</li>
 </ul>
 <h2 id="o-que-aprendemos">O que aprendemos<a class="headerlink" href="#o-que-aprendemos" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>O recorte custa pouco.</strong> Fixar a resolução em 25 km custa 0,03 a 0,04 m/s de RMSD geral em relação ao K (3%), e o M continua à frente da NASA em todas as faixas de 8 a 18 m/s. Como a hipótese previa, o M fica entre os dois.</li>
-<li><strong>Parte do ganho do K vem da área extra, parte não.</strong> Contra o escaterômetro, a NASA erra 1,41, o K 1,31 e o M 1,35: dos 0,10 m/s que o K ganha da NASA, 0,06 vêm de ler melhor o sinal dentro dos 25 km (o M também os ganha) e 0,04 de ver mais mar. No vento forte a proporção da área extra é maior.</li>
+<li><strong>O recorte custa pouco.</strong> Fixar a resolução em 25 km custa 0,03 m/s de RMSD geral em relação ao K (2,3%, intervalo de 2,1 a 2,4%), menos que a dispersão entre sementes, e o M continua à frente da NASA de 8 a 18 m/s e no vento fraco. Como a hipótese previa, o M fica entre os dois, e pelo critério do projeto é equivalente ao K.</li>
+<li><strong>Parte do ganho do K vem da área extra, parte não.</strong> Contra o escaterômetro, a NASA erra 1,46, o K 1,38 e o M 1,41: dos 0,08 m/s que o K ganha da NASA, 0,05 vêm de ler melhor o sinal dentro dos 25 km (o M também os ganha) e 0,03 de ver mais mar. No vento forte a proporção da área extra é maior: de 16 a 18 m/s o M recupera menos de um terço do ganho do K sobre a NASA.</li>
+<li><strong>O M erra menos no viés que no RMSD.</strong> Contra o ERA5 o viés geral do M é o menor dos três (+0,09 contra +0,11 do K e +0,31 da NASA), e acima de 16 m/s o M subestima menos que o K e a NASA contra as duas referências.</li>
 <li><strong>O oficial não tem 25 km nos ângulos altos, e o M tem.</strong> Em 52° a janela de 3 × 5 do oficial já passa de 25 km; a média no tempo de 1 medida não corrige isso. O recorte geométrico corrige, ao custo de um vazamento de 6% pela borda dos pixels, que ali têm 10 km.</li>
 <li><strong>Os pesos não bastam como prova da resolução</strong>, e a medida com o modelo direto foi feita por isso. Mas ela mede a entrada da rede; a resposta da rede treinada a uma borda ainda precisa ser medida.</li>
 </ul>
 <h2 id="o-que-falta">O que falta<a class="headerlink" href="#o-que-falta" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>A resposta da rede a uma borda de vento</strong> (acima), para fechar a prova da resolução com a rede treinada.</li>
-<li><strong>As tabelas do ano inteiro de 2022</strong>, no lugar das de 12 dias, com intervalos de confiança (bootstrap por blocos de dias, pareado com o K e a NASA).</li>
 <li><strong>Os três lotes que faltam</strong> (26 a 27 de junho, 8 a 10 de julho e 6 a 8 de agosto), cujos arquivos de DDM precisam ser refeitos.</li>
 <li><strong>Comparar com boias</strong> em oceano aberto.</li>
 <li><strong>O ponto de medida.</strong> O centro do quadrado é a média dos pontos especulares das duas medidas centrais; a latitude e a longitude do produto oficial podem diferir disso em até meia medida (3 km). Resta conferir em alguns dias.</li>
@@ -2833,7 +2930,7 @@ $$</p>
 <p><strong>Candidato a produto de 25 km.</strong> O M é o modelo a adotar se o Amazonia-1B precisar da resolução do CYGNSS; o K, se puder usar uma área maior. A decisão depende da resposta do INPE (<a href="../../situacao/perguntas/">Perguntas ao INPE</a>) e da prova com a borda de vento.</p>
 <div class="admonition note">
 <p class="admonition-title">De onde vêm os números</p>
-<p>O M são as versões <code>nn/v15</code>, <code>nn/v20</code> e <code>nn/v25</code> (as três sementes) com as correções <code>debias/v22</code>, <code>v27</code> e <code>v32</code>; o K é <code>nn/v7</code> com <code>debias/v14</code>. A geometria está em <code>models/nn/geometry.py</code>, a medida da região em <code>evaluation/region.py</code>, as tabelas em <code>scripts/geo_bands.py</code>, as figuras em <code>viz/geo_figures.py</code>. Detalhes na história 22 do repositório.</p>
+<p>O M são as versões <code>nn/v15</code>, <code>nn/v20</code> e <code>nn/v25</code> (as três sementes) com as correções <code>debias/v22</code>, <code>v27</code> e <code>v32</code>; o K é <code>nn/v7</code> com <code>debias/v14</code>. A geometria está em <code>models/nn/geometry.py</code>, a medida da região em <code>evaluation/region.py</code>, as tabelas por faixa em <code>scripts/geo_bands.py</code>, os intervalos em <code>scripts/compare_geo.py</code> (módulo <code>evaluation/geo.py</code>), as figuras em <code>viz/geo_figures.py</code>. Detalhes na história 22 do repositório.</p>
 </div>
 
 
