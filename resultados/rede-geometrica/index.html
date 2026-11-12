@@ -2143,13 +2143,13 @@
 <ul>
 <li><strong>O problema:</strong> o K vê uma área de mar de 50 a 90 km de lado, que ainda muda com o ângulo de incidência. Um vento cuja resolução varia de medida para medida é difícil de usar e de comparar; o produto oficial representa sempre cerca de 25 × 25 km.</li>
 <li><strong>A ideia:</strong> calcular, pela geometria de cada medida (posições e velocidades do satélite, do GPS e do ponto de reflexão), <strong>onde cada pixel da DDM está no mar</strong>, e dar a cada pixel um <strong>peso de 0 a 1</strong>: a fração do seu pedaço de mar que cai dentro do quadrado de 25 km. A rede lê a imagem multiplicada por esses pesos, e os próprios pesos como um canal a mais.</li>
-<li><strong>O que isso garante:</strong> a área de onde vem o vento do M é a do produto oficial, em todos os ângulos, e o M continua lendo 5 medidas da trilha onde o produto oficial lê só 1 ou 2.</li>
-<li><strong>Resultado em 2022</strong> (282 dias, 38,9 milhões de medidas): o M fica entre o oficial e o K. Contra o escaterômetro, o RMSD geral é 1,46 m/s do oficial, 1,38 do K e 1,41 do M. Por faixa, o M erra 0,02 a 0,04 m/s mais que o K até 12 m/s e 0,07 a 0,18 m/s mais de 12 a 20 m/s; erra menos que o oficial no vento fraco e de 8 a 18 m/s, e empata com ele de 2 a 8 m/s.</li>
+<li><strong>O que isso garante:</strong> a área de mar que entra na rede do M é a do produto oficial até 43° de incidência; em 52° ela vaza um pouco mais pela borda (6% do sinal contra 2% do oficial). E o M continua lendo 5 medidas da trilha onde o produto oficial lê só 1 ou 2.</li>
+<li><strong>Resultado em 2022</strong> (263 dias, 38,9 milhões de medidas): o M fica entre o oficial e o K. Contra o escaterômetro, o RMSD geral é 1,46 m/s do oficial, 1,38 do K e 1,41 do M. Por faixa, o M erra 0,02 a 0,04 m/s mais que o K até 12 m/s e 0,07 a 0,18 m/s mais de 12 a 20 m/s; erra menos que o oficial no vento fraco e de 8 a 18 m/s, e empata com ele de 2 a 8 m/s.</li>
 <li><strong>Situação:</strong> candidato a produto de 25 km. Falta a verificação da resolução com a rede treinada (a resposta da rede a uma borda no mar) e a comparação com boias.</li>
 </ul>
 </div>
 <h2 id="de-onde-veio-a-ideia">De onde veio a ideia<a class="headerlink" href="#de-onde-veio-a-ideia" title="Permanent link">&para;</a></h2>
-<p>O <a href="../rede-ddm/">modelo K</a> é a melhor abordagem até agora: 6% menos erro que o produto oficial contra o escaterômetro, e o ganho maior é no vento forte, de 10 a 18 m/s. Mas o K lê a imagem inteira da DDM, 17 × 11 pixels, e os pixels longe do centro correspondem a pedaços de mar longe do ponto de reflexão. Na geometria nominal, a imagem inteira de 5 medidas cobre de 48 a 91 km de lado, conforme o ângulo (<a href="https://github.com/firmino/gnss-r-inpe">história 19</a>). O <a href="../rede-ddm/">modelo I</a>, a mesma rede lendo só o recorte de 3 × 5 pixels do produto oficial, empata com o oficial: o ganho do K vem, ao menos em parte, de ver mais mar.</p>
+<p>O <a href="../rede-ddm/">modelo K</a> é a melhor abordagem até agora: 5% a 6% menos erro que o produto oficial contra o escaterômetro (6% na avaliação da página do K, 5% nas medidas desta página, que são menos dias), e o ganho maior é no vento forte, de 10 a 18 m/s. Mas o K lê a imagem inteira da DDM, 17 × 11 pixels, e os pixels longe do centro correspondem a pedaços de mar longe do ponto de reflexão. Na geometria nominal, a imagem inteira de 5 medidas cobre de 48 a 91 km de lado, conforme o ângulo (<a href="https://github.com/firmino/gnss-r-inpe">história 19</a>). O <a href="../rede-ddm/">modelo I</a>, a mesma rede lendo só o recorte de 3 × 5 pixels do produto oficial, empata com o oficial: o ganho do K vem, ao menos em parte, de ver mais mar.</p>
 <p>Isso cria dois problemas para um produto:</p>
 <ol>
 <li><strong>A resolução não é 25 km.</strong> O vento do K representa uma área maior que a do produto oficial, e não se sabe exatamente qual.</li>
@@ -2170,7 +2170,7 @@
 <p>O resultado é a <strong>posição fracionária (linha, coluna)</strong> de <code>P</code> na DDM. A figura abaixo mostra isso para uma malha de pontos do mar em volta do ponto de medida, em dois ângulos de incidência. As linhas brancas contínuas são os limites entre pixels de atraso (os anéis); as pontilhadas, entre pixels de Doppler (as faixas). A estrela é o ponto especular e o quadrado tracejado é a região de 25 km.</p>
 <p><img alt="Os pixels da DDM no mar, em 20° e 52°" src="../../assets/img/geo_footprint.png" /></p>
 <p>Dois pontos a notar. Em 20° os anéis são quase círculos de poucos km, e a imagem inteira cobre uns 55 km. Em 52° os anéis viram elipses alongadas, e a imagem inteira passa de 80 km. <strong>É por isso que a área que o K vê cresce com o ângulo.</strong> O quadrado de 25 km, em compensação, é sempre o mesmo.</p>
-<p>O mar é tratado como uma esfera com o raio de curvatura local da Terra, tangente ao elipsoide no ponto de medida, e as contas são feitas num sistema de eixos com origem no ponto de medida (um eixo ao longo da trilha, outro através, outro na vertical). Um teste garante que a altura dessa esfera difere do elipsoide por menos de 5 m a 30 km do centro, o que é 7% de um pixel de atraso. O ponto de medida é a média dos pontos especulares das duas medidas centrais da janela de 5 (que é como o produto oficial centra a média no tempo).</p>
+<p>O mar é tratado como uma esfera com o raio de curvatura local da Terra, tangente ao elipsoide no ponto de medida, e as contas são feitas num sistema de eixos com origem no ponto de medida (um eixo ao longo da trilha, outro através, outro na vertical). Um teste garante que a altura dessa esfera difere do elipsoide por menos de 5 m a 30 km do centro, o que é 7% de um pixel de atraso. Cada medida da trilha (1 segundo) é a média de duas DDMs do arquivo L1, tiradas com meio segundo de diferença. O ponto de medida, centro do quadrado, é a média dos pontos especulares das duas DDMs que formam a medida central da janela de 5 (que é como o produto oficial centra a média no tempo).</p>
 <h3 id="2-o-peso-de-cada-pixel">2. O peso de cada pixel<a class="headerlink" href="#2-o-peso-de-cada-pixel" title="Permanent link">&para;</a></h3>
 <p>O valor de um pixel é a soma da energia que vem de todo o seu pedaço de mar. Se metade desse pedaço está dentro do quadrado e metade fora, metade do sinal do pixel vem de fora. O <strong>peso</strong> de um pixel é definido como essa fração:</p>
 <blockquote>
@@ -2197,7 +2197,7 @@
 <li>Em <strong>35°</strong> o quadrado coincide quase exatamente com a janela de 3 × 5 (a linha 8 fica na borda, com pesos de 0,6).</li>
 <li>Em <strong>52°</strong> a janela de 3 × 5 do oficial já é <strong>maior</strong> que 25 km: dois dos seus pixels na linha 7 ficam com peso 0,55, e a linha 8 quase some. É nesse ângulo que o oficial usa 1 medida só. O M lê os mesmos 25 km, mas de 5 medidas.</li>
 </ul>
-<p>Como a região fica parada no ponto de medida e o ponto especular anda 6 km por medida, <strong>cada uma das 5 medidas tem um plano de pesos diferente</strong>: nas medidas das pontas, o quadrado cai deslocado na DDM, sobre pixels de atraso maior de um lado só da trilha. A figura abaixo mostra as 5 medidas de uma janela a 35°.</p>
+<p>Como a região fica parada no ponto de medida e o ponto especular anda 6 km por medida (3 km entre as duas DDMs de uma medida), <strong>cada uma das 5 medidas tem um plano de pesos diferente</strong> (a média dos planos das suas duas DDMs): nas medidas das pontas, o quadrado cai deslocado na DDM, sobre pixels de atraso maior de um lado só da trilha. A figura abaixo mostra as 5 medidas de uma janela a 35°.</p>
 <p><img alt="Os planos de pesos das 5 medidas de uma janela a 35°" src="../../assets/img/geo_slots.png" /></p>
 <h3 id="4-o-que-a-rede-le">4. O que a rede lê<a class="headerlink" href="#4-o-que-a-rede-le" title="Permanent link">&para;</a></h3>
 <p>A rede do M é a mesma rede do K, com a mesma arquitetura e os mesmos 219 mil parâmetros, treinada do zero. A diferença está na entrada:</p>
@@ -2208,7 +2208,11 @@
 <p>A figura abaixo mostra isso numa DDM real de 25/06/2022 (satélite 1, 35° de incidência, vento oficial de 8,3 m/s): a imagem como o K a lê, o plano de pesos, e o produto dos dois, que é o que o M lê.</p>
 <p><img alt="Imagem, pesos e a entrada da rede M, numa DDM real a 35°" src="../../assets/img/geo_input.png" /></p>
 <p>O K vê a cauda inteira do sinal, que se estende até a linha 16: são pedaços de mar a 30, 40 km do ponto. O M vê o pico e as duas primeiras linhas depois dele.</p>
-<p>Os pesos são calculados dentro da própria rede, na hora, a partir de 17 números por DDM (posições, velocidades, ponto especular e o seu pixel), sem gradiente. Guardá-los seria 187 números por DDM para 36 milhões de DDMs. O cálculo roda em lotes de 64 DDMs na GPU. A configuração da rede guarda tudo de que os pesos dependem (a função de peso, o sinal do eixo Doppler, o tamanho dos pixels, a malha, o formato do arquivo), para que uma mudança futura nunca altere uma rede já treinada.</p>
+<p>Os pesos são calculados dentro da própria rede, na hora, a partir de 17 números por DDM (posições, velocidades, ponto especular e o seu pixel), sem gradiente. Guardá-los seria 187 números por DDM para 73 milhões de DDMs (7,3 milhões de janelas de 5 medidas, 2 DDMs por medida). O cálculo roda em lotes de 64 DDMs na GPU. A configuração da rede guarda tudo de que os pesos dependem (a função de peso, o sinal do eixo Doppler, o tamanho dos pixels, a malha, o formato do arquivo), para que uma mudança futura nunca altere uma rede já treinada.</p>
+<div class="admonition note">
+<p class="admonition-title">O que a rede lê em cada pixel</p>
+<p>Cada pixel que sobra depende do vento no seu próprio pedaço de mar, e a relação entre sinal e vento não é a mesma em todos: no pixel do ponto especular o sinal <strong>cai</strong> quando o vento aumenta (o mar mais agitado espalha a energia), e nos anéis mais afastados o sinal <strong>sobe</strong>. Essa relação também muda com o ângulo de incidência. A rede não recebe uma tabela disso: ela aprende, no treino contra o ERA5, como combinar os pixels, sabendo a posição de cada um na imagem, o seu peso e o ângulo de incidência da medida central. Nas medidas das pontas da janela o ponto especular fica perto da borda do quadrado, e o que entra são outros pixels do mesmo quadrado de mar: mais olhares independentes sobre os mesmos 25 km.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">O sinal do eixo Doppler</p>
 <p>As contas dizem onde cada ponto do mar cai na DDM, mas a geometria sozinha não distingue se uma coluna a mais é uma frequência maior ou menor: as áreas são simétricas. O L1 usa a convenção de que uma coluna maior é uma frequência maior. Confirmamos num dia real com um observável assimétrico: o centro de massa do sinal em Doppler deve cair do lado para onde o satélite se move, e caiu em 82% de 600 DDMs.</p>
@@ -2373,7 +2377,7 @@
 <p>O que isso diz:</p>
 <ul>
 <li><strong>O K não tem resolução de 25 km, e a dele varia com o ângulo.</strong> De um terço (5°) a dois terços (52°) do sinal que o K usa vem de mais de 10 km além da borda do quadrado, e a sua meia altura vai de 17 a 31 km além da borda. Um vento do K a 52° representa uma área quase duas vezes maior que um a 5°.</li>
-<li><strong>O M tem a resolução da NASA.</strong> Até 43° o vazamento do M é de 1% a 2%, como o da NASA, e a borda é tão nítida ou mais (6 a 8 km de largura). Em 52° o M vaza 6% contra 2% da NASA e a borda tem 11 km contra 9: ali os pixels da DDM têm 10 km de comprimento, e um pixel cortado ao meio ainda deixa passar metade do seu sinal.</li>
+<li><strong>Na entrada da rede, o M tem a resolução da NASA até 43°.</strong> Até 43° o vazamento do M é de 1% a 2%, como o da NASA, e a borda é tão nítida ou mais (6 a 8 km de largura). Em 52° o M vaza 6% contra 2% da NASA e a borda tem 11 km contra 9: ali os pixels da DDM têm 10 km de comprimento, e um pixel cortado ao meio ainda deixa passar metade do seu sinal.</li>
 <li><strong>O M mantém as 5 medidas</strong> onde a NASA fica com 1 ou 2. É daí que o M pode tirar algum ganho sobre a NASA sem alargar a região.</li>
 </ul>
 <p>Antes de ver os números, o critério escrito era: em cada ângulo, o vazamento do M não pode ser maior que o da NASA, a borda não pode ser mais que 3 km mais larga e ao menos metade da sensibilidade deve vir de dentro. O critério vale em 5°, 20° e 43° (em 43° com 2% de vazamento contra 0%) e falha em 52° por 4 pontos percentuais de vazamento. Uma região menor que 25 km não ajuda (o vazamento cresce quando o quadrado encolhe, porque os pixels da borda ficam proporcionalmente maiores).</p>
@@ -2429,7 +2433,12 @@
 <p>As tabelas comparam <strong>NASA</strong> (o produto oficial), <strong>K</strong> e <strong>M</strong>, nas mesmas medidas, por faixa de 2 m/s do vento da referência. <code>n</code> é o número de medidas da faixa. O M é a média das três sementes. O RMSD e o viés estão em tabelas separadas.</p>
 <div class="admonition info">
 <p class="admonition-title">Período</p>
-<p>Os números abaixo são de <strong>282 dias de 2022</strong>, de 1º de fevereiro a 26 de novembro: 94 lotes de 3 dias, com <strong>38,9 milhões de medidas</strong> que o M, o K e o oficial têm em comum e que o escaterômetro cobre. Faltam 3 lotes (9 dias) cujos arquivos de DDM precisam ser refeitos.</p>
+<p>Os números abaixo são de <strong>263 dias de 2022</strong>, entre 1º de fevereiro e 26 de novembro, com <strong>38,9 milhões de medidas</strong> que o M, o K e o oficial têm em comum e que o escaterômetro cobre. O período tem 299 dias; 36 ficaram de fora:</p>
+<ul>
+<li><strong>19 dias</strong> entre 17 de abril e 23 de junho em que o vento do M saiu vazio da rodada, em uma ou mais das três sementes. A causa ainda não foi investigada. Como a comparação usa só as medidas que os três modelos têm, esses dias não entram.</li>
+<li><strong>9 dias</strong> de 3 lotes cujos arquivos de DDM precisam ser refeitos (25 a 27 de junho, 8 a 10 de julho e 6 a 8 de agosto).</li>
+<li><strong>8 dias</strong> que não entraram nos lotes da rodada (1º, 2 e 18 de maio, 7 de julho, 4 e 5 de agosto, 29 e 30 de outubro).</li>
+</ul>
 </div>
 <h3 id="contra-o-escaterometro">Contra o escaterômetro<a class="headerlink" href="#contra-o-escaterometro" title="Permanent link">&para;</a></h3>
 <p><strong>RMSD (m/s):</strong></p>
@@ -2830,7 +2839,7 @@
 <p><img alt="RMSD por faixa contra o ERA5" src="../../assets/img/geo_rmsd_era5.png" /></p>
 <p><img alt="Viés por faixa contra o ERA5" src="../../assets/img/geo_bias_era5.png" /></p>
 <h3 id="intervalos-de-confianca">Intervalos de confiança<a class="headerlink" href="#intervalos-de-confianca" title="Permanent link">&para;</a></h3>
-<p>A diferença relativa de RMSD entre o M e cada um dos outros dois, com o intervalo de 95% de um bootstrap pareado por dia (500 reamostragens dos 282 dias; os três modelos são avaliados nas mesmas medidas, por isso o intervalo é estreito mesmo quando a diferença é pequena). Positivo é o M errando mais.</p>
+<p>A diferença relativa de RMSD entre o M e cada um dos outros dois, com o intervalo de 95% de um bootstrap pareado por dia (500 reamostragens dos dias; os três modelos são avaliados nas mesmas medidas, por isso o intervalo é estreito mesmo quando a diferença é pequena). Positivo é o M errando mais.</p>
 <table>
 <thead>
 <tr>
@@ -2915,14 +2924,14 @@
 <ul>
 <li><strong>O recorte custa pouco.</strong> Fixar a resolução em 25 km custa 0,03 m/s de RMSD geral em relação ao K (2,3%, intervalo de 2,1 a 2,4%), menos que a dispersão entre sementes, e o M continua à frente da NASA de 8 a 18 m/s e no vento fraco. Como a hipótese previa, o M fica entre os dois, e pelo critério do projeto é equivalente ao K.</li>
 <li><strong>Parte do ganho do K vem da área extra, parte não.</strong> Contra o escaterômetro, a NASA erra 1,46, o K 1,38 e o M 1,41: dos 0,08 m/s que o K ganha da NASA, 0,05 vêm de ler melhor o sinal dentro dos 25 km (o M também os ganha) e 0,03 de ver mais mar. No vento forte a proporção da área extra é maior: de 16 a 18 m/s o M recupera menos de um terço do ganho do K sobre a NASA.</li>
-<li><strong>O M erra menos no viés que no RMSD.</strong> Contra o ERA5 o viés geral do M é o menor dos três (+0,09 contra +0,11 do K e +0,31 da NASA), e acima de 16 m/s o M subestima menos que o K e a NASA contra as duas referências.</li>
+<li><strong>O viés do M é igual ou menor que o do K.</strong> Contra o ERA5 o viés geral do M é o menor dos três (+0,09 contra +0,11 do K e +0,31 da NASA), e acima de 16 m/s o M subestima menos que o K e a NASA contra as duas referências.</li>
 <li><strong>O oficial não tem 25 km nos ângulos altos, e o M tem.</strong> Em 52° a janela de 3 × 5 do oficial já passa de 25 km; a média no tempo de 1 medida não corrige isso. O recorte geométrico corrige, ao custo de um vazamento de 6% pela borda dos pixels, que ali têm 10 km.</li>
 <li><strong>Os pesos não bastam como prova da resolução</strong>, e a medida com o modelo direto foi feita por isso. Mas ela mede a entrada da rede; a resposta da rede treinada a uma borda ainda precisa ser medida.</li>
 </ul>
 <h2 id="o-que-falta">O que falta<a class="headerlink" href="#o-que-falta" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>A resposta da rede a uma borda de vento</strong> (acima), para fechar a prova da resolução com a rede treinada.</li>
-<li><strong>Os três lotes que faltam</strong> (26 a 27 de junho, 8 a 10 de julho e 6 a 8 de agosto), cujos arquivos de DDM precisam ser refeitos.</li>
+<li><strong>Os 36 dias que faltam</strong> no período: os 19 em que o vento do M saiu vazio (descobrir a causa e refazer), os 3 lotes cujos arquivos de DDM precisam ser refeitos (25 a 27 de junho, 8 a 10 de julho e 6 a 8 de agosto) e os 8 dias que não entraram nos lotes.</li>
 <li><strong>Comparar com boias</strong> em oceano aberto.</li>
 <li><strong>O ponto de medida.</strong> O centro do quadrado é a média dos pontos especulares das duas medidas centrais; a latitude e a longitude do produto oficial podem diferir disso em até meia medida (3 km). Resta conferir em alguns dias.</li>
 </ul>
